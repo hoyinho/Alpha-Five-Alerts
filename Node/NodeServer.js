@@ -12,3 +12,7 @@ http.createServer(function (req, res) {
 
 // log what that we started listening on localhost:6767
 console.log('Server running at 127.0.0.1:6767');
+
+module.exports = {
+	http
+}
