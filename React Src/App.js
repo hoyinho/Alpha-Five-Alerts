@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
-import logo from './imgs/alphaFiveBWCircle.png'
+import logo from './imgs/alphaFiveColorsCircle.png'
 import good from './imgs/PerformingProperly.png'
 import bad from './imgs/TriggeredAlert.png'
 
 
 function triggered(){
-  const triggered = false;
+  const triggered = true;
   if (triggered) {
     return <img src={bad} height="20%" width="40%" alt="Things are happening that might not be good"/>;
   }
