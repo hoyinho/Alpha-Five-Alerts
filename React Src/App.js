@@ -5,9 +5,9 @@ import good from './imgs/PerformingProperly.png'
 import bad from './imgs/TriggeredAlert.png'
 
 
-function triggered(){
+function triggered(name){
   const triggered = false;
-  if (triggered) {
+  if (name=="Neena's System") {
     return <img src={bad} height="20%" width="40%" alt="Things are happening that might not be good"/>;
   }
   return <img src={good} height="20%" width="40%" alt="Nothing it happening, or only good things are happening"/>;
@@ -92,7 +92,7 @@ class App extends React.Component {
 					<br></br>
 				</div>
 				<div className="leftSideStatus">
-				{triggered()}
+				{triggered(this.name)}
 				</div>
 			
 		{/*<header className="App-header">

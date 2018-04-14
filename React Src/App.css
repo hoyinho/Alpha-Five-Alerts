@@ -18,11 +18,12 @@
 		margin-left:0;
 		margin-top:38px;
 		background-color: #3498DB;
-		width:19.8%;
+		width:29.8%;
 }
 .logOut{
 		display:inline-block;
 		float:right;
+		margin-left: 10%;
 		margin-right:0;
 		margin-top:38px;
 		background-color: #3498DB;
@@ -34,7 +35,7 @@
 		display:inline-block;
 		margin-left:0;
 		margin-bottom:.5%;
-		width:50%;
+		width:40%;
 		height:100px;
 }
 
