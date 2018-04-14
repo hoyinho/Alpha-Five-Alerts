@@ -6,7 +6,7 @@ import bad from './imgs/TriggeredAlert.png'
 
 
 function triggered(){
-  const triggered = true;
+  const triggered = false;
   if (triggered) {
     return <img src={bad} height="20%" width="40%" alt="Things are happening that might not be good"/>;
   }
@@ -53,8 +53,6 @@ class App extends React.Component {
 				<div className="welcomeBanner" >
 					<h2>Welcome To:</h2>
 					<h1>The Alpha V Alert System</h1>
-					<br></br>
-					<img src={logo} height="120" width="120" alt="it us!"/>
 				</div>
 				
 				
@@ -63,7 +61,7 @@ class App extends React.Component {
 					
 				</div>
 				
-				<div className="NONSENSE"> </div>
+				<div className="NONSENSE"> <img src={logo} height="120" width="120" alt="it us!"/> </div>
 				
 				<div className="logOut">
 					<p>Logout</p>
