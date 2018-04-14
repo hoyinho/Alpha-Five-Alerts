@@ -7,6 +7,8 @@ import good from './imgs/PerformingProperly.png'
 import bad from './imgs/TriggeredAlert.png'
 
 
+
+
 function triggered(){
   const triggered = false;
   if (triggered) {
