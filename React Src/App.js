@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import './App.css';
-import Dropdown from 'react-dropdown'
-import 'react-dropdown/style.css'
-import logo from './imgs/alphaFiveBWCircle.png'
+import logo from './imgs/alphaFiveColorsCircle.png'
 import good from './imgs/PerformingProperly.png'
 import bad from './imgs/TriggeredAlert.png'
 
 
+<<<<<<< HEAD
 
 
 function triggered(){
+=======
+function triggered(name){
+>>>>>>> fc1895eff02adb438f9bf3c099d36a4e00b818a4
   const triggered = false;
-  if (triggered) {
-    return <img src={bad} height="20%" width="40%" />;
+  if (name=="Neena's System") {
+    return <img src={bad} height="20%" width="40%" alt="Things are happening that might not be good"/>;
   }
-  return <img src={good} height="20%" width="40%"/>;
+  return <img src={good} height="20%" width="40%" alt="Nothing it happening, or only good things are happening"/>;
 }
 
 class App extends React.Component {
@@ -57,8 +59,6 @@ class App extends React.Component {
 				<div className="welcomeBanner" >
 					<h2>Welcome To:</h2>
 					<h1>The Alpha V Alert System</h1>
-					<br></br>
-					<img src={logo} height="120" width="120" />
 				</div>
 				
 				
@@ -67,7 +67,7 @@ class App extends React.Component {
 					
 				</div>
 				
-				<div className="NONSENSE"> </div>
+				<div className="NONSENSE"> <img src={logo} height="100" width="100" alt="it us!"/> </div>
 				
 				<div className="logOut">
 					<p>Logout</p>
@@ -98,7 +98,7 @@ class App extends React.Component {
 					<br></br>
 				</div>
 				<div className="leftSideStatus">
-				{triggered()}
+				{triggered(this.name)}
 				</div>
 			
 		{/*<header className="App-header">
