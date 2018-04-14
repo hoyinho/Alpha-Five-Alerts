@@ -7,7 +7,7 @@
 .welcomeBanner{
 		background-color: #3498DB;
 		height:150px;
-		margin-bottom:2.5%;
+		margin-bottom:0.5%;
 		border-width: 1px;
 		border-style: dashed;
 		border-color: white;
@@ -16,7 +16,7 @@
 		display:inline-block;
 		float:left;
 		margin-left:0;
-		margin-bottom:.5%;
+		margin-top:38px;
 		background-color: #3498DB;
 		width:19.8%;
 }
@@ -24,7 +24,7 @@
 		display:inline-block;
 		float:right;
 		margin-right:0;
-		margin-bottom:.5%;
+		margin-top:38px;
 		background-color: #3498DB;
 		width:19.8%;
 }

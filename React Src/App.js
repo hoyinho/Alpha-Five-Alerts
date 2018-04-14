@@ -61,7 +61,7 @@ class App extends React.Component {
 					
 				</div>
 				
-				<div className="NONSENSE"> <img src={logo} height="120" width="120" alt="it us!"/> </div>
+				<div className="NONSENSE"> <img src={logo} height="100" width="100" alt="it us!"/> </div>
 				
 				<div className="logOut">
 					<p>Logout</p>
