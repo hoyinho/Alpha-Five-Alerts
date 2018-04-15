@@ -89,10 +89,12 @@ class App extends React.Component {
 						<p>Alerts for Current System</p>
 						<br></br>
 				<div className="rightSideTriggered">
+				<b>Triggered Alerts:</b>
 				{listAlerts(this.trig, triggeredLogo)}
 				</div>
 					<br></br>
 				<div className="rightSideIdle">
+				<b>Idle Alerts:</b>
 				{listAlerts(this.idle, idleLogo)}
 				</div>
 					<br></br>
