@@ -5,6 +5,7 @@ import idleLogo from './imgs/IdleAlertLogo.png';
 import triggeredLogo from './imgs/TrigAlertLogo.png';
 import {listAlerts} from './fn';
 import {triggered} from './fn';
+import {sysDropdown} from './fn';
 
 
 class App extends React.Component {
@@ -21,12 +22,13 @@ class App extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 	this.triggered = true;
 	this.bools = [false,true, true, true, false]
-	this.names = ["None", "Zach's System", "Elise's System", "Jeff's System", "Neena's System"];
+	this.names = ["Select a System", "Zach's System", "Elise's System", "Jeff's System", "Neena's System"];
 	this.trig = ["Full Storage", "Slow RAM", "Need Patch"];
 	this.idle = ["Virus","Chrome Update","Email"];
 	this.state.value = 0;
 	this.Stats = 0;
   }
+  
 
   handleChange(event) {
     this.setState({value: event.target.value});
@@ -39,7 +41,7 @@ class App extends React.Component {
 	this.forceUpdate();
   }
   render() {
-	 
+	
     return (
 		
 		<div className="App">
@@ -73,12 +75,11 @@ class App extends React.Component {
 						<label>
 						<br></br>Choose Which System to Monitor:
 						<select value={this.state.value} onChange={this.handleChange}>
-							<option value={0}>Select a System</option>
-							<option value={1}>Zach's System</option>
-							<option value={2}>Elise's System</option>
-							<option value={3}>Jeff's System</option>
-							<option value={4}>Neena's System</option>
+    						{this.names.map((e, key) => {
+        					return <option value={key}>{e}</option>;
+ 					    })}
 						</select>
+						
 						</label>
 						<input type="submit" value="Submit" />
 						

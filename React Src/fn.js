@@ -3,7 +3,6 @@ import bad from './imgs/TriggeredAlert.png'
 import none from './imgs/noneSelected.png'
 import React, { Component } from 'react';
 
-
 export function triggered(bools, index){
   if(index=="0"){
 	  return <img src={none} height="20%" width="40%" alt="Nothing is happening"/>;
