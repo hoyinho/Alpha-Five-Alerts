@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import logo from './imgs/alphaFiveColorsCircle.png'
-import good from './imgs/PerformingProperly.png'
-import bad from './imgs/TriggeredAlert.png'
+import logo from './imgs/alphaFiveColorsCircle.png';
+import idleLogo from './imgs/IdleAlertLogo.png';
+import triggeredLogo from './imgs/TrigAlertLogo.png';
+import {listAlerts} from './fn';
+import {triggered} from './fn';
 
-function triggered(name){
-  const triggered = false;
-  if (name=="Neena's System") {
-    return <img src={bad} height="20%" width="40%" alt="Things are happening that might not be good"/>;
-  }
-  return <img src={good} height="20%" width="40%" alt="Nothing it happening, or only good things are happening"/>;
-}
 
 class App extends React.Component {
    componentDidMount(){
@@ -25,18 +20,22 @@ class App extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 	this.triggered = true;
+	this.bools = [false,true, true, true, false]
+	this.names = ["None", "Zach's System", "Elise's System", "Jeff's System", "Neena's System"];
+	this.trig = ["Full Storage", "Slow RAM", "Need Patch"];
+	this.idle = ["Virus","Chrome Update","Email"];
+	this.state.value = 0;
+	this.Stats = 0;
   }
 
   handleChange(event) {
     this.setState({value: event.target.value});
-	this.name=this.state.value;
   }
 
   handleSubmit(event) {
-	  {/*alert('You have selected: ' + this.state.value);*/}
-     this.name=this.state.value;
-	
 	event.preventDefault();
+    this.name=this.names[this.state.value];
+	this.Stats = this.state.value;
 	this.forceUpdate();
   }
   render() {
@@ -74,11 +73,11 @@ class App extends React.Component {
 						<label>
 						<br></br>Choose Which System to Monitor:
 						<select value={this.state.value} onChange={this.handleChange}>
-							<option value="None">Select a System</option>
-							<option value="Zach's System">Zach's System</option>
-							<option value="Elise's System">Elise's System</option>
-							<option value="Jeff's System">Jeff's System</option>
-							<option value="Neena's System">Neena's System</option>
+							<option value={0}>Select a System</option>
+							<option value={1}>Zach's System</option>
+							<option value={2}>Elise's System</option>
+							<option value={3}>Jeff's System</option>
+							<option value={4}>Neena's System</option>
 						</select>
 						</label>
 						<input type="submit" value="Submit" />
@@ -87,12 +86,21 @@ class App extends React.Component {
 					<br></br>
 				</div>
 				<div className="rightSide">
-					<p>Currently Triggerred Alerts</p>
+						<p>Alerts for Current System</p>
+						<br></br>
+				<div className="rightSideTriggered">
+				{listAlerts(this.trig, triggeredLogo)}
+				</div>
+					<br></br>
+				<div className="rightSideIdle">
+				{listAlerts(this.idle, idleLogo)}
+				</div>
 					<br></br>
 				</div>
 				<div className="leftSideStatus">
-				{triggered(this.name)}
+				{triggered(this.bools, this.Stats)}
 				</div>
+				
 			
 		{/*<header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
