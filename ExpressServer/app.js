@@ -7,6 +7,10 @@ var mongoose = require('mongoose');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var User = require('./models/User');
+var systemsRouter = require('./routes/systems');
+var trigRouter = require('./routes/trigAlerts');
+var idleRouter = require('./routes/idleAlerts');
+var systemsRouter = require('./routes/systems');
 var app = express();
 
 //mongoose
@@ -35,7 +39,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/systems', systemsRouter);
+app.use('/trigAlerts', trigRouter);
+app.use('/idleAlerts', idleRouter);
+app.use('/systems', systemsRouter);
 
 
 // catch 404 and forward to error handler
