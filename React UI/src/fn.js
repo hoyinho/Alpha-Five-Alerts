@@ -15,7 +15,7 @@ export function triggered(bools, index){
 }
 export function listAlerts(list, bullet){
 	var alertList = list.map(function(name, index){
-		return <li key={ index }> {<b><img src={bullet} height="16" width="16" alt="it us!"/>{ "\xa0\xa0\xa0\xa0"+ name}</b>}</li>;
+		return <li key={ index }> {<b><img src={bullet} height="16" width="16" alt="fancy bullet points"/>{ "\xa0\xa0\xa0\xa0"+ name}</b>}</li>;
 	})
 	return <ul>{alertList}</ul>;
 }

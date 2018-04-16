@@ -2,8 +2,6 @@
 
 .App {
   text-align: center;
-  
-	
 }
 
 .welcomeBanner{
@@ -31,9 +29,7 @@
 		background-color: #3498DB;
 		width:19.8%;
 }
-
-
-.NONSENSE{
+.middleLogo{
 		display:inline-block;
 		margin-left:0;
 		margin-bottom:.5%;
@@ -91,15 +87,10 @@
 		border-style:solid;
 		border-color: black;
 }
-
-
 li {list-style-type: none;}
-{/*Begin Shitstorm*/}
 
 body{
 	background-color: #CCD1D1;
-	font-family: 'Lato', sans serif;
-	font-family: 'Lobster', cursive;
 }
 p {
 	font-family:Lato, sans serif;
@@ -121,10 +112,8 @@ h2{
 		color:#FFFFFF;
 }
 div{
-}
 /*These are the div, protocols. */
 #welcomeBanner{
-	
 	display:block;
 	text-align:center;
 	margin: auto;
@@ -137,7 +126,6 @@ div{
 	margin-left: auto;
 	width:25%;
 	background-color: #3498DB
-	
 }
 #logOut{
 	display:inline-block;
@@ -173,5 +161,4 @@ div{
     cursor: pointer;
 }
 
-
-
+}
