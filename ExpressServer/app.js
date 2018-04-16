@@ -3,11 +3,26 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var mongoose = require('mongoose');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+var User = require('./models/User');
 var app = express();
+
+//mongoose
+mongoose.connect('mongodb://brandonnlam:password@ds241737.mlab.com:41737/blamdatabase');
+
+//Get Mongoose to use the global promise library
+mongoose.Promise = global.Promise;
+
+var db = mongoose.connection;
+
+//connection error
+db.on('error', console.error.bind(console, 'connection error:'));
+
+db.once('open', function() {
+  console.log('we are connected to mongo!');
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,10 +37,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
 
 // error handler
 app.use(function(err, req, res, next) {
