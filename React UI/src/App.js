@@ -5,25 +5,30 @@ import idleLogo from './imgs/IdleAlertLogo.png';
 import triggeredLogo from './imgs/TrigAlertLogo.png';
 import {listAlerts} from './fn';
 import {triggered} from './fn';
-import {parse} from '../node_modules/json3';
+
 class App extends Component {
-  state = {users: []}
+  state = {systems: [], trigAlerts: [[]], idleAlerts: [[]], status: []}
 
   componentDidMount() {
 	document.title = "Alpha V Alerts"
-    fetch('/users')
+    fetch('/systems')
       .then(res => res.json())
-      .then(users => this.setState({ users }));
+      .then(systems => this.setState({ systems }));
+    fetch('/trigAlerts') 
+      .then(res => res.json())
+      .then(trigAlerts => this.setState({ trigAlerts }));
+    fetch('/idleAlerts') 
+      .then(res => res.json())
+      .then(idleAlerts => this.setState({ idleAlerts }));
+    fetch('/status')
+      .then(res => res.json())
+      .then(status => this.setState({ status }));
   }
   
   constructor(props) {
     super(props);
-    this.state.temp = {value: 'None'};
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-	this.bools = [false,false, true, true, false]
-	this.trig = [["Select a System to view Alerts"],["Full Storage"],[],[],["Slow RAM", "Need Patch"]];
-	this.idle = [["Select a System to view Alerts"],["Slow RAM", "Need Patch"],["Full Storage", "Slow RAM", "Need Patch"],["Full Storage", "Slow RAM", "Need Patch"],["Full Storage"]];
 	this.state.value = 0;
 	this.selection = 0;
   }
@@ -48,7 +53,7 @@ class App extends Component {
 				</div>
 
 				<div className="currSys">
-					<p>System Name: {this.state.users[this.selection]}</p>
+					<p>System Name: {this.state.systems[this.selection]}</p>
 				</div>
 					<div className="middleLogo"> <img src={logo} height="100" width="100" alt="it us!"/> </div>
 					<div className="logOut">
@@ -60,7 +65,7 @@ class App extends Component {
 						<label>
 						<br></br>Choose Which System to Monitor:
 						<select value={this.state.value} onChange={this.handleChange}>
-    						{this.state.users.map((e, key) => {
+    						{this.state.systems.map((e, key) => {
         					return <option value={key}>{e}</option>;
  					    })}
 						</select>
@@ -75,32 +80,22 @@ class App extends Component {
 					<br></br>
 						<div className="rightSideTriggered">
 							<b>Triggered Alerts:</b>
-							{listAlerts(this.trig[this.selection], triggeredLogo)}
+							{listAlerts(this.state.trigAlerts[this.selection], triggeredLogo)}
 						</div>
 					<br></br>
 						<div className="rightSideIdle">
 							<b>Idle Alerts:</b>
-							{listAlerts(this.idle[this.selection], idleLogo)}
+							{listAlerts(this.state.idleAlerts[this.selection], idleLogo)}
 						</div>
 					<br></br>
 				</div>
 
 				<div className="leftSideStatus">
-					{triggered(this.bools, this.selection)}
+					{triggered(this.state.status, this.selection)}
 				</div>
 		</div>
     );
-  }/*
-  render() {
-    return (
-				      <div className="AppTEST">
-        <h1>Users</h1>
-        {this.state.users.map(user =>
-          {user}
-        )}
-      </div>
-    );
-  }*/
+  }
 }
 
 export default App;
