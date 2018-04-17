@@ -46,7 +46,7 @@ class App extends Component {
 				<header className="Alpha V Alerts">
 					<title>Alpha V Alert System </title>
 				</header>
-				{this.selection}
+				
 				
 				<div className="welcomeBanner" >
 					<h2>Welcome To</h2>
