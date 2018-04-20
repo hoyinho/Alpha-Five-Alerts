@@ -10,7 +10,13 @@ db.on("error", console.error.bind(console, "connection error:"));
 
 db.once("open", function(){
     console.log("we are connected!");
+    get_System_Field("Hoyin", '6820096').then(function(test){
+	console.log(test.systems);
+    });
 });
+
+
+
 function get_All_Systems(username){
     return user.findOne({'username': username}).select("systems");
 }
@@ -71,10 +77,17 @@ function add_User(username, password){
     return newUser.save();
 }
 
-
-
-function get_System_Field(username, systemSerial, field){
-    return user.findOne({"username": username, "systems.serialnumberInserv": systemSerial}).select("systems." + field);
+function delete_Alert(username, alertName){
+    return user.update({"username": username}, {$pull : {"alerts": {"alertName": alertName}}});
 }
 
-module.exports = {get_All_Systems, get_All_Alerts, create_Alert, change_Alert, add_User,get_All_Systems_Names,create_System} 
+function delete_System(username, systemSerial){
+    return user.update({"username": username}, {$pull: {"systems": {"serialnumberInserv": systemSerial}}});
+}
+
+function get_System(username, systemSerial){
+    return user.findOne({"username": username, "systems.serialnumberInserv": systemSerial}).select("systems.$");
+}
+
+
+module.exports = {get_All_Systems, get_All_Alerts, create_Alert, change_Alert, add_User,get_All_Systems_Names,create_System, delete_Alert, get_System, delete_System} 
