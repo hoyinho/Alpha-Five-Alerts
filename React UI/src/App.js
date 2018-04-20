@@ -29,17 +29,39 @@ class App extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+	this.handleNewAlert = this.handleNewAlert.bind(this); //John's edit, don't know if this is needed
 	this.state.value = 0;
 	this.selection = 0;
   }
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({ value: event.target.value });
   }
   handleSubmit(event) {
 	event.preventDefault();
 	this.selection = this.state.value;
 	this.forceUpdate();
   }
+  
+	//John's edit
+	//function for sending new alert data to idleAlerts route
+	handleNewAlert(event){
+		event.preventDefault();
+		
+		fetch('/newAlert',{ 
+			method:'POST',
+			headers:{ //header is required
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				firstParam: this.state.value, //send what was given in the text box
+				secondParam: 3, 
+				thirdParam: 'Alert-Type'/*second and third parameters are hardcoded
+				for testing, but in practice should be more inputs from the user.*/
+			})
+		});//end of fetch
+	}//end of handleNewAlert()
+  
   render() {
     return (
 		<div className="App">
@@ -52,7 +74,20 @@ class App extends Component {
 					<h2>Welcome To</h2>
 					<h1>The Alpha V Alert System</h1>
 				</div>
-
+				
+				
+				//John's edit
+				<form onSubmit={this.handleNewAlert}>
+					<label>
+						New Alert Name:
+						<input type="text" onChange={this.handleChange} />
+						<br/>
+					</label>
+					<input type="submit" value="Submit" />
+				</form>
+				
+				
+				
 				<div className="currSys">
 					<p>System Name: {this.state.systems[this.selection]}</p>
 				</div>
@@ -99,4 +134,22 @@ class App extends Component {
   }
 }
 
-export default App;
+export default App;			
+/*
+				<form onSubmit={this.handleNewAlert}>
+					<label>
+						New Alert Name:
+						<input type="text" onChange={this.handleChange} />
+						<br/>
+						New Alert Threshold:
+						<input type="text" onChange={this.handleChange} />
+					</label>
+					<input type="submit" value="Submit" />
+				</form>
+
+				<form method="post">
+					<input type="text" name="newAlert"></input>
+					<button>Submit</button>
+				</form>
+*/
+
