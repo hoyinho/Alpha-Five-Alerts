@@ -2,6 +2,7 @@
 
 .App {
   text-align: center;
+  background-color: #F5F5F5;
 }
 
 .welcomeBanner{
@@ -87,10 +88,11 @@
 		border-style:solid;
 		border-color: black;
 }
+
 li {list-style-type: none;}
 
 body{
-	background-color: #CCD1D1;
+	background-color: #FFFFFF;
 }
 p {
 	font-family:Lato, sans serif;
@@ -100,7 +102,7 @@ p {
 form{
 	font-family:Lato, sans serif;
 	font-size:120%;
-	color: #FFFFFF;
+	color: #000000;
 }
 h1{
 		font-family: 'Lobster', cursive;
@@ -110,6 +112,9 @@ h2{
 		font-family: 'Lobster', cursive;
 		font-size:180%;
 		color:#FFFFFF;
+}
+h3{
+	margin-right:auto;
 }
 div{
 /*These are the div, protocols. */
@@ -160,5 +165,7 @@ div{
     border: none;
     cursor: pointer;
 }
+.handlene{
 
+}
 }

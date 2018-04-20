@@ -5,6 +5,10 @@ import idleLogo from './imgs/IdleAlertLogo.png';
 import triggeredLogo from './imgs/TrigAlertLogo.png';
 import {listAlerts} from './fn';
 import {triggered} from './fn';
+import Popup from 'react-popup';
+import ReactDOM from 'react-dom';
+
+ 
 
 class App extends Component {
   state = {systems: [], trigAlerts: [[]], idleAlerts: [[]], status: []}
@@ -41,7 +45,10 @@ class App extends Component {
 	this.selection = this.state.value;
 	this.forceUpdate();
   }
-  
+  createAlert(event) {
+  alert("hello");
+  }
+
 	//John's edit
 	//function for sending new alert data to newAlert route
 	handleNewAlert(event){
@@ -75,8 +82,6 @@ class App extends Component {
 					<h1>The Alpha V Alert System</h1>
 				</div>
 				
-				
-				//John's edit
 				<form onSubmit={this.handleNewAlert}>
 					<label>
 						New Alert Name:
@@ -129,6 +134,13 @@ class App extends Component {
 				<div className="leftSideStatus">
 					{triggered(this.state.status, this.selection)}
 				</div>
+
+				<div className="createnewAlert">
+					<form onSubmit={this.createAlert}>
+						<input type="submit" value="CreateAlert" />
+					</form>
+					<br></br>
+				</div>				
 		</div>
     );
   }
