@@ -45,7 +45,7 @@ app.use('/trigAlerts', trigRouter);
 app.use('/idleAlerts', idleRouter);
 app.use('/systems', systemsRouter);
 app.use('/newAlert', newAlertRouter);
-app.use('/deleteAlert', deleteAlert);
+app.use('/deleteAlert', deleteAlertRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
