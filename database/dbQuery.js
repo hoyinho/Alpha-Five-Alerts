@@ -77,4 +77,4 @@ function get_System_Field(username, systemSerial, field){
     return user.findOne({"username": username, "systems.serialnumberInserv": systemSerial}).select("systems." + field);
 }
 
-module.exports = {get_All_Systems, get_All_Alerts, create_Alert, change_Alert, add_User,get_All_Systems_Names} 
+module.exports = {get_All_Systems, get_All_Alerts, create_Alert, change_Alert, add_User,get_All_Systems_Names,create_System} 
