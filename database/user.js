@@ -26,7 +26,7 @@ var alertSchema = new mongoose.Schema({
     alertName: String,
     alertThreshold: Number,
     alertField: String,
-    systemSerial: String
+    systemName: String
 });
 
 var userSchema = new mongoose.Schema({
