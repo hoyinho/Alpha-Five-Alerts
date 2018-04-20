@@ -134,22 +134,4 @@ class App extends Component {
   }
 }
 
-export default App;			
-/*
-				<form onSubmit={this.handleNewAlert}>
-					<label>
-						New Alert Name:
-						<input type="text" onChange={this.handleChange} />
-						<br/>
-						New Alert Threshold:
-						<input type="text" onChange={this.handleChange} />
-					</label>
-					<input type="submit" value="Submit" />
-				</form>
-
-				<form method="post">
-					<input type="text" name="newAlert"></input>
-					<button>Submit</button>
-				</form>
-*/
-
+export default App;
