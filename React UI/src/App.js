@@ -43,7 +43,7 @@ class App extends Component {
   }
   
 	//John's edit
-	//function for sending new alert data to idleAlerts route
+	//function for sending new alert data to newAlert route
 	handleNewAlert(event){
 		event.preventDefault();
 		
