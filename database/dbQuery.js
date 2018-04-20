@@ -57,12 +57,12 @@ function create_System(username, serial, name, model, fullM, os, update, sizeT, 
     return user.update({"username": username}, { $push: {systems: newSystem}});
 }
 
-function create_Alert(username, name, threshold, field, systemSerial){
+function create_Alert(username, name, threshold, field, systemName){
     const newAlert = {
 	"alertName": name,
 	"alertThreshold": threshold,
 	"alertField": field,
-	"systemSerial": systemSerial
+	"systemName": systemName
     }
     return user.update({"username": username}, { $push: {alerts: newAlert}});
 };
@@ -99,4 +99,4 @@ function clear_DB(){
     });
 }
 
-module.exports = {get_All_Systems, get_All_Alerts, create_Alert, change_Alert, add_User,get_All_Systems_Names,create_System, delete_Alert, get_System, delete_System} 
+module.exports = {get_All_Systems, get_All_Alerts, create_Alert, change_Alert, add_User,get_All_Systems_Names,create_System, delete_Alert, get_System, delete_System, get_All_Usernames, get_All_Alert_Names,} 

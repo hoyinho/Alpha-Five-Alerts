@@ -2,6 +2,7 @@
 
 .App {
   text-align: center;
+  background-color: #F5F5F5;
 }
 
 .welcomeBanner{
@@ -87,7 +88,12 @@
 		border-style:solid;
 		border-color: black;
 }
+<<<<<<< HEAD
 .CreateAlert{
+=======
+
+.newAlertButton{
+>>>>>>> 4d368560a95e20cd638ba138eede164d756949e0
 	display:block;
 	margin-left:5%;
 	text-align:left;
@@ -103,7 +109,7 @@
 li {list-style-type: none;}
 
 body{
-	background-color: #CCD1D1;
+	background-color: #FFFFFF;
 }
 p {
 	font-family:Lato, sans serif;
@@ -113,7 +119,7 @@ p {
 form{
 	font-family:Lato, sans serif;
 	font-size:120%;
-	color: #FFFFFF;
+	color: #000000;
 }
 h1{
 		font-family: 'Lobster', cursive;
@@ -124,8 +130,13 @@ h2{
 		font-size:180%;
 		color:#FFFFFF;
 }
+<<<<<<< HEAD
 NavLink{
 	color:#FFFFFF
+=======
+h3{
+	margin-right:auto;
+>>>>>>> 4d368560a95e20cd638ba138eede164d756949e0
 }
 div{
 /*These are the div, protocols. */
@@ -176,5 +187,7 @@ div{
     border: none;
     cursor: pointer;
 }
+.handlene{
 
+}
 }
