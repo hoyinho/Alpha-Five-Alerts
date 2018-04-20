@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-
 import logo from './imgs/alphaFiveColorsCircle.png';
 import idleLogo from './imgs/IdleAlertLogo.png';
 import triggeredLogo from './imgs/TrigAlertLogo.png';
-
 import {listAlerts} from './fn';
 import {triggered} from './fn';
 
@@ -70,12 +68,8 @@ class App extends Component {
 	}//end of handleNewAlert()
   
   render() {
-	
     return (
-	
 		<div className="App">
-		
-		
 				<header className="Alpha V Alerts">
 					<title>Alpha V Alert System </title>
 				</header>
@@ -84,58 +78,6 @@ class App extends Component {
 				<div className="welcomeBanner" >
 					<h2>Welcome To</h2>
 					<h1>The Alpha V Alert System</h1>
-				</div>
-							
-				
-				<div className="currSys">
-					<p>System Name: {this.state.systems[this.selection]}</p>
-				</div>
-					<div className="middleLogo"> <img src={logo} height="100" width="100" alt="it us!"/> </div>
-					<div className="logOut">
-						<p>Logout</p>
-				</div>
-
-				<div className="leftSide">
-				
-					<form onSubmit={this.handleSubmit}>
-						<label>
-						<br></br>Choose Which System to Monitor:
-						<select value={this.state.value} onChange={this.handleChange}>
-    						{this.state.systems.map((e, key) => {
-        					return <option value={key}>{e}</option>;
- 					    })}
-						</select>
-						</label>
-						<input type="submit" value="Submit" />
-					</form>
-					<br></br>
-				</div>
-
-				<div className="rightSide">
-					<p>Alerts for Current System</p>
-					<br></br>
-						<div className="rightSideTriggered">
-							<b>Triggered Alerts:</b>
-							{listAlerts(this.state.trigAlerts[this.selection], triggeredLogo)}
-						</div>
-					<br></br>
-						<div className="rightSideIdle">
-							<b>Idle Alerts:</b>
-							{listAlerts(this.state.idleAlerts[this.selection], idleLogo)}
-						</div>
-					<br></br>
-					<div className="newAlertButton">
-						{this.alertName}
-						<form onSubmit={this.handleNewAlert}>
-							<input type="submit" value="New Alert" />
-						</form>
-					</div>
-					
-					
-				</div>
-
-				<div className="leftSideStatus">
-					{triggered(this.state.status, this.selection)}
 				</div>
 		</div>
     );
