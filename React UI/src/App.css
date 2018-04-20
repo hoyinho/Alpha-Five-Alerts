@@ -88,24 +88,6 @@
 		border-style:solid;
 		border-color: black;
 }
-<<<<<<< HEAD
-.CreateAlert{
-=======
-
-.newAlertButton{
->>>>>>> 4d368560a95e20cd638ba138eede164d756949e0
-	display:block;
-	margin-left:5%;
-	text-align:left;
-	font-family:lato;
-	margin-bottom:.5%;
-	background-color: #64abdb;
-	width:90%;
-	border-width: 1px;
-	border-style:solid;
-	border-color: #000000;
-	
-}
 li {list-style-type: none;}
 
 body{
@@ -130,13 +112,8 @@ h2{
 		font-size:180%;
 		color:#FFFFFF;
 }
-<<<<<<< HEAD
 NavLink{
 	color:#FFFFFF
-=======
-h3{
-	margin-right:auto;
->>>>>>> 4d368560a95e20cd638ba138eede164d756949e0
 }
 div{
 /*These are the div, protocols. */

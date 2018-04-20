@@ -12,7 +12,7 @@ import {
 import {listAlerts} from './fn';
 import {triggered} from './fn';
 import Popup from 'react-popup';
-import ReactDOM from 'react-dom';
+
 
  
 
@@ -153,13 +153,7 @@ class App extends Component {
 				<div className="leftSideStatus">
 					{triggered(this.state.status, this.selection)}
 				</div>
-
-				<div className="createnewAlert">
-					<form onSubmit={this.createAlert}>
-						<input type="submit" value="CreateAlert" />
-					</form>
-					<br></br>
-				</div>				
+		
 		</div>
 		
 					</HashRouter>
