@@ -46,14 +46,19 @@ db.once('open', function() {
     }).catch(function(error){
 	console.error(error);
     });
-    System.create_Alert("Hoyin", "dataRateAlert", 6000, "dataRateKBPSAvg").then(function(user){
-	console.log(user);
-    });
-    System.create_System("Hoyin", "7601963", "Jason", "5100", "HPE-Jason 5100", "1.1.1.1", "2018-04-17", 127.234123, 111.33334, 43.5555, 22.45555, 0.022212312, 16, 2562).then(function(stuff){
+    setTimeout(function(){
+	System.create_Alert("Hoyin", "dataRateAlert", 6000, "dataRateKBPSAvg","6500228").then(function(user){
+	    console.log(user);
+	});
+    System.create_System("Hoyin", '6820096', "Test2", "test model", "HPE_#STUFF", "0.0.0.0", "2018-04-17T16", 128.234123, 37.5432, 32.643211123,'2018-06-15T03:35:35z', 0.01534521, 12,3313).then(function(stuff){
 	console.log(stuff);
     });
-    System.create_System("Hoyin", "7160363", "Billy", "Z10", "HPE-Billy Z10", "1.2.3.4", "2018-04-16", 131.4123, 67.33334, 15.345, 10.45555, 0.022212312, 16, 2562).then(function(stuff){
+    System.create_System("Hoyin", "7601963", "Jason", "5100", "HPE-Jason 5100", "1.1.1.1", "2018-04-17", 127.234123, 111.33334, 43.5555, "2019-01-10T06:30:10z", 0.022212312, 16, 2562).then(function(stuff){
 	console.log(stuff);
     });
+    System.create_System("Hoyin", "7160363", "Billy", "Z10", "HPE-Billy Z10", "1.2.3.4", "2018-04-16", 131.4123, 67.33334, 15.345, "2018-10-23T12:23:23z", 0.022212312, 16, 2562).then(function(stuff){
+	console.log(stuff);
+    });
+    }, 5000);
 });
 
