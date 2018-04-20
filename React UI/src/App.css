@@ -87,7 +87,7 @@
 		border-style:solid;
 		border-color: black;
 }
-.newAlertButton{
+.CreateAlert{
 	display:block;
 	margin-left:5%;
 	text-align:left;
@@ -123,6 +123,9 @@ h2{
 		font-family: 'Lobster', cursive;
 		font-size:180%;
 		color:#FFFFFF;
+}
+NavLink{
+	color:#FFFFFF
 }
 div{
 /*These are the div, protocols. */

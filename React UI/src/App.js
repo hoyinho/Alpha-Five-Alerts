@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
-
+import CreateAlert from "./CreateAlert";
 import logo from './imgs/alphaFiveColorsCircle.png';
 import idleLogo from './imgs/IdleAlertLogo.png';
 import triggeredLogo from './imgs/TrigAlertLogo.png';
-
+import {
+	Route,
+	NavLink,
+	HashRouter
+} from "react-router-dom";
 import {listAlerts} from './fn';
 import {triggered} from './fn';
 
@@ -34,7 +38,7 @@ class App extends Component {
 	this.handleNewAlert = this.handleNewAlert.bind(this); //John's edit, don't know if this is needed
 	this.state.value = 0;
 	this.selection = 0;
-	this.alertName="hooplah";
+	this.alertName="Name";
   }
   handleChange(event) {
 	 this.setState({ value: event.target.value });
@@ -70,12 +74,10 @@ class App extends Component {
 	}//end of handleNewAlert()
   
   render() {
-	
     return (
-	
+		<HashRouter>
 		<div className="App">
-		
-		
+				
 				<header className="Alpha V Alerts">
 					<title>Alpha V Alert System </title>
 				</header>
@@ -124,13 +126,11 @@ class App extends Component {
 							{listAlerts(this.state.idleAlerts[this.selection], idleLogo)}
 						</div>
 					<br></br>
-					<div className="newAlertButton">
-						{this.alertName}
-						<form onSubmit={this.handleNewAlert}>
-							<input type="submit" value="New Alert" />
-						</form>
+					<div>
+					<NavLink to="./CreateAlert"> Click to create new alert </NavLink>
+					<Route path="/CreateAlert" component={CreateAlert}/>
 					</div>
-					
+		
 					
 				</div>
 
@@ -138,6 +138,8 @@ class App extends Component {
 					{triggered(this.state.status, this.selection)}
 				</div>
 		</div>
+		
+					</HashRouter>
     );
   }
 }
