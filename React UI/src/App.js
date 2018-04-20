@@ -49,15 +49,15 @@ class App extends Component {
 		
 		fetch('/newAlert',{ 
 			method:'POST',
-			headers:{ //header is required
+			headers:{ 
 				'Accept': 'application/json',
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				firstParam: this.state.value, //send what was given in the text box
-				secondParam: 3, 
-				thirdParam: 'Alert-Type'/*second and third parameters are hardcoded
-				for testing, but in practice should be more inputs from the user.*/
+				username: 'sickBro', 
+				name: this.state.value,
+				threshold: 14,
+				field: 'Alert-Field'
 			})
 		});//end of fetch
 	}//end of handleNewAlert()
