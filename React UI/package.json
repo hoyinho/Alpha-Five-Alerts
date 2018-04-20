@@ -5,8 +5,14 @@
   "dependencies": {
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
+<<<<<<< HEAD
     "react-popup": "^0.9.2",
     "react-scripts": "^1.1.4"
+=======
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.4"
+>>>>>>> a4b49b1571085a07fb5b3a514caefc1748bebe8a
   },
   "scripts": {
     "start": "react-scripts start",

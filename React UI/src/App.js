@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
+
 import logo from './imgs/alphaFiveColorsCircle.png';
 import idleLogo from './imgs/IdleAlertLogo.png';
 import triggeredLogo from './imgs/TrigAlertLogo.png';
+
 import {listAlerts} from './fn';
 import {triggered} from './fn';
 import Popup from 'react-popup';
@@ -36,9 +38,10 @@ class App extends Component {
 	this.handleNewAlert = this.handleNewAlert.bind(this); //John's edit, don't know if this is needed
 	this.state.value = 0;
 	this.selection = 0;
+	this.alertName="hooplah";
   }
   handleChange(event) {
-    this.setState({ value: event.target.value });
+	 this.setState({ value: event.target.value });
   }
   handleSubmit(event) {
 	event.preventDefault();
@@ -52,7 +55,11 @@ class App extends Component {
 	//John's edit
 	//function for sending new alert data to newAlert route
 	handleNewAlert(event){
+		
+		{this.alertName=prompt("Please enter the alert name","Test Name")}
+		this.forceUpdate();
 		event.preventDefault();
+		
 		
 		fetch('/newAlert',{ 
 			method:'POST',
@@ -70,8 +77,12 @@ class App extends Component {
 	}//end of handleNewAlert()
   
   render() {
+	
     return (
+	
 		<div className="App">
+		
+		
 				<header className="Alpha V Alerts">
 					<title>Alpha V Alert System </title>
 				</header>
@@ -81,7 +92,7 @@ class App extends Component {
 					<h2>Welcome To</h2>
 					<h1>The Alpha V Alert System</h1>
 				</div>
-				
+
 				<form onSubmit={this.handleNewAlert}>
 					<label>
 						New Alert Name:
@@ -90,8 +101,7 @@ class App extends Component {
 					</label>
 					<input type="submit" value="Submit" />
 				</form>
-				
-				
+
 				
 				<div className="currSys">
 					<p>System Name: {this.state.systems[this.selection]}</p>
@@ -102,6 +112,7 @@ class App extends Component {
 				</div>
 
 				<div className="leftSide">
+				
 					<form onSubmit={this.handleSubmit}>
 						<label>
 						<br></br>Choose Which System to Monitor:
@@ -129,6 +140,14 @@ class App extends Component {
 							{listAlerts(this.state.idleAlerts[this.selection], idleLogo)}
 						</div>
 					<br></br>
+					<div className="newAlertButton">
+						{this.alertName}
+						<form onSubmit={this.handleNewAlert}>
+							<input type="submit" value="New Alert" />
+						</form>
+					</div>
+					
+					
 				</div>
 
 				<div className="leftSideStatus">
