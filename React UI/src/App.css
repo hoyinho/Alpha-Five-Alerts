@@ -87,6 +87,19 @@
 		border-style:solid;
 		border-color: black;
 }
+.newAlertButton{
+	display:block;
+	margin-left:5%;
+	text-align:left;
+	font-family:lato;
+	margin-bottom:.5%;
+	background-color: #64abdb;
+	width:90%;
+	border-width: 1px;
+	border-style:solid;
+	border-color: #000000;
+	
+}
 li {list-style-type: none;}
 
 body{
