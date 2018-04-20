@@ -57,12 +57,12 @@ function create_System(username, serial, name, model, fullM, os, update, sizeT, 
     return user.update({"username": username}, { $push: {systems: newSystem}});
 }
 
-function create_Alert(username, name, threshold, field, systemSerial){
+function create_Alert(username, name, threshold, field, systemName){
     const newAlert = {
 	"alertName": name,
 	"alertThreshold": threshold,
 	"alertField": field,
-	"systemSerial": systemSerial
+	"systemName": systemName
     }
     return user.update({"username": username}, { $push: {alerts: newAlert}});
 };
