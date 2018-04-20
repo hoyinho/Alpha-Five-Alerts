@@ -29,17 +29,39 @@ class App extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+	this.handleNewAlert = this.handleNewAlert.bind(this); //John's edit, don't know if this is needed
 	this.state.value = 0;
 	this.selection = 0;
   }
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({ value: event.target.value });
   }
   handleSubmit(event) {
 	event.preventDefault();
 	this.selection = this.state.value;
 	this.forceUpdate();
   }
+  
+	//John's edit
+	//function for sending new alert data to newAlert route
+	handleNewAlert(event){
+		event.preventDefault();
+		
+		fetch('/newAlert',{ 
+			method:'POST',
+			headers:{ 
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				username: 'sickBro', 
+				name: this.state.value,
+				threshold: 14,
+				field: 'Alert-Field'
+			})
+		});//end of fetch
+	}//end of handleNewAlert()
+  
   render() {
     return (
 		<div className="App">
@@ -52,7 +74,20 @@ class App extends Component {
 					<h2>Welcome To</h2>
 					<h1>The Alpha V Alert System</h1>
 				</div>
-
+				
+				
+				//John's edit
+				<form onSubmit={this.handleNewAlert}>
+					<label>
+						New Alert Name:
+						<input type="text" onChange={this.handleChange} />
+						<br/>
+					</label>
+					<input type="submit" value="Submit" />
+				</form>
+				
+				
+				
 				<div className="currSys">
 					<p>System Name: {this.state.systems[this.selection]}</p>
 				</div>

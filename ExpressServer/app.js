@@ -10,6 +10,7 @@ var statusRouter = require('./routes/status');
 var trigRouter = require('./routes/trigAlerts');
 var idleRouter = require('./routes/idleAlerts');
 var systemsRouter = require('./routes/systems');
+var newAlertRouter = require('./routes/newAlert');
 var app = express();
 
 //mongoose
@@ -42,6 +43,7 @@ app.use('/status', statusRouter);
 app.use('/trigAlerts', trigRouter);
 app.use('/idleAlerts', idleRouter);
 app.use('/systems', systemsRouter);
+app.use('/newAlert', newAlertRouter);
 
 
 // catch 404 and forward to error handler
