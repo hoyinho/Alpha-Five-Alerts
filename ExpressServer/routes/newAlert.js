@@ -14,7 +14,9 @@ router.post('/', function(req, res, next){
 	alert.field + "\n\n");
 	
 	// Make  an alert object, and send to Mongoose
-	db.createAlert(alert.username, alert.name, alert.threshold, alert.field);
+    db.create_Alert(alert.username, alert.name, alert.threshold, alert.field, alert.serial).then(function(confirmation){
+	console.log(confirmation);
+    });
 	
 });//end of POST
 
