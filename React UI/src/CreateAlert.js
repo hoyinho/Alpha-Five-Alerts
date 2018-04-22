@@ -30,6 +30,7 @@ class App extends Component {
 	this.handleField = this.handleField.bind(this);
 	this.handleAlertName = this.handleAlertName.bind(this);
 	this.handleThreshold = this.handleThreshold.bind(this);
+	this.handleDeleteAlert = this.handleDeleteAlert.bind(this);
 	this.state.value = 0;
 	this.selection = 0;
 	this.alertName ="test";
@@ -69,9 +70,13 @@ class App extends Component {
 				sysName: this.state.systems[this.state.sysName]
 			})
 		});//end of fetch
-		window.alert(this.state.alertName + "has been created")
+		window.alert(this.state.alertName + " has been created")
 	}//end of handleNewAlert()
 	handleDeleteAlert(event){
+		if(this.state.delAlertName == "Select a System to view Alerts"){
+			window.alert("Can't delete that one")
+		}
+		else{
 		event.preventDefault();
 		fetch('/deleteAlert',{ 
 			method:'POST',
@@ -81,11 +86,11 @@ class App extends Component {
 			},
 			body: JSON.stringify({
 				username: 'Hoyin', 
-				name: this.state.alertName
+				name: this.state.delAlertName
 			})
 		});//end of fetch
-		window.alert(this.state.delAlertName + "has been created")
-	}//end of handleDeleteAlert()
+		window.alert(this.state.delAlertName + "has been deleted")
+	}}//end of handleDeleteAlert()
   
   render() {
     return (
