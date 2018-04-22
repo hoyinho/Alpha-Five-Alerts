@@ -64,6 +64,7 @@ class App extends Component {
 				sysName: this.state.systems[this.state.sysName]
 			})
 		});//end of fetch
+		window.alert(this.state.alertName + "has been created")
 	}//end of handleNewAlert()
   
   render() {

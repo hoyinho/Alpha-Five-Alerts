@@ -15,8 +15,8 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', function() {
     console.log('we are connected!');
-
-    User.create({
+	System.create_Alert("Hoyin", "TestAlertFucko", "5", "SizeTiB", "Raza")
+    /*User.create({
 	username: "Hoyin",
 	password: "password123",
 	alerts: [],
@@ -59,6 +59,6 @@ db.once('open', function() {
     System.create_System("Hoyin", "7160363", "Billy", "Z10", "HPE-Billy Z10", "1.2.3.4", "2018-04-16", 131.4123, 67.33334, 15.345, "2018-10-23T12:23:23z", 0.022212312, 16, 2562).then(function(stuff){
 	console.log(stuff);
     });
-    }, 5000);
+    }, 5000);*/
 });
 

@@ -93,18 +93,7 @@ class App extends Component {
 				<div className="welcomeBanner" >
 					<h2>Welcome To</h2>
 					<h1>The Alpha V Alert System</h1>
-				</div>
-
-				<form onSubmit={this.handleNewAlert}>
-					<label>
-						New Alert Name:
-						<input type="text" onChange={this.handleChange} />
-						<br/>
-					</label>
-					<input type="submit" value="Submit" />
-				</form>
-
-				
+				</div>				
 				<div className="currSys">
 					<p>System Name: {this.state.systems[this.selection]}</p>
 				</div>
