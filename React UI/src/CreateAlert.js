@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
+import {
+	Route,
+	NavLink,
+	HashRouter
+} from "react-router-dom";
+import Main from "./Main";
 import logo from './imgs/alphaFiveColorsCircle.png';
 import idleLogo from './imgs/IdleAlertLogo.png';
 import triggeredLogo from './imgs/TrigAlertLogo.png';
@@ -7,51 +13,43 @@ import {listAlerts} from './fn';
 import {triggered} from './fn';
 
 class App extends Component {
-  state = {systems: [], trigAlerts: [[]], idleAlerts: [[]], status: []}
+  state = {systems: [], sysName: "Name", alertName:"Alert Name", field: "field", threshold: "0"}
 
   componentDidMount() {
 	document.title = "Alpha V Alerts"
     fetch('/systems')
       .then(res => res.json())
       .then(systems => this.setState({ systems }));
-    fetch('/trigAlerts') 
-      .then(res => res.json())
-      .then(trigAlerts => this.setState({ trigAlerts }));
-    fetch('/idleAlerts') 
-      .then(res => res.json())
-      .then(idleAlerts => this.setState({ idleAlerts }));
-    fetch('/status')
-      .then(res => res.json())
-      .then(status => this.setState({ status }));
   }
   
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-	this.handleNewAlert = this.handleNewAlert.bind(this); //John's edit, don't know if this is needed
+    this.handleNewAlert = this.handleNewAlert.bind(this);
+    this.handleSysName = this.handleSysName.bind(this);
+	this.handleField = this.handleField.bind(this);
+	this.handleAlertName = this.handleAlertName.bind(this);
+	this.handleThreshold = this.handleThreshold.bind(this);
 	this.state.value = 0;
 	this.selection = 0;
-	this.alertName="hooplah";
+	this.alertName ="test";
   }
-  handleChange(event) {
-	 this.setState({ value: event.target.value });
+  handleAlertName(event){
+	  this.setState({alertName:event.target.value});
   }
-  handleSubmit(event) {
-	event.preventDefault();
-	this.selection = this.state.value;
-	this.forceUpdate();
+   handleSysName(event){
+	  this.setState({sysName:event.target.value});
+  }
+  handleField(event){
+	  this.setState({field:event.target.value});
+  }
+  handleThreshold(event){
+	  this.setState({threshold:event.target.value});
   }
   
 	//John's edit
 	//function for sending new alert data to newAlert route
 	handleNewAlert(event){
-		
-		{this.alertName=prompt("Please enter the alert name","Test Name")}
-		this.forceUpdate();
 		event.preventDefault();
-		
-		
 		fetch('/newAlert',{ 
 			method:'POST',
 			headers:{ 
@@ -59,26 +57,49 @@ class App extends Component {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				username: 'sickBro', 
-				name: this.state.value,
-				threshold: 14,
-				field: 'Alert-Field'
+				username: 'Hoyin', 
+				name: this.state.alertName,
+				threshold: this.state.threshold,
+				field: this.state.field,
+				sysName: this.state.systems[this.state.sysName]
 			})
 		});//end of fetch
 	}//end of handleNewAlert()
   
   render() {
     return (
-		<div className="App">
-				<header className="Alpha V Alerts">
-					<title>Alpha V Alert System </title>
-				</header>
-				
-				
-				<div className="welcomeBanner" >
-					<h2>Welcome To</h2>
-					<h1>The Alpha V Alert System</h1>
-				</div>
+		<div className="CreateAlert">
+		<form onSubmit={this.handleNewAlert}>
+			<label>
+			 New Alert Name:
+			<input type="text" onChange={this.handleAlertName} />
+			<br/>System for the alert:<select value={this.state.sysName} onChange={this.handleSysName}>
+    						{this.state.systems.map((e, key) => {
+        					return <option value={key}>{e}</option>;
+ 					    })}
+			</select>
+			<br/>Field for the alert:<select value={this.state.field} onChange={this.handleField}>
+    						{this.state.systems.map((e, key) => {
+        					return <option value={key}>{e}</option>;
+ 					    })}
+			</select>
+			<br/>Threshold: <input type="text" onChange={this.handleThreshold} />
+			</label>
+			<br/>
+			<input type="submit" value="Save Alert" />
+			<br/>
+			System: {this.state.sysName}
+			<br/>
+			Alert Name: {this.state.alertName}
+			<br/>
+			Field: {this.state.field}
+			<br/>
+			Threshold: {this.state.threshold}
+		</form>
+					<div>
+					<NavLink to="./App"> Close Alert creation </NavLink>
+					<Route path="/App" component={App}/>
+					</div>
 		</div>
     );
   }

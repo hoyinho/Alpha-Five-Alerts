@@ -11,10 +11,6 @@ import {
 } from "react-router-dom";
 import {listAlerts} from './fn';
 import {triggered} from './fn';
-import Popup from 'react-popup';
-
-
- 
 
 class App extends Component {
   state = {systems: [], trigAlerts: [[]], idleAlerts: [[]], status: []}
@@ -42,7 +38,7 @@ class App extends Component {
 	this.handleNewAlert = this.handleNewAlert.bind(this); //John's edit, don't know if this is needed
 	this.state.value = 0;
 	this.selection = 0;
-	this.alertName="Name";
+	this.alertName="hooplah";
   }
   handleChange(event) {
 	 this.setState({ value: event.target.value });
@@ -52,10 +48,7 @@ class App extends Component {
 	this.selection = this.state.value;
 	this.forceUpdate();
   }
-  createAlert(event) {
-  alert("hello");
-  }
-
+  
 	//John's edit
 	//function for sending new alert data to newAlert route
 	handleNewAlert(event){
@@ -81,8 +74,10 @@ class App extends Component {
 	}//end of handleNewAlert()
   
   render() {
+	
     return (
-		<HashRouter>
+	
+					<HashRouter>
 		<div className="App">
 				
 				<header className="Alpha V Alerts">
@@ -94,16 +89,7 @@ class App extends Component {
 					<h2>Welcome To</h2>
 					<h1>The Alpha V Alert System</h1>
 				</div>
-
-				<form onSubmit={this.handleNewAlert}>
-					<label>
-						New Alert Name:
-						<input type="text" onChange={this.handleChange} />
-						<br/>
-					</label>
-					<input type="submit" value="Submit" />
-				</form>
-
+							
 				
 				<div className="currSys">
 					<p>System Name: {this.state.systems[this.selection]}</p>
@@ -142,8 +128,14 @@ class App extends Component {
 							{listAlerts(this.state.idleAlerts[this.selection], idleLogo)}
 						</div>
 					<br></br>
+					<div className="newAlertButton">
+						{this.alertName}
+						<form onSubmit={this.handleNewAlert}>
+							<input type="submit" value="New Alert" />
+						</form>
+					</div>
 					<div>
-					<NavLink to="./CreateAlert"> Click to create new alert </NavLink>
+					<NavLink to="./CreateAlert"> some text there </NavLink>
 					<Route path="/CreateAlert" component={CreateAlert}/>
 					</div>
 		
@@ -153,7 +145,6 @@ class App extends Component {
 				<div className="leftSideStatus">
 					{triggered(this.state.status, this.selection)}
 				</div>
-		
 		</div>
 		
 					</HashRouter>
