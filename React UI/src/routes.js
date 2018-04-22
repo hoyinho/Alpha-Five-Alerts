@@ -6,7 +6,7 @@ import { Route, IndexRoute } from 'react-router';
  */
 import App from './components/App';
 import MainPage from './App';
-import CreateAlert from './CreateAlert';
+import alertManager from './alertManager';
 
 /**
  * All routes go here.
@@ -15,6 +15,6 @@ import CreateAlert from './CreateAlert';
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={MainPage} />
-    <Route path="/createAlert" component={CreateAlert} />
+    <Route path="/alertManager" component={alertManager} />
   </Route>
 );

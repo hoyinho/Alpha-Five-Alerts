@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import CreateAlert from "./CreateAlert";
 import logo from './imgs/alphaFiveColorsCircle.png';
 import idleLogo from './imgs/IdleAlertLogo.png';
 import triggeredLogo from './imgs/TrigAlertLogo.png';
@@ -135,8 +134,6 @@ class App extends Component {
 						</form>
 					</div>
 					<div>
-					<NavLink to="./CreateAlert"> some text there </NavLink>
-					<Route path="/CreateAlert" component={CreateAlert}/>
 					</div>
 		
 					

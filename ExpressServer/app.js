@@ -11,6 +11,7 @@ var trigRouter = require('./routes/trigAlerts');
 var idleRouter = require('./routes/idleAlerts');
 var systemsRouter = require('./routes/systems');
 var newAlertRouter = require('./routes/newAlert');
+var allAlertRouter = require('./routes/allAlerts');
 var deleteAlertRouter = require('./routes/deleteAlert');
 var app = express();
 
@@ -46,6 +47,7 @@ app.use('/idleAlerts', idleRouter);
 app.use('/systems', systemsRouter);
 app.use('/newAlert', newAlertRouter);
 app.use('/deleteAlert', deleteAlertRouter);
+app.use('/allAlerts', allAlertRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

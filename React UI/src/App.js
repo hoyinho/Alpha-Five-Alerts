@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import CreateAlert from "./CreateAlert";
+import alertManager from "./alertManager";
 import logo from './imgs/alphaFiveColorsCircle.png';
 import idleLogo from './imgs/IdleAlertLogo.png';
 import triggeredLogo from './imgs/TrigAlertLogo.png';
@@ -39,7 +39,6 @@ class App extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-	this.handleNewAlert = this.handleNewAlert.bind(this); //John's edit, don't know if this is needed
 	this.state.value = 0;
 	this.selection = 0;
 	this.alertName="Name";
@@ -52,34 +51,6 @@ class App extends Component {
 	this.selection = this.state.value;
 	this.forceUpdate();
   }
-  createAlert(event) {
-  alert("hello");
-  }
-
-	//John's edit
-	//function for sending new alert data to newAlert route
-	handleNewAlert(event){
-		
-		{this.alertName=prompt("Please enter the alert name","Test Name")}
-		this.forceUpdate();
-		event.preventDefault();
-		
-		
-		fetch('/newAlert',{ 
-			method:'POST',
-			headers:{ 
-				'Accept': 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				username: 'sickBro', 
-				name: this.state.value,
-				threshold: 14,
-				field: 'Alert-Field'
-			})
-		});//end of fetch
-	}//end of handleNewAlert()
-  
   render() {
     return (
 		<HashRouter>
@@ -132,10 +103,10 @@ class App extends Component {
 						</div>
 					<br></br>
 					<div>
-					<NavLink to="./CreateAlert"> Click to create new alert </NavLink>
-					<Route path="/CreateAlert" component={CreateAlert}/>
+					<NavLink to="./alertManager"> Click to open Alert Manager </NavLink>
+					<Route path="/alertManager" component={alertManager}/>
 					</div>
-		
+					<br/>
 					
 				</div>
 

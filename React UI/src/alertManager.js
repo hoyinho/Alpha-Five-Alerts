@@ -3,23 +3,19 @@ import './App.css';
 import {
 	Route,
 	NavLink,
-	HashRouter
 } from "react-router-dom";
-import Main from "./Main";
-import logo from './imgs/alphaFiveColorsCircle.png';
-import idleLogo from './imgs/IdleAlertLogo.png';
-import triggeredLogo from './imgs/TrigAlertLogo.png';
-import {listAlerts} from './fn';
-import {triggered} from './fn';
 
 class App extends Component {
-  state = {systems: [], sysName: "Name", alertName:"Alert Name", field: "field", threshold: "0", delAlertName: "Delete Alert Name"}
+  state = {systems: [], sysName: "Name", alertName:"Alert Name", field: "field", threshold: "0", delAlertName: "Delete Alert Name", allAlerts: []}
 
   componentDidMount() {
 	document.title = "Alpha V Alerts"
     fetch('/systems')
       .then(res => res.json())
       .then(systems => this.setState({ systems }));
+    fetch('/allAlerts')
+      .then(res => res.json())
+      .then(allAlerts => this.setState({ allAlerts }));
   }
   
   constructor(props) {
@@ -70,7 +66,7 @@ class App extends Component {
 				sysName: this.state.systems[this.state.sysName]
 			})
 		});//end of fetch
-		window.alert(this.state.alertName + " has been created")
+		window.alert(this.state.alertName + " has been created. Refresh to view changes.")
 	}//end of handleNewAlert()
 	handleDeleteAlert(event){
 		if(this.state.delAlertName == "Select a System to view Alerts"){
@@ -89,12 +85,13 @@ class App extends Component {
 				name: this.state.delAlertName
 			})
 		});//end of fetch
-		window.alert(this.state.delAlertName + "has been deleted")
+		window.alert(this.state.delAlertName + " has been deleted. Refresh to view changes.")
 	}}//end of handleDeleteAlert()
   
   render() {
     return (
-		<div className="CreateAlert">
+		<div className="alertManager">
+		<br/>
 		<form onSubmit={this.handleNewAlert}>
 			<label>
 			 New Alert Name:
@@ -113,27 +110,29 @@ class App extends Component {
 			</label>
 			<br/>
 			<input type="submit" value="Save Alert" />
-			<br/>
+			{/*<br/>
 			System: {this.state.sysName}
 			<br/>
 			Alert Name: {this.state.alertName}
 			<br/>
 			Field: {this.state.field}
 			<br/>
-			Threshold: {this.state.threshold}
+			Threshold: {this.state.threshold}*/}
 		</form>
 		<form onSubmit={this.handleDeleteAlert}>
 			<label>
-			 Deleted Alert Name:
-			<input type="text" onChange={this.handleDelAlertName} />
+			{/*Alert Name: {this.state.delAlertName}
 			<br/>
-			Alert Name: {this.state.delAlertName}
-			<br/>
+			<br/>*/}Alert to be deleted:<select value={this.state.delAlertName} onChange={this.handleDelAlertName}>
+    						{this.state.allAlerts.map((e, key) => {
+        					return <option value={e}>{e}</option>;
+ 					    })}
+			</select>
 			<input type="submit" value="Delete Alert" />
 			</label>
-		</form>
+		</form><br/>
 					<div>
-					<NavLink to="./App"> Close Alert creation </NavLink>
+					<NavLink to="./App"> Close Alert Management </NavLink>
 					<Route path="/App" component={App}/>
 					</div>			
 		</div>
