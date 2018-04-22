@@ -6,7 +6,6 @@ var db = require('./../../database/dbQuery');
 router.get('/', function(req, res, next) {
     console.log("12345678");
     var systemNames = db.get_All_Systems_Names("Hoyin");
-    console.log(systemNames);
     systemNames.then(function(systems){
 	var names = {};
 	names = ["Select a System"];

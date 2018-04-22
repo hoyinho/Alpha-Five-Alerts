@@ -13,7 +13,7 @@ import {listAlerts} from './fn';
 import {triggered} from './fn';
 
 class App extends Component {
-  state = {systems: [], sysName: "Name", alertName:"Alert Name", field: "field", threshold: "0"}
+  state = {systems: [], sysName: "Name", alertName:"Alert Name", field: "field", threshold: "0", delAlertName: "Delete Alert Name"}
 
   componentDidMount() {
 	document.title = "Alpha V Alerts"
@@ -24,6 +24,7 @@ class App extends Component {
   
   constructor(props) {
     super(props);
+    this.handleDelAlertName = this.handleDelAlertName.bind(this);
     this.handleNewAlert = this.handleNewAlert.bind(this);
     this.handleSysName = this.handleSysName.bind(this);
 	this.handleField = this.handleField.bind(this);
@@ -32,9 +33,13 @@ class App extends Component {
 	this.state.value = 0;
 	this.selection = 0;
 	this.alertName ="test";
+	this.delAlertName = "test";
   }
   handleAlertName(event){
 	  this.setState({alertName:event.target.value});
+  }
+  handleDelAlertName(event){
+	  this.setState({delAlertName:event.target.value});
   }
    handleSysName(event){
 	  this.setState({sysName:event.target.value});
@@ -66,6 +71,21 @@ class App extends Component {
 		});//end of fetch
 		window.alert(this.state.alertName + "has been created")
 	}//end of handleNewAlert()
+	handleDeleteAlert(event){
+		event.preventDefault();
+		fetch('/deleteAlert',{ 
+			method:'POST',
+			headers:{ 
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				username: 'Hoyin', 
+				name: this.state.alertName
+			})
+		});//end of fetch
+		window.alert(this.state.delAlertName + "has been created")
+	}//end of handleDeleteAlert()
   
   render() {
     return (
@@ -97,10 +117,20 @@ class App extends Component {
 			<br/>
 			Threshold: {this.state.threshold}
 		</form>
+		<form onSubmit={this.handleDeleteAlert}>
+			<label>
+			 Deleted Alert Name:
+			<input type="text" onChange={this.handleDelAlertName} />
+			<br/>
+			Alert Name: {this.state.delAlertName}
+			<br/>
+			<input type="submit" value="Delete Alert" />
+			</label>
+		</form>
 					<div>
 					<NavLink to="./App"> Close Alert creation </NavLink>
 					<Route path="/App" component={App}/>
-					</div>
+					</div>			
 		</div>
     );
   }
