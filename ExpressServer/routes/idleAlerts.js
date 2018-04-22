@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
+var db = require('./../../database/dbQuery');
 
 router.get('/', function(req, res, next) {
-	var temp = {} 
-	temp = [["Select a System to view Alerts"],["Slow RAM", "Need Patch"],["Full Storage", "Slow RAM", "Need Patch"],["Full Storage", "Slow RAM", "Need Patch"],["Full Storage"]];
-	console.log(temp[1]);
+	var temp = db.get_All_Alerts("Hoyin");
+	//temp = ["Select a System to view Alerts"] + temp;
+	console.log(temp[0]);
   res.send(temp);
 });
 
