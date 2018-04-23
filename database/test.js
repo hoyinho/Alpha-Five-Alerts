@@ -14,8 +14,29 @@ var System = require("./dbQuery");
 db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', function() {
-    console.log('we are connected!');
-	System.create_Alert("Hoyin", "TestAlertFucko", "5", "SizeTiB", "Raza")
+    console.log('we are connected!'); /*
+    System.create_Alert("Hoyin", "TestAlertFucko", 5, "SizeTiB", "Raza");*/
+    create_Alert("Hoyin", "dataRateAlert", 2880, "dataRateKBPSAvg", "Raza").then(function(alert){
+	console.log(alert);
+    });
+    create_Alert("Hoyin", "dataAlert", 4000, "dataRateKBPSAvg", "Jason").then(function(alert){
+	console.log(alert);
+    });
+    create_Alert("Hoyin", "sizeTiBAlert", 5, "sizeTiB", "Billy").then(function(alert){
+	console.log(alert);
+    });
+    create_Alert("Hoyin", "freeTiBAlert", 20, "freeTiB", "Test2").then(function(alert){
+	console.log(alert);
+    });
+    create_Alert("Hoyin", "cpuAvgAlert", 1000, "cpuAvgMax", "Raza").then(function(alert){
+	console.log(alert);
+    });
+    create_Alert("Hoyin", "freePctAlert", 0.002, "freePct", "Raza").then(function(alert){
+	console.log(alert);
+    });
+    create_Alert("Hoyin", "cpuAlert", 222, "cpuAvgmax", "Billy").then(function(alert){
+	console.log(alert);
+    });
     /*User.create({
 	username: "Hoyin",
 	password: "password123",

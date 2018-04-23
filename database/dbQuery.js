@@ -10,6 +10,9 @@ db.on("error", console.error.bind(console, "connection error:"));
 
 db.once("open", function(){
     console.log("we are connected!");
+    get_All_Alerts("Hoyin").then(function(alerts){
+	console.log(alerts);
+    });
 });
 
 function get_All_Usernames(){
@@ -29,7 +32,7 @@ function get_All_Alert_Names(username){
 }
 
 function get_All_Alerts(username){
-    return user.findOne({'username': username}).select("alerts");
+    return user.findOne({'username': username}, "alerts", {sort: {"alerts.systemName": 1}});
 }
 
 function create_System(username, serial, name, model, fullM, os, update, sizeT, freeT, freeP, freePZP, failed, cpu, dataR){
