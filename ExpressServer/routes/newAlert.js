@@ -9,7 +9,7 @@ router.post('/', function(req, res, next){
 	//printing content of alert to console
 	console.log("\n\nContent of req.body for New Alert from React to Express:\n\n" +
 	alert.username + "\n" + 
-	alert.name + "\n" +
+	alert.name + "\nThreshold" +
 	alert.threshold + "\n" +
 	alert.field + "\n" +
 	alert.sysName + "\n");

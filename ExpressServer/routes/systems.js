@@ -4,16 +4,15 @@ var db = require('./../../database/dbQuery');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-    console.log("12345678");
     var systemNames = db.get_All_Systems_Names("Hoyin");
     systemNames.then(function(systems){
 	var names = {};
 	names = ["Select a System"];
-	console.log(systems + "stuff");
+	//console.log(systems + "stuff");
 	for (i = 0; i < systems["systems"].length; i++){
 	    names.push(systems["systems"][i]["companyName"]);
 	}
-	console.log(names);
+	//console.log(names);
 	res.send(names);
     });
     {/*var temp = {} 
