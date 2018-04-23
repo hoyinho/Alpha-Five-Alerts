@@ -5,7 +5,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
 	var temp = {} 
 	temp = [false,false, true, true, false]
-	console.log(temp[1]);
+	//console.log(temp[1]);
   res.send(temp);
 });
 
