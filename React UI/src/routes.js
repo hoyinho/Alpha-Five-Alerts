@@ -15,6 +15,5 @@ import alertManager from './alertManager';
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={MainPage} />
-    <Route path="/alertManager" component={alertManager} />
   </Route>
 );
