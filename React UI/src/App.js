@@ -111,7 +111,7 @@ class App extends Component {
 				</div>
 
 				<div className="leftSideStatus">
-					{triggered(this.state.status, this.selection)}
+					{triggered(this.state.trigAlerts[this.selection], this.selection)}
 				</div>
 		
 		</div>
