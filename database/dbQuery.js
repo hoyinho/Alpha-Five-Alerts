@@ -11,7 +11,7 @@ db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function(){
     console.log("we are connected!");
     get_All_Alerts("Hoyin").then(function(alerts){
-	console.log(alerts);
+	console.log(alerts[3].alerts);
     });
 });
 
@@ -32,7 +32,21 @@ function get_All_Alert_Names(username){
 }
 
 function get_All_Alerts(username){
-    return user.findOne({'username': username}).select("alerts");
+    return user.aggregate([ 
+	{"$match": {
+	    "username": username
+	}},
+	{"$unwind": "$alerts" },
+	{"$project": {
+	    "_id": 0,
+	    "alerts":1
+	}},
+	{"$group" : {
+	    _id: "$alerts.systemName",
+	    alerts: { $addToSet: "$alerts"}
+	}}
+    ]);
+	    
 }
 
 function create_System(username, serial, name, model, fullM, os, update, sizeT, freeT, freeP, freePZP, failed, cpu, dataR){
