@@ -32,7 +32,7 @@ function get_All_Alert_Names(username){
 }
 
 function get_All_Alerts(username){
-    return user.findOne({'username': username}, "alerts", {sort: {"alerts.systemName": 1}});
+    return user.findOne({'username': username}).select("alerts");
 }
 
 function create_System(username, serial, name, model, fullM, os, update, sizeT, freeT, freeP, freePZP, failed, cpu, dataR){
