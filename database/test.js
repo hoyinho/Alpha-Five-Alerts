@@ -14,7 +14,7 @@ var System = require("./dbQuery");
 db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', function() {
-    console.log('we are connected!');
+    console.log('we are connected!'); /*
     System.create_Alert("Hoyin", "TestAlertFucko", 5, "SizeTiB", "Raza");*/
     create_Alert("Hoyin", "dataRateAlert", 2880, "dataRateKBPSAvg", "Raza").then(function(alert){
 	console.log(alert);
