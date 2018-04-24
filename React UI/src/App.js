@@ -15,11 +15,11 @@ class App extends Component {
 	 	trigAlerts: [[]], 
 	 	idleAlerts: [[]], 
 	 	alertMan: false, 
-	 	sysName: "Name", 
-	 	alertName:"Alert Name", 
-	 	field: "field", 
-	 	threshold: "0",
-	 	delAlertName: "Delete Alert Name", 
+	 	sysName: "0", 
+	 	alertName:"", 
+	 	field: "", 
+	 	threshold: "",
+	 	delAlertName: "------", 
 	 	allAlerts: []}
 
 	componentDidMount() {
@@ -103,6 +103,19 @@ class App extends Component {
 	}
 	handleNewAlert(event){
 		event.preventDefault();
+		if(this.state.alertName==""){
+			window.alert('Please enter an alert name');
+		}
+		else if(this.state.sysName=="0"){
+			window.alert('Please select a system for the alert');
+		}
+		else if(this.state.field==""){
+			window.alert('Please select a field for the alert');
+		}
+		else if(this.state.threshold==""){
+			window.alert('Please enter a threshold for the alert');
+		}
+		else{
 		fetch('/newAlert',{ 
 			method:'POST',
 			headers:{ 
@@ -127,13 +140,14 @@ class App extends Component {
       	.then(res => res.json())
       	.then(allAlerts => this.setState({ allAlerts }));
 		window.alert(this.state.alertName + " has been created.")
+		}
 	}
 	handleDeleteAlert(event){
-		if(this.state.delAlertName == "Select a System to view Alerts"){
-			window.alert("Can't delete that one")
+		event.preventDefault();
+		if(this.state.delAlertName=="------"){
+			window.alert('Please select an alert to delete');
 		}
 		else{
-			event.preventDefault();
 			fetch('/deleteAlert',{ 
 				method:'POST',
 				headers:{ 
@@ -144,18 +158,19 @@ class App extends Component {
 					username: 'Hoyin', 
 					name: this.state.delAlertName
 				})
-		});
-		fetch('/trigAlerts') 
-		.then(res => res.json())
-		.then(trigAlerts => this.setState({ trigAlerts }));
-		fetch('/idleAlerts') 
-		.then(res => res.json())
-		.then(idleAlerts => this.setState({ idleAlerts }));
-    	fetch('/allAlerts')
-      	.then(res => res.json())
-      	.then(allAlerts => this.setState({ allAlerts }));
-		window.alert(this.state.delAlertName + " has been deleted.")
-	}}
+			});
+			fetch('/trigAlerts') 
+			.then(res => res.json())
+			.then(trigAlerts => this.setState({ trigAlerts }));
+			fetch('/idleAlerts') 
+			.then(res => res.json())
+			.then(idleAlerts => this.setState({ idleAlerts }));
+    		fetch('/allAlerts')
+     	 	.then(res => res.json())
+      		.then(allAlerts => this.setState({ allAlerts }));
+			window.alert(this.state.delAlertName + " has been deleted.")
+		}
+	}
 	render() {
 		return (
 			<div className="App">
@@ -237,13 +252,18 @@ class App extends Component {
 			</select>
 
 			<br/>Field for the alert:<select value={this.state.field} onChange={this.handleField}>
-			{this.state.systems.map((e, key) => {
-				return <option value={key}>{e}</option>;
+			<option value={''}>{'Select a field'}</option>;
+			<option value={'sizeTiB'}>{'Size in Terabytes'}</option>;
+			<option value={'freeTiB'}>{'Free space in Terabytes'}</option>;
+			<option value={'freePct'}>{'Free space as a percent'}</option>;
+			<option value={'failedCapacityTiB'}>{'Failed amount in Terabytes'}</option>;
+			<option value={'cpuAvgMax'}>{'Average maximum CPU usage'}</option>;
+			<option value={'dataRateKBPSAvg'}>{'Data rate in KBPS'}</option>;
 			})}
 
 			</select>
 
-			<br/>Threshold: <input type="text" onChange={this.handleThreshold} />
+			<br/>Threshold: <input type="number" onChange={this.handleThreshold} />
 			</label>
 
 			<br/>
