@@ -42,6 +42,7 @@ class App extends Component {
 		super(props);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleLogin = this.handleLogin.bind(this);
+		this.handleLogout = this.handleLogout.bind(this);
 		this.handleAlertMan = this.handleAlertMan.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleDelAlertName = this.handleDelAlertName.bind(this);
@@ -57,11 +58,21 @@ class App extends Component {
 	}
 	handleLogin(event){
 		event.preventDefault();
+		if(!this.state.isLoggedIn){
+			this.setState({isLoggedIn:true});
+		}
+	}
+	handleLogout(event){
+		event.preventDefault();
 		if(this.state.isLoggedIn){
 			this.setState({alertMan:false});
-			this.selection = 0;	
+			this.selection = 0;
+			this.setState({ value: 0 });
+			this.setState({ sysName: 0 });
+			this.setState({ field: 0 });
+			this.setState({ delAlertName: 0 });
+			this.setState({isLoggedIn:false});
 		}
-		this.setState({isLoggedIn:!this.state.isLoggedIn});
 	}
 	handleAlertMan(event){
 		event.preventDefault();
@@ -170,7 +181,7 @@ class App extends Component {
 			
 			<div className="middleLogo"> <img src={logo} height="100" width="100" alt="it us!"/> </div>
 			
-			<div className="logOut" onClick={this.handleLogin}>
+			<div className="logOut" onClick={this.handleLogout}>
 			<p>Logout</p>
 			</div>
 
