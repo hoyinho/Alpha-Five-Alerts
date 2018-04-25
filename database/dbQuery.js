@@ -10,30 +10,60 @@ db.on("error", console.error.bind(console, "connection error:"));
 
 db.once("open", function(){
     console.log("we are connected!");
-
-    /* get_All_Systems("Hoyin").then(function(names){
-	console.log(names);
-    });*/
+    validate_Login("Hoyin", "password123").then(function(stuff){
+	console.log(stuff);
+    });
 });
 
 function get_All_Usernames(){
     return user.find({}).select("username");
 }
 
-function validate_Login(username, password){
+function get_Triggered_Alerts(username, systemName){    
     return user.aggregate([
 	{"$match": {
 	    "username": username,
-	    "password": password
+	    "alerts.systemName": systemName
 	}},
+	{"$unwind": "$alerts"},
 	{"$project": {
 	    "_id": 0,
-	    "username": 1
+	    "alerts": {
+		"$cond": {
+		    if: { "$and":
+			  [
+			      {"$lt":
+			       ["$alerts.alertThreshold","$systems.nodes.cpuAvgMax"]},
+			      {"$eq":
+			       ["$alerts.systemName", systemName]}
+			  ]
+			},
+		    then: "$alerts",
+		    else: "$$REMOVE"
+		}
+	    }
+	}}
+    ]);
+}			 
+function validate_Login(username, password){
+    return user.aggregate([
+	{"$project": {
+	    "_id": 0,
+	    "username": {
+		"$cond": {
+		    if: {"$and" :
+			 [ {"$eq": ["$username", username]},
+			   {"$eq": ["$password", password]}
+			 ]},
+		    then: "$username",
+		    else: ""
+		}
+	    }
 	}}
     ]);
 }
 
-function get_All_Systems(username){ //needs to return current value to compare against threshold
+async function get_All_Systems(username){ //needs to return current value to compare against threshold
     return user.aggregate([ 
 	{"$match": {
 	    "username": username
