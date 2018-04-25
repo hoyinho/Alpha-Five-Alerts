@@ -21,6 +21,9 @@
 		background-color: #3498DB;
 		width:29.8%;
 }
+.alertManager{
+	height:150px;	
+}
 .logOut{
 		display:inline-block;
 		float:right;
@@ -88,14 +91,35 @@
 		border-style:solid;
 		border-color: black;
 }
-.toggleAlertMan{
-		display:block;
-		margin-left:5%;
+.toggleAlertCreate{
+		display:inline-block;
 		font-family:lato;
 		margin-bottom:.5%;
 		color:#FFFFFF;
 		background-color: #64abdb;
-		width:90%;
+		width:30%;
+		border-width: 1px;
+		border-style:solid;
+		border-color: black;
+}
+.toggleAlertDelete{
+		display:inline-block;
+		font-family:lato;
+		margin-bottom:.5%;
+		color:#FFFFFF;
+		background-color: #64abdb;
+		width:30%;
+		border-width: 1px;
+		border-style:solid;
+		border-color: black;
+}
+.toggleAlertModify{
+		display:inline-block;
+		font-family:lato;
+		margin-bottom:.5%;
+		color:#FFFFFF;
+		background-color: #64abdb;
+		width:30%;
 		border-width: 1px;
 		border-style:solid;
 		border-color: black;
