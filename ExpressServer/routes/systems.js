@@ -15,15 +15,6 @@ router.get('/', function(req, res, next) {
 	//console.log(names);
 	res.send(names);
     });
-    {/*var temp = {} 
-	temp = ["Select a System", 
-	"Zach's System", 
-	"Elise's System", 
-	"John's System", 
-	"Neena's System"]
-	console.log(temp[1]);
-	res.send(temp); */}
-
 });
 
 module.exports = router;

@@ -3,13 +3,12 @@ import bad from './imgs/TriggeredAlert.png'
 import none from './imgs/noneSelected.png'
 import React, { Component } from 'react';
 
-export function triggered(bools, index){
+export function triggered(arrTrig, index){
   if(index=="0"){
 	  return <img src={none} height="20%" width="40%" alt="Nothing is happening"/>;
   }
-  if (bools[index]) {
+  if (arrTrig.length=="0") {
 	 return <img src={good} height="20%" width="40%" alt="Nothing it happening, or only good things are happening"/>;
-    
   }
 	return <img src={bad} height="20%" width="40%" alt="Things are happening that might not be good"/>;
 }
