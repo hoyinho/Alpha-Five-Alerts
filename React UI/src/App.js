@@ -20,7 +20,10 @@ class App extends Component {
 	 	field: "", 
 	 	threshold: "",
 	 	delAlertName: "------", 
-	 	allAlerts: []}
+	 	allAlerts: [],
+	 	User: "",
+	 	Pass: "",
+	 }
 
 	componentDidMount() {
 		document.title = "Alpha V Alerts"
@@ -55,6 +58,29 @@ class App extends Component {
 		this.state.value = 0;
 		this.selection = 0;
 		this.alertName="Name";
+		this.handleUser = this.handleUser.bind(this);
+		this.handlePass = this.handlePass.bind(this);
+		this.handlelogin2 = this.handlelogin2.bind(this);
+	}
+	handleUser(event){
+		this.setState({User:event.target.value});
+	}
+	handlePass(event){
+		this.setState({Pass:event.target.value});
+	}
+	handlelogin2(event){
+		event.preventDefault();
+		fetch('/login',{ 
+			method:'POST',
+			headers:{ 
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				name: this.state.User,
+				password: this.state.Pass
+			})
+		});
 	}
 	handleLogin(event){
 		event.preventDefault();
@@ -185,6 +211,14 @@ class App extends Component {
 		<h1>The Alpha V Alert System</h1>
 		</div>
 		<ReactShow show={!this.state.isLoggedIn}>
+			<div className="login2"> 
+			{this.props.children}
+				<form onSubmit={this.handlelogin2}>
+					Username: <input type="text" onChange={this.handleUser} placeholder="Your Username" className= "userpass"/>
+					<br/>Password: <input type="text" onChange={this.handlePass} placeholder="Your Password" className= "userpass"/>
+					<br/><input type="submit" value="Save Alert" className= "form"/>
+				</form>
+			</div>
 			<div className="logOut" onClick={this.handleLogin}>
 			<p>Login</p>
 			</div>
