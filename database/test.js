@@ -16,28 +16,28 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
     console.log('we are connected!'); /*
     System.create_Alert("Hoyin", "TestAlertFucko", 5, "SizeTiB", "Raza");*/
-    create_Alert("Hoyin", "dataRateAlert", 2880, "dataRateKBPSAvg", "Raza").then(function(alert){
+    System.create_Alert("Hoyin", "dataRateAlert", 2880, "dataRateKBPSAvg", "Raza").then(function(alert){
 	console.log(alert);
     });
-    create_Alert("Hoyin", "dataAlert", 4000, "dataRateKBPSAvg", "Jason").then(function(alert){
+    System.create_Alert("Hoyin", "dataAlert", 4000, "dataRateKBPSAvg", "Jason").then(function(alert){
 	console.log(alert);
     });
-    create_Alert("Hoyin", "sizeTiBAlert", 5, "sizeTiB", "Billy").then(function(alert){
+    System.create_Alert("Hoyin", "sizeTiBAlert", 5, "sizeTiB", "Billy").then(function(alert){
 	console.log(alert);
     });
-    create_Alert("Hoyin", "freeTiBAlert", 20, "freeTiB", "Test2").then(function(alert){
+    System.create_Alert("Hoyin", "freeTiBAlert", 20, "freeTiB", "Test2").then(function(alert){
 	console.log(alert);
     });
-    create_Alert("Hoyin", "cpuAvgAlert", 1000, "cpuAvgMax", "Raza").then(function(alert){
+    System.create_Alert("Hoyin", "cpuAvgAlert", 1000, "cpuAvgMax", "Raza").then(function(alert){
 	console.log(alert);
     });
-    create_Alert("Hoyin", "freePctAlert", 0.002, "freePct", "Raza").then(function(alert){
+    System.create_Alert("Hoyin", "freePctAlert", 0.002, "freePct", "Raza").then(function(alert){
 	console.log(alert);
     });
-    create_Alert("Hoyin", "cpuAlert", 222, "cpuAvgmax", "Billy").then(function(alert){
+    System.create_Alert("Hoyin", "cpuAlert", 222, "cpuAvgmax", "Billy").then(function(alert){
 	console.log(alert);
     });
-    /*User.create({
+    User.create({
 	username: "Hoyin",
 	password: "password123",
 	alerts: [],
@@ -80,5 +80,6 @@ db.once('open', function() {
     System.create_System("Hoyin", "7160363", "Billy", "Z10", "HPE-Billy Z10", "1.2.3.4", "2018-04-16", 131.4123, 67.33334, 15.345, "2018-10-23T12:23:23z", 0.022212312, 16, 2562).then(function(stuff){
 	console.log(stuff);
     });
-    }, 5000);*/
+
+    }, 5000);
 });
