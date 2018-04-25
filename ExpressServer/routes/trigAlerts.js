@@ -6,6 +6,7 @@ router.get('/', function(req, res, next) {
 	//console.log("*****************************Trig Alerts start*****************************");
 	var systemNames = db.get_All_Systems_Names("Hoyin");
 	var systemAll = db.get_All_Systems("Hoyin").then(function(systems){
+	console.log("*********************************************")
 	console.log(systems);
 	});
 	console.log("***Systems Print***\n");
