@@ -5,9 +5,10 @@ var db = require('./../../database/dbQuery');
 router.get('/', function(req, res, next) {
 	//console.log("*****************************Trig Alerts start*****************************");
 	var systemNames = db.get_All_Systems_Names("Hoyin");
-	var systemAll = db.get_All_Systems("Hoyin");
+	var systemAll = db.get_All_Systems("Hoyin").then(function(systems){
+	console.log(systems);
+	});
 	console.log("***Systems Print***\n");
-	console.log(systemAll);
     systemNames.then(function(systems){
 	var sysNames = {};
 	sysNames = ["Select a System"];

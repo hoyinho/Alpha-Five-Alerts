@@ -6,7 +6,6 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var indexRouter = require('./routes/index');
 var User = require('./models/User');
-var statusRouter = require('./routes/status');
 var trigRouter = require('./routes/trigAlerts');
 var idleRouter = require('./routes/idleAlerts');
 var systemsRouter = require('./routes/systems');
@@ -41,7 +40,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/status', statusRouter);
 app.use('/trigAlerts', trigRouter);
 app.use('/idleAlerts', idleRouter);
 app.use('/systems', systemsRouter);

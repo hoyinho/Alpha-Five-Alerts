@@ -20,6 +20,7 @@ class App extends Component {
 	 	field: "", 
 	 	threshold: "",
 	 	delAlertName: "------", 
+		delSysName: "",
 	 	allAlerts: [],
 	 	User: "",
 	 	Pass: "",
@@ -49,6 +50,7 @@ class App extends Component {
 		this.handleAlertMan = this.handleAlertMan.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleDelAlertName = this.handleDelAlertName.bind(this);
+		this.handleDelSysName = this.handleDelSysName.bind(this);
 		this.handleNewAlert = this.handleNewAlert.bind(this);
 		this.handleSysName = this.handleSysName.bind(this);
 		this.handleField = this.handleField.bind(this);
@@ -114,6 +116,9 @@ class App extends Component {
 	}
 	handleAlertName(event){
 		this.setState({alertName:event.target.value});
+	}
+	handleDelSysName(event){
+		this.setState({delAlertName:event.target.value});
 	}
 	handleDelAlertName(event){
 		this.setState({delAlertName:event.target.value});
@@ -311,10 +316,15 @@ class App extends Component {
 										<input type="submit" value="Save Alert" />
 									</form>
 								
-								<form onSubmit={this.handleDeleteAlert}>
-								<label>
-								
+							<form onSubmit={this.handleDeleteAlert}>
+							<label>
 							<br></br>
+							<br></br>Choose Which System to Delete From:
+							<select value={this.state.value} onChange={this.handleChange}>
+								{this.state.systems.map((e, key) => {
+									return <option value={key}>{e}</option>;
+								})}
+							</select>
 							Alert to be deleted:
 							<select value={this.state.delAlertName} onChange={this.handleDelAlertName}>
 								{this.state.allAlerts.map((e, key) => {
