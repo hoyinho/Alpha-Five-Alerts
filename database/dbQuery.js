@@ -10,8 +10,9 @@ db.on("error", console.error.bind(console, "connection error:"));
 
 db.once("open", function(){
     console.log("we are connected!");
-    get_All_Alerts("Hoyin").then(function(alerts){
-	console.log(alerts);
+
+    get_All_Systems("Hoyin").then(function(names){
+	console.log(names);
     });
 });
 
@@ -19,12 +20,49 @@ function get_All_Usernames(){
     return user.find({}).select("username");
 }
 
+function validate_Login(username, password){
+    return user.aggregate([
+	{"$match": {
+	    "username": username,
+	    "password": password
+	}},
+	{"$project": {
+	    "_id": 0,
+	    "username": 1
+	}}
+    ]);
+}
+
 function get_All_Systems(username){
-    return user.findOne({'username': username}).select("systems");
+    return user.aggregate([ 
+	{"$match": {
+	    "username": username
+	}},
+	{"$unwind": "$systems" },
+	{"$project": {
+	    "_id": 0,
+	    "systems":1
+	}},
+	{"$sort" :{
+	    "systems.companyName": 1
+	}}
+    ]);
 }
 
 function get_All_Systems_Names(username){
-    return user.findOne({'username': username}, {"systems.companyName":1});
+    return user.aggregate([
+	{"$match": {
+	    "username": username
+	}},
+	{"$unwind": "$systems"},
+	{"$project": {
+	    "_id": 0,
+	    "systems.companyName": 1
+	}},
+	{"$sort" : {
+	    "systems.companyName": 1
+	}}
+    ]); 
 }
 
 function get_All_Alert_Names(username){
@@ -44,6 +82,9 @@ function get_All_Alerts(username){
 	{"$group" : {
 	    _id: "$alerts.systemName",
 	    alerts: { $addToSet: "$alerts"}
+	}},
+	{"$sort" :{
+	    "alerts.systemName": 1
 	}}
     ]);
 	    
@@ -116,4 +157,4 @@ function clear_DB(){
     });
 }
 
-module.exports = {get_All_Systems, get_All_Alerts, create_Alert, change_Alert, add_User,get_All_Systems_Names,create_System, delete_Alert, get_System, delete_System, get_All_Usernames, get_All_Alert_Names, clear_DB} 
+module.exports = {validate_Login, get_All_Systems, get_All_Alerts, create_Alert, change_Alert, add_User,get_All_Systems_Names,create_System, delete_Alert, get_System, delete_System, get_All_Usernames, get_All_Alert_Names, clear_DB} 
