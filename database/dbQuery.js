@@ -11,7 +11,7 @@ db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function(){
     console.log("we are connected!");
     get_All_Alerts("Hoyin").then(function(alerts){
-	//console.log(alerts[3].alerts);
+	console.log(alerts);
     });
 });
 
