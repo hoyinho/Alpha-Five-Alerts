@@ -4,7 +4,46 @@
   text-align: center;
   background-color: #F5F5F5;
 }
+.submitform{
+	width: 30%;
+	height: 100%;
+	padding: 18px 12px;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	background-color: #3498DB;
+	margin: 20px 8px;
 
+}
+.form22{
+	width: 30%;
+	height: 100%;
+	padding: 18px 12px;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	background-color: #3498DB;
+	margin: 20px 8px;
+}
+.form22:hover{
+	background-color: #f45f5f; 
+    color: white;
+}
+.userpass{
+	width: 60%;
+	height: 500%;
+	padding: 12px 12px;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	margin: 1px 0;
+}
+.login2{
+	background-color: #f2f2f2;
+}
 .welcomeBanner{
 		background-color: #3498DB;
 		height:150px;
@@ -20,6 +59,9 @@
 		margin-top:38px;
 		background-color: #3498DB;
 		width:29.8%;
+}
+.alertManager{
+	height:150px;	
 }
 .logOut{
 		display:inline-block;
@@ -88,14 +130,35 @@
 		border-style:solid;
 		border-color: black;
 }
-.toggleAlertMan{
-		display:block;
-		margin-left:5%;
+.toggleAlertCreate{
+		display:inline-block;
 		font-family:lato;
 		margin-bottom:.5%;
 		color:#FFFFFF;
 		background-color: #64abdb;
-		width:90%;
+		width:30%;
+		border-width: 1px;
+		border-style:solid;
+		border-color: black;
+}
+.toggleAlertDelete{
+		display:inline-block;
+		font-family:lato;
+		margin-bottom:.5%;
+		color:#FFFFFF;
+		background-color: #64abdb;
+		width:30%;
+		border-width: 1px;
+		border-style:solid;
+		border-color: black;
+}
+.toggleAlertModify{
+		display:inline-block;
+		font-family:lato;
+		margin-bottom:.5%;
+		color:#FFFFFF;
+		background-color: #64abdb;
+		width:30%;
 		border-width: 1px;
 		border-style:solid;
 		border-color: black;
