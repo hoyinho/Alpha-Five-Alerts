@@ -5,6 +5,7 @@ import idleLogo from './imgs/IdleAlertLogo.png';
 import triggeredLogo from './imgs/TrigAlertLogo.png';
 import {listAlerts} from './fn';
 import {triggered} from './fn';
+import{listStatuses} from './fn';
 import Popup from 'react-popup';
 import ReactShow from 'react-show';
 
@@ -14,6 +15,7 @@ class App extends Component {
 		systems: [],
 	 	trigAlerts: [[]], 
 	 	idleAlerts: [[]], 
+		statuses:[[]],
 	 	alertMan: false, 
 	 	sysName: "0", 
 	 	alertName:"", 
@@ -40,6 +42,9 @@ class App extends Component {
     	fetch('/allAlerts')
       	.then(res => res.json())
       	.then(allAlerts => this.setState({ allAlerts }));
+		fetch('/status')
+		.then(res => res.json())
+      	.then(statuses => this.setState({ statuses }));
 	}
 
 	constructor(props) {
@@ -255,6 +260,7 @@ class App extends Component {
 						<input type="submit" value="Submit" />
 					</form>
 					<br></br>
+					
 				</div>
 	
 				<div className="rightSide">
@@ -340,7 +346,16 @@ class App extends Component {
 		<div className="leftSideStatus">
 			{triggered(this.state.trigAlerts[this.selection], this.selection)}
 		</div>
-		
+		<div className ="leftSideViewStatuses">
+					<div className="statusInteriorBox">
+						<b>Statuses:</b>
+						{listStatuses(this.state.statuses[this.selection], idleLogo)}
+						{/**{listAlerts(this.state.idleAlerts[this.selection], idleLogo)}
+						We will be creating a listStatuses function which is effectively the same as list 
+						alert just instead lists out the statuses.					
+						**/}
+					</div>
+		</div>
 		</ReactShow>
 	</div>
 	);

@@ -57,6 +57,14 @@
 		width:49.8%;
 
 }
+.leftSideViewStatuses{
+	display:inline-block;
+		float:left;
+		margin-left:0;
+		margin-bottom:.5%;
+		background-color: #3498DB;
+		width:49.8%;
+}
 .rightSide{
 		display:inline-block;
 		float:right;
@@ -82,6 +90,19 @@
 		text-align:left;
 		font-family:lato;
 		margin-bottom:.5%;
+		background-color: #64abdb;
+		width:90%;
+		border-width: 1px;
+		border-style:solid;
+		border-color: black;
+}
+.statusInteriorBox{
+		display:block;
+		margin-left:5%;
+		text-align:left;
+		font-family:lato;
+		margin-top:2%;
+		margin-bottom:2%;
 		background-color: #64abdb;
 		width:90%;
 		border-width: 1px;
