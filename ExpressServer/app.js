@@ -14,6 +14,7 @@ var allAlertRouter = require('./routes/allAlerts');
 var deleteAlertRouter = require('./routes/deleteAlert');
 var app = express();
 var statusRouter = require('./routes/status');
+var loginRouter = require('./routes/login');
 
 //mongoose
 mongoose.connect('mongodb://brandonnlam:password@ds241737.mlab.com:41737/blamdatabase');
@@ -48,6 +49,7 @@ app.use('/newAlert', newAlertRouter);
 app.use('/deleteAlert', deleteAlertRouter);
 app.use('/allAlerts', allAlertRouter);
 app.use('/status', statusRouter);
+app.use('/login', loginRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

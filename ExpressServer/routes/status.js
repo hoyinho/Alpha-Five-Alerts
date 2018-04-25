@@ -14,14 +14,6 @@ router.get('/', function(req, res, next) {
 		//console.log(sysNames);
 		var statusNames = db.get_All_Systems("Hoyin");   
 		statusNames.then(function(statuses){
-			console.log("\n***Result of get_All_Systems***\n");
-			console.log(statuses);
-			console.log("\n***Result of get_all_statuses[0]***\n");
-			console.log(statuses[0]);
-			console.log("\n***Result of get_all_statuses[1]***\n");
-			console.log(statuses[1]);
-			console.log("\n***Result of get_all_statuses[2]***\n");
-			console.log(statuses[2]);
 			var names = {};
 			names = [["Select a System to view statuses"]];
 			for(k = 0; k < systems.length; k++){

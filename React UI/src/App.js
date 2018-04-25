@@ -5,11 +5,7 @@ import idleLogo from './imgs/IdleAlertLogo.png';
 import triggeredLogo from './imgs/TrigAlertLogo.png';
 import {listAlerts} from './fn';
 import {triggered} from './fn';
-<<<<<<< HEAD
 import{listStatuses} from './fn';
-import Popup from 'react-popup';
-=======
->>>>>>> 45a4baa15d9a660a31bb0b51d7c1c2a40c085c13
 import ReactShow from 'react-show';
 
 class App extends Component {
@@ -17,15 +13,11 @@ class App extends Component {
 		isLoggedIn: false,
 		systems: [],
 	 	trigAlerts: [[]], 
-	 	idleAlerts: [[]], 
-<<<<<<< HEAD
+	 	idleAlerts: [[]],
 		statuses:[[]],
-	 	alertMan: false, 
-=======
 		alertCreate: false,
 		alertDelete: false,
 		alertModify: false,
->>>>>>> 45a4baa15d9a660a31bb0b51d7c1c2a40c085c13
 	 	sysName: "0", 
 	 	alertName:"", 
 	 	field: "", 
@@ -40,24 +32,6 @@ class App extends Component {
 
 	componentDidMount() {
 		document.title = "Alpha V Alerts"
-<<<<<<< HEAD
-		fetch('/systems')
-		.then(res => res.json())
-		.then(systems => this.setState({ systems }));
-		fetch('/trigAlerts') 
-		.then(res => res.json())
-		.then(trigAlerts => this.setState({ trigAlerts }));
-		fetch('/idleAlerts') 
-		.then(res => res.json())
-		.then(idleAlerts => this.setState({ idleAlerts }));
-    	fetch('/allAlerts')
-      	.then(res => res.json())
-      	.then(allAlerts => this.setState({ allAlerts }));
-		fetch('/status')
-		.then(res => res.json())
-      	.then(statuses => this.setState({ statuses }));
-=======
->>>>>>> 45a4baa15d9a660a31bb0b51d7c1c2a40c085c13
 	}
 
 	constructor(props) {
@@ -105,6 +79,7 @@ class App extends Component {
 		})
 		.then(res => res)
 		.then(login => this.setState({ login }));
+		
 		if(this.state.login[0] !== ""){
 			this.setState({isLoggedIn:true});
 		}
@@ -124,6 +99,9 @@ class App extends Component {
     	fetch('/allAlerts')
       	.then(res => res.json())
       	.then(allAlerts => this.setState({ allAlerts }));
+		fetch('/status')
+		.then(res => res.json())
+      	.then(statuses => this.setState({ statuses }));
 	}
 	handleLogin(event){
 		event.preventDefault();

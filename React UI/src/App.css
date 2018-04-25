@@ -138,7 +138,6 @@
 		border-style:solid;
 		border-color: black;
 }
-<<<<<<< HEAD
 .statusInteriorBox{
 		display:block;
 		margin-left:5%;
@@ -152,13 +151,8 @@
 		border-style:solid;
 		border-color: black;
 }
-.toggleAlertMan{
-		display:block;
-		margin-left:5%;
-=======
 .toggleAlertCreate{
 		display:inline-block;
->>>>>>> 45a4baa15d9a660a31bb0b51d7c1c2a40c085c13
 		font-family:lato;
 		margin-bottom:.5%;
 		color:#FFFFFF;

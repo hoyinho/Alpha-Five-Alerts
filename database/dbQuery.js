@@ -10,16 +10,9 @@ db.on("error", console.error.bind(console, "connection error:"));
 
 db.once("open", function(){
     console.log("we are connected!");
-<<<<<<< HEAD
-	
-    /* get_All_Systems("Hoyin").then(function(names){
-	console.log(names);
-    });*/
-=======
     validate_Login("Hoyin", "password123").then(function(stuff){
 	console.log(stuff);
     });
->>>>>>> 45a4baa15d9a660a31bb0b51d7c1c2a40c085c13
 });
 
 function get_All_Usernames(){
