@@ -240,15 +240,13 @@ class App extends Component {
 		<ReactShow show={!this.state.isLoggedIn}>
 			<div className="login2"> 
 			{this.props.children}
-				<form onSubmit={this.handlelogin2}>
+				<form onSubmit={this.handlelogin2} className = "submitform">
 					Username: <input type="text" onChange={this.handleUser} placeholder="Your Username" className= "userpass"/>
 					<br/>Password: <input type="text" onChange={this.handlePass} placeholder="Your Password" className= "userpass"/>
-					<br/><input type="submit" value="Save Alert" className= "form"/>
+					<br/><input type="submit" value="Login" className= "form22" onClick={this.handleLogin}/>
 				</form>
-			</div>
-			<div className="logOut" onClick={this.handleLogin}>
-			<p>Login</p>
-			</div>
+			</div>			
+
 		</ReactShow>
 			
 		<ReactShow show={this.state.isLoggedIn}>
