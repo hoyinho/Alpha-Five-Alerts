@@ -5,11 +5,14 @@ var db = require('./../../database/dbQuery');
 router.get('/', function(req, res, next) {
 	//console.log("*****************************Trig Alerts start*****************************");
 	var systemNames = db.get_All_Systems_Names("Hoyin");
+	var systemAll = db.get_All_Systems("Hoyin");
+	console.log("***Systems Print***\n");
+	console.log(systemAll);
     systemNames.then(function(systems){
 	var sysNames = {};
 	sysNames = ["Select a System"];
-	for (i = 0; i < systems["systems"].length; i++){
-	    sysNames.push(systems["systems"][i]["companyName"]);
+	for (i = 0; i < systems.length; i++){
+	    sysNames.push(systems[i]["systems"]["companyName"]);
 	}
 	//console.log(sysNames);
 	var alertsNames = db.get_All_Alerts("Hoyin");   
@@ -24,13 +27,13 @@ router.get('/', function(req, res, next) {
 		console.log(alerts[2]);*/
 		var names = {};
 		names = [["Select a System to view Alerts"]];
-		for(k = 0; k < systems["systems"].length; k++){
+		for(k = 0; k < systems.length; k++){
 			names.push([])
 		}
 		//console.log("\n***Pushing into correct system name array***\n")
 		for (i = 1; i < alerts.length+1; i++){
 			for(j = 0; j < alerts[i-1]["alerts"].length; j++){
-				if(alerts[i-1]["alerts"][j]["alertThreshold"]%2==1){
+				if(alerts[i-1]["alerts"][j]["alertThreshold"]%2==1){//if alertThreshold < system
 					names[i].push(alerts[i-1]["alerts"][j]["alertName"]);
 				}
 			}

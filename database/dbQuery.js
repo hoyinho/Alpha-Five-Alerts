@@ -11,9 +11,9 @@ db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function(){
     console.log("we are connected!");
 
-    get_All_Systems("Hoyin").then(function(names){
+    /* get_All_Systems("Hoyin").then(function(names){
 	console.log(names);
-    });
+    });*/
 });
 
 function get_All_Usernames(){
@@ -33,7 +33,7 @@ function validate_Login(username, password){
     ]);
 }
 
-function get_All_Systems(username){
+function get_All_Systems(username){ //needs to return current value to compare against threshold
     return user.aggregate([ 
 	{"$match": {
 	    "username": username

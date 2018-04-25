@@ -15,7 +15,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', function() {
     console.log('we are connected!'); /*
-    System.create_Alert("Hoyin", "TestAlertFucko", 5, "SizeTiB", "Raza");*/
+    System.create_Alert("Hoyin", "TestAlertFucko", 5, "SizeTiB", "Raza");*//*
     System.create_Alert("Hoyin", "dataRateAlert", 2880, "dataRateKBPSAvg", "Raza").then(function(alert){
 	console.log(alert);
     });
@@ -36,7 +36,7 @@ db.once('open', function() {
     });
     System.create_Alert("Hoyin", "cpuAlert", 222, "cpuAvgmax", "Billy").then(function(alert){
 	console.log(alert);
-    });
+    });*//*
     User.create({
 	username: "Hoyin",
 	password: "password123",
@@ -66,11 +66,23 @@ db.once('open', function() {
 	console.log("We saved this usesr!", savedUser);
     }).catch(function(error){
 	console.error(error);
-    });
-    setTimeout(function(){
-	System.create_Alert("Hoyin", "dataRateAlert", 6000, "dataRateKBPSAvg","6500228").then(function(user){
+    });*/
+     setTimeout(function(){
+	/*System.create_Alert("Hoyin", "dataRateAlert", 6000, "dataRateKBPSAvg","6500228").then(function(user){
 	    console.log(user);
-	});
+	}); */
+	System.delete_System("Hoyin", '6820096').then(function(stuff){
+	console.log(stuff);
+    });
+	System.delete_System("Hoyin", "7601963").then(function(stuff){
+	console.log(stuff);
+    });
+	System.delete_System("Hoyin", "7160363").then(function(stuff){
+	console.log(stuff);
+    });
+	System.delete_System("Hoyin", "6500228").then(function(stuff){
+	console.log(stuff);
+    });
     System.create_System("Hoyin", '6820096', "Test2", "test model", "HPE_#STUFF", "0.0.0.0", "2018-04-17T16", 128.234123, 37.5432, 32.643211123,'2018-06-15T03:35:35z', 0.01534521, 12,3313).then(function(stuff){
 	console.log(stuff);
     });
