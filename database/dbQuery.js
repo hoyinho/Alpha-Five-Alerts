@@ -32,7 +32,21 @@ function get_All_Alert_Names(username){
 }
 
 function get_All_Alerts(username){
-    return user.findOne({'username': username}, "alerts", {sort: {"alerts.systemName": 1}});
+    return user.aggregate([ 
+	{"$match": {
+	    "username": username
+	}},
+	{"$unwind": "$alerts" },
+	{"$project": {
+	    "_id": 0,
+	    "alerts":1
+	}},
+	{"$group" : {
+	    _id: "$alerts.systemName",
+	    alerts: { $addToSet: "$alerts"}
+	}}
+    ]);
+	    
 }
 
 function create_System(username, serial, name, model, fullM, os, update, sizeT, freeT, freeP, freePZP, failed, cpu, dataR){
@@ -102,4 +116,4 @@ function clear_DB(){
     });
 }
 
-module.exports = {get_All_Systems, get_All_Alerts, create_Alert, change_Alert, add_User,get_All_Systems_Names,create_System, delete_Alert, get_System, delete_System, get_All_Usernames, get_All_Alert_Names,} 
+module.exports = {get_All_Systems, get_All_Alerts, create_Alert, change_Alert, add_User,get_All_Systems_Names,create_System, delete_Alert, get_System, delete_System, get_All_Usernames, get_All_Alert_Names, clear_DB} 

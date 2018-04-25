@@ -8,10 +8,11 @@ router.get('/', function(req, res, next) {
     systemNames.then(function(systems){
 	var names = {};
 	names = ["Select a System"];
-	console.log(systems + "stuff");
+	//console.log(systems + "stuff");
 	for (i = 0; i < systems["systems"].length; i++){
 	    names.push(systems["systems"][i]["usernames"]);
 	}
+	console.log(names);
 	res.send(names);
     });
 });
