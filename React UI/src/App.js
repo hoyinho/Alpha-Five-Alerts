@@ -5,8 +5,11 @@ import idleLogo from './imgs/IdleAlertLogo.png';
 import triggeredLogo from './imgs/TrigAlertLogo.png';
 import {listAlerts} from './fn';
 import {triggered} from './fn';
+<<<<<<< HEAD
 import{listStatuses} from './fn';
 import Popup from 'react-popup';
+=======
+>>>>>>> 45a4baa15d9a660a31bb0b51d7c1c2a40c085c13
 import ReactShow from 'react-show';
 
 class App extends Component {
@@ -15,8 +18,14 @@ class App extends Component {
 		systems: [],
 	 	trigAlerts: [[]], 
 	 	idleAlerts: [[]], 
+<<<<<<< HEAD
 		statuses:[[]],
 	 	alertMan: false, 
+=======
+		alertCreate: false,
+		alertDelete: false,
+		alertModify: false,
+>>>>>>> 45a4baa15d9a660a31bb0b51d7c1c2a40c085c13
 	 	sysName: "0", 
 	 	alertName:"", 
 	 	field: "", 
@@ -26,10 +35,12 @@ class App extends Component {
 	 	allAlerts: [],
 	 	User: "",
 	 	Pass: "",
+	 	login: [""]
 	 }
 
 	componentDidMount() {
 		document.title = "Alpha V Alerts"
+<<<<<<< HEAD
 		fetch('/systems')
 		.then(res => res.json())
 		.then(systems => this.setState({ systems }));
@@ -45,6 +56,8 @@ class App extends Component {
 		fetch('/status')
 		.then(res => res.json())
       	.then(statuses => this.setState({ statuses }));
+=======
+>>>>>>> 45a4baa15d9a660a31bb0b51d7c1c2a40c085c13
 	}
 
 	constructor(props) {
@@ -52,7 +65,9 @@ class App extends Component {
 		this.handleChange = this.handleChange.bind(this);
 		this.handleLogin = this.handleLogin.bind(this);
 		this.handleLogout = this.handleLogout.bind(this);
-		this.handleAlertMan = this.handleAlertMan.bind(this);
+		this.handleAlertCreate = this.handleAlertCreate.bind(this);
+		this.handleAlertDelete = this.handleAlertDelete.bind(this);
+		this.handleAlertModify = this.handleAlertModify.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleDelAlertName = this.handleDelAlertName.bind(this);
 		this.handleDelSysName = this.handleDelSysName.bind(this);
@@ -84,15 +99,48 @@ class App extends Component {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				name: this.state.User,
+				username: this.state.User,
 				password: this.state.Pass
 			})
-		});
+		})
+		.then(res => res)
+		.then(login => this.setState({ login }));
+		if(this.state.login[0] !== ""){
+			this.setState({isLoggedIn:true});
+		}
+		else{
+			window.alert("messed up ");
+		};
+
+		fetch('/systems')
+		.then(res => res.json())
+		.then(systems => this.setState({ systems }));
+		fetch('/trigAlerts') 
+		.then(res => res.json())
+		.then(trigAlerts => this.setState({ trigAlerts }));
+		fetch('/idleAlerts') 
+		.then(res => res.json())
+		.then(idleAlerts => this.setState({ idleAlerts }));
+    	fetch('/allAlerts')
+      	.then(res => res.json())
+      	.then(allAlerts => this.setState({ allAlerts }));
 	}
 	handleLogin(event){
 		event.preventDefault();
 		if(!this.state.isLoggedIn){
 			this.setState({isLoggedIn:true});
+		fetch('/systems')
+		.then(res => res.json())
+		.then(systems => this.setState({ systems }));
+		fetch('/trigAlerts') 
+		.then(res => res.json())
+		.then(trigAlerts => this.setState({ trigAlerts }));
+		fetch('/idleAlerts') 
+		.then(res => res.json())
+		.then(idleAlerts => this.setState({ idleAlerts }));
+    	fetch('/allAlerts')
+      	.then(res => res.json())
+      	.then(allAlerts => this.setState({ allAlerts }));
 		}
 	}
 	handleLogout(event){
@@ -105,11 +153,29 @@ class App extends Component {
 			this.setState({ field: 0 });
 			this.setState({ delAlertName: 0 });
 			this.setState({isLoggedIn:false});
+			this.setState({ systems:[]});
+			this.setState({ trigAlerts:[[]]});
+			this.setState({ idleAlerts:[[]]});
+			this.setState({ allAlerts:[] });
 		}
 	}
-	handleAlertMan(event){
+	handleAlertCreate(event){
 		event.preventDefault();
-		this.setState({alertMan:!this.state.alertMan});
+		this.setState({alertCreate:!this.state.alertCreate});
+		this.setState({alertDelete:false});
+		this.setState({alertModify:false});
+	}
+	handleAlertDelete(event){
+		event.preventDefault();
+		this.setState({alertDelete:!this.state.alertDelete});
+		this.setState({alertCreate:false});
+		this.setState({alertModify:false});
+	}
+	handleAlertModify(event){
+		event.preventDefault();
+		this.setState({alertModify:!this.state.alertModify});
+		this.setState({alertCreate:false});
+		this.setState({alertDelete:false});
 	}
 	handleChange(event) {
 		this.setState({ value: event.target.value });
@@ -223,15 +289,13 @@ class App extends Component {
 		<ReactShow show={!this.state.isLoggedIn}>
 			<div className="login2"> 
 			{this.props.children}
-				<form onSubmit={this.handlelogin2}>
+				<form onSubmit={this.handlelogin2} className = "submitform">
 					Username: <input type="text" onChange={this.handleUser} placeholder="Your Username" className= "userpass"/>
 					<br/>Password: <input type="text" onChange={this.handlePass} placeholder="Your Password" className= "userpass"/>
-					<br/><input type="submit" value="Save Alert" className= "form"/>
+					<br/><input type="submit" value="Login" className= "form22" onClick={this.handleLogin2}/>
 				</form>
-			</div>
-			<div className="logOut" onClick={this.handleLogin}>
-			<p>Login</p>
-			</div>
+			</div>			
+
 		</ReactShow>
 			
 		<ReactShow show={this.state.isLoggedIn}>
@@ -279,13 +343,19 @@ class App extends Component {
 					</div>
 	
 					<br></br>
-						<div className="toggleAlertMan" onClick={this.handleAlertMan}>
-							<b>Click this section to toggle the alert manager</b>
+						<div className="toggleAlertCreate" onClick={this.handleAlertCreate}>
+							<b>Toggle Alert Creator</b>
+						</div>
+						<div className="toggleAlertModify" onClick={this.handleAlertModify}>
+							<b>Toggle Alert Modifier</b>
+						</div>
+						<div className="toggleAlertDelete" onClick={this.handleAlertDelete}>
+							<b>Toggle Alert Deleter</b>
 						</div>
 					<br></br>
-					<ReactShow show={this.state.alertMan}>
+					<ReactShow show={this.state.alertCreate}>
 						<div className="alertManager">
-								
+									<br></br>
 									<form onSubmit={this.handleNewAlert}>
 										<label>
 											New Alert Name:
@@ -321,16 +391,26 @@ class App extends Component {
 						
 										<input type="submit" value="Save Alert" />
 									</form>
-								
-							<form onSubmit={this.handleDeleteAlert}>
-							<label>
+									<br></br>
+						</div>
+					</ReactShow>
+					<ReactShow show={this.state.alertModify}>
+						<div className="alertManager">
+							<p>Modify goes here</p>
+						</div>
+					</ReactShow>
+					<ReactShow show={this.state.alertDelete}>
+						<div className="alertManager">
 							<br></br>
-							<br></br>Choose Which System to Delete From:
-							<select value={this.state.value} onChange={this.handleChange}>
-								{this.state.systems.map((e, key) => {
-									return <option value={key}>{e}</option>;
-								})}
-							</select>
+								<form onSubmit={this.handleDeleteAlert}>
+									<label>Choose Which System to Delete From:
+									<select value={this.state.value} onChange={this.handleChange}>
+										{this.state.systems.map((e, key) => {
+										return <option value={key}>{e}</option>;
+									})}
+								</select>
+							
+							<br></br>
 							Alert to be deleted:
 							<select value={this.state.delAlertName} onChange={this.handleDelAlertName}>
 								{this.state.allAlerts.map((e, key) => {
@@ -339,9 +419,9 @@ class App extends Component {
 							</select>
 							<input type="submit" value="Delete Alert" />
 							</label>
-							</form><br/>		
-						</div>
-					</ReactShow>
+							</form><br/>
+							</div>
+						</ReactShow>
 				</div>
 		<div className="leftSideStatus">
 			{triggered(this.state.trigAlerts[this.selection], this.selection)}
