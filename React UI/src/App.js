@@ -5,7 +5,6 @@ import idleLogo from './imgs/IdleAlertLogo.png';
 import triggeredLogo from './imgs/TrigAlertLogo.png';
 import {listAlerts} from './fn';
 import {triggered} from './fn';
-import Popup from 'react-popup';
 import ReactShow from 'react-show';
 
 class App extends Component {
@@ -26,6 +25,7 @@ class App extends Component {
 	 	allAlerts: [],
 	 	User: "",
 	 	Pass: "",
+	 	login: [""]
 	 }
 
 	componentDidMount() {
@@ -64,6 +64,26 @@ class App extends Component {
 	}
 	handlelogin2(event){
 		event.preventDefault();
+		fetch('/login',{ 
+			method:'POST',
+			headers:{ 
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				username: this.state.User,
+				password: this.state.Pass
+			})
+		})
+		.then(res => res)
+		.then(login => this.setState({ login }));
+		if(this.state.login[0] !== ""){
+			this.setState({isLoggedIn:true});
+		}
+		else{
+			window.alert("messed up ");
+		};
+
 		fetch('/systems')
 		.then(res => res.json())
 		.then(systems => this.setState({ systems }));
@@ -76,17 +96,6 @@ class App extends Component {
     	fetch('/allAlerts')
       	.then(res => res.json())
       	.then(allAlerts => this.setState({ allAlerts }));
-		fetch('/login',{ 
-			method:'POST',
-			headers:{ 
-				'Accept': 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				name: this.state.User,
-				password: this.state.Pass
-			})
-		});
 	}
 	handleLogin(event){
 		event.preventDefault();
@@ -255,7 +264,7 @@ class App extends Component {
 				<form onSubmit={this.handlelogin2} className = "submitform">
 					Username: <input type="text" onChange={this.handleUser} placeholder="Your Username" className= "userpass"/>
 					<br/>Password: <input type="text" onChange={this.handlePass} placeholder="Your Password" className= "userpass"/>
-					<br/><input type="submit" value="Login" className= "form22" onClick={this.handleLogin}/>
+					<br/><input type="submit" value="Login" className= "form22" onClick={this.handleLogin2}/>
 				</form>
 			</div>			
 
