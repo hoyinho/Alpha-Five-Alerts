@@ -10,9 +10,9 @@ router.get('/', function(req, res, next) {
 	names = ["Select a System"];
 	//console.log(systems + "stuff");
 	for (i = 0; i < systems["systems"].length; i++){
-	    names.push(systems["systems"][i]["companyName"]);
+	    names.push(systems["systems"][i]["usernames"]);
 	}
-	//console.log(names);
+	console.log(names);
 	res.send(names);
     });
 });

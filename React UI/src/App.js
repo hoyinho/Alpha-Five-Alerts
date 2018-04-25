@@ -20,7 +20,10 @@ class App extends Component {
 	 	field: "", 
 	 	threshold: "",
 	 	delAlertName: "------", 
-	 	allAlerts: []}
+	 	allAlerts: [],
+	 	User: "",
+	 	Pass: "",
+	 }
 
 	componentDidMount() {
 		document.title = "Alpha V Alerts"
@@ -55,6 +58,29 @@ class App extends Component {
 		this.state.value = 0;
 		this.selection = 0;
 		this.alertName="Name";
+		this.handleUser = this.handleUser.bind(this);
+		this.handlePass = this.handlePass.bind(this);
+		this.handlelogin2 = this.handlelogin2.bind(this);
+	}
+	handleUser(event){
+		this.setState({User:event.target.value});
+	}
+	handlePass(event){
+		this.setState({Pass:event.target.value});
+	}
+	handlelogin2(event){
+		event.preventDefault();
+		fetch('/login',{ 
+			method:'POST',
+			headers:{ 
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				name: this.state.User,
+				password: this.state.Pass
+			})
+		});
 	}
 	handleLogin(event){
 		event.preventDefault();
@@ -173,122 +199,138 @@ class App extends Component {
 	}
 	render() {
 		return (
-			<div className="App">
+		<div className="App">
 
-			<header className="Alpha V Alerts">
-			<title>Alpha V Alert System </title>
-			</header>
+		<header className="Alpha V Alerts">
+		<title>Alpha V Alert System </title>
+		</header>
 
 
-			<div className="welcomeBanner" >
-			<h2>Welcome To</h2>
-			<h1>The Alpha V Alert System</h1>
+		<div className="welcomeBanner" >
+		<h2>Welcome To</h2>
+		<h1>The Alpha V Alert System</h1>
+		</div>
+		<ReactShow show={!this.state.isLoggedIn}>
+			<div className="login2"> 
+			{this.props.children}
+				<form onSubmit={this.handlelogin2}>
+					Username: <input type="text" onChange={this.handleUser} placeholder="Your Username" className= "userpass"/>
+					<br/>Password: <input type="text" onChange={this.handlePass} placeholder="Your Password" className= "userpass"/>
+					<br/><input type="submit" value="Save Alert" className= "form"/>
+				</form>
 			</div>
-			<ReactShow show={!this.state.isLoggedIn}>
 			<div className="logOut" onClick={this.handleLogin}>
 			<p>Login</p>
 			</div>
-			</ReactShow>
-			<ReactShow show={this.state.isLoggedIn}>
-			<div className="currSys">
-			<p>System Name: {this.state.systems[this.selection]}</p>
-			</div>
-			
-			<div className="middleLogo"> <img src={logo} height="100" width="100" alt="it us!"/> </div>
-			
-			<div className="logOut" onClick={this.handleLogout}>
-			<p>Logout</p>
-			</div>
-
-			<div className="leftSide">
-			<form onSubmit={this.handleSubmit}>
-			<label>
-			<br></br>Choose Which System to Monitor:
-			<select value={this.state.value} onChange={this.handleChange}>
-			{this.state.systems.map((e, key) => {
-				return <option value={key}>{e}</option>;
-			})}
-			</select>
-			</label>
-			<input type="submit" value="Submit" />
-			</form>
-			<br></br>
-			</div>
-
-			<div className="rightSide">
-			<p>Alerts for Current System</p>
-			<br></br>
-			<div className="rightSideTriggered">
-			<b>Triggered Alerts:</b>
-			{listAlerts(this.state.trigAlerts[this.selection], triggeredLogo)}
-			</div>
-
-			<br></br>
-
-			<div className="rightSideIdle">
-			<b>Idle Alerts:</b>
-			{listAlerts(this.state.idleAlerts[this.selection], idleLogo)}
-			</div>
-
-			<br/>
-			<div className="toggleAlertMan" onClick={this.handleAlertMan}>
-			<b>Click this section to toggle the alert manager</b>
-			</div>
-			<br></br>
-			<ReactShow show={this.state.alertMan}>
-			<div className="alertManager">
-			
-			<form onSubmit={this.handleNewAlert}>
-
-			<label>
-			New Alert Name:
-			
-			<input type="text" onChange={this.handleAlertName} />
-
-			<br/>System for the alert:<select value={this.state.sysName} onChange={this.handleSysName}>
-			{this.state.systems.map((e, key) => {
-				return <option value={key}>{e}</option>;
-			})}
-			</select>
-
-			<br/>Field for the alert:<select value={this.state.field} onChange={this.handleField}>
-			<option value={''}>{'Select a field'}</option>;
-			<option value={'sizeTiB'}>{'Size in Terabytes'}</option>;
-			<option value={'freeTiB'}>{'Free space in Terabytes'}</option>;
-			<option value={'freePct'}>{'Free space as a percent'}</option>;
-			<option value={'failedCapacityTiB'}>{'Failed amount in Terabytes'}</option>;
-			<option value={'cpuAvgMax'}>{'Average maximum CPU usage'}</option>;
-			<option value={'dataRateKBPSAvg'}>{'Data rate in KBPS'}</option>;
-			})}
-
-			</select>
-
-			<br/>Threshold: <input type="number" onChange={this.handleThreshold} />
-			</label>
-
-			<br/>
-
-			<input type="submit" value="Save Alert" />
-			</form>
-			
-			<form onSubmit={this.handleDeleteAlert}>
-			<label>
-			
-		<br/>Alert to be deleted:<select value={this.state.delAlertName} onChange={this.handleDelAlertName}>
-		{this.state.allAlerts.map((e, key) => {
-			return <option value={e}>{e}</option>;
-		})}
-		</select>
-		<input type="submit" value="Delete Alert" />
-		</label>
-		</form><br/>		
-		</div>
 		</ReactShow>
-
-	</div>
-	<div className="leftSideStatus">
-	{triggered(this.state.trigAlerts[this.selection], this.selection)}
-	</div>
+			
+		<ReactShow show={this.state.isLoggedIn}>
+				<div className="currSys">
+					<p>System Name: {this.state.systems[this.selection]}</p>
+				</div>
+				
+				<div className="middleLogo"> 
+					<img src={logo} height="100" width="100" alt="it us!"/> 
+				</div>
+				
+				<div className="logOut" onClick={this.handleLogout}>
+					<p>Logout</p>
+				</div>
+	
+				<div className="leftSide">
+					<form onSubmit={this.handleSubmit}>
+						<label>
+						<br></br>Choose Which System to Monitor:
+							<select value={this.state.value} onChange={this.handleChange}>
+								{this.state.systems.map((e, key) => {
+									return <option value={key}>{e}</option>;
+								})}
+							</select>
+						</label>
+						<input type="submit" value="Submit" />
+					</form>
+					<br></br>
+				</div>
+	
+				<div className="rightSide">
+					<p>Alerts for Current System</p>
+					<br></br>
+					<div className="rightSideTriggered">
+						<b>Triggered Alerts:</b>
+						{listAlerts(this.state.trigAlerts[this.selection], triggeredLogo)}
+					</div>
+	
+					<br></br>
+	
+					<div className="rightSideIdle">
+						<b>Idle Alerts:</b>
+						{listAlerts(this.state.idleAlerts[this.selection], idleLogo)}
+					</div>
+	
+					<br></br>
+						<div className="toggleAlertMan" onClick={this.handleAlertMan}>
+							<b>Click this section to toggle the alert manager</b>
+						</div>
+					<br></br>
+					<ReactShow show={this.state.alertMan}>
+						<div className="alertManager">
+								
+									<form onSubmit={this.handleNewAlert}>
+										<label>
+											New Alert Name:
+										
+											<input type="text" onChange={this.handleAlertName} />
+								
+											<br></br>
+											System for the alert:
+											<select value={this.state.sysName} onChange={this.handleSysName}>
+												{this.state.systems.map((e, key) => {
+													return <option value={key}>{e}</option>;
+												})}
+											</select>
+							
+											<br></br>
+											Field for the alert:
+											<select value={this.state.field} onChange={this.handleField}>
+												<option value={''}>{'Select a field'}</option>;
+												<option value={'sizeTiB'}>{'Size in Terabytes'}</option>;
+												<option value={'freeTiB'}>{'Free space in Terabytes'}</option>;
+												<option value={'freePct'}>{'Free space as a percent'}</option>;
+												<option value={'failedCapacityTiB'}>{'Failed amount in Terabytes'}</option>;
+												<option value={'cpuAvgMax'}>{'Average maximum CPU usage'}</option>;
+												<option value={'dataRateKBPSAvg'}>{'Data rate in KBPS'}</option>;
+												})}
+											</select>
+							
+											<br></br>
+											Threshold: <input type="number" onChange={this.handleThreshold} />
+										</label>
+						
+										<br></br>
+						
+										<input type="submit" value="Save Alert" />
+									</form>
+								
+								<form onSubmit={this.handleDeleteAlert}>
+								<label>
+								
+							<br></br>
+							Alert to be deleted:
+							<select value={this.state.delAlertName} onChange={this.handleDelAlertName}>
+								{this.state.allAlerts.map((e, key) => {
+									return <option value={e}>{e}</option>;
+								})}
+							</select>
+							<input type="submit" value="Delete Alert" />
+							</label>
+							</form><br/>		
+						</div>
+					</ReactShow>
+				</div>
+		<div className="leftSideStatus">
+			{triggered(this.state.trigAlerts[this.selection], this.selection)}
+		</div>
+		
 		</ReactShow>
 	</div>
 	);
