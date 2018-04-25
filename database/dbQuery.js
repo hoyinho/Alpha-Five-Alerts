@@ -139,8 +139,8 @@ function add_User(username, password){
     return newUser.save();
 }
 
-function delete_Alert(username, alertName){
-    return user.update({"username": username}, {$pull : {"alerts": {"alertName": alertName}}});
+function delete_Alert(username, alertName, systemName){
+    return user.update({"username": username}, {$pull : {"alerts": {"alertName": alertName, "systemName": systemName}}});
 }
 
 function delete_System(username, systemSerial){
