@@ -79,7 +79,8 @@ class App extends Component {
 		})
 		.then(res=>res.json())
 		.then(temp => this.setState({login:temp[0]["username"]}))
-		.then(console.log("Login state set"));
+		.then(console.log("Login state set"))
+		.then(res => {
 		if(this.state.login == ""){
 			window.alert("messed up");
 		}
@@ -100,7 +101,7 @@ class App extends Component {
 			fetch('/status')
 			.then(res => res.json())
       		.then(statuses => this.setState({ statuses }));
-		};
+		}});
 	}
 	handleLogin(event){
 		event.preventDefault();
@@ -188,7 +189,7 @@ class App extends Component {
 		if(this.state.alertName==""){
 			window.alert('Please enter an alert name');
 		}
-		else if(this.state.sysName=="0"){
+		else if(this.selection=="0"){
 			window.alert('Please select a system for the alert');
 		}
 		else if(this.state.field==""){
@@ -205,11 +206,11 @@ class App extends Component {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				username: 'Hoyin', 
+				username: this.state.login, 
 				name: this.state.alertName,
 				threshold: this.state.threshold,
 				field: this.state.field,
-				sysName: this.state.systems[this.state.sysName]
+				sysName: this.state.systems[this.selection]
 			})
 		});
 		fetch('/trigAlerts') 
@@ -237,8 +238,9 @@ class App extends Component {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
-					username: 'Hoyin', 
-					name: this.state.delAlertName
+					username: this.state.login, 
+					name: this.state.delAlertName,
+					systemName: this.state.systems[this.selection]
 				})
 			});
 			fetch('/trigAlerts') 
@@ -343,13 +345,7 @@ class App extends Component {
 											<input type="text" onChange={this.handleAlertName} />
 								
 											<br></br>
-											System for the alert:
-											<select value={this.state.sysName} onChange={this.handleSysName}>
-												{this.state.systems.map((e, key) => {
-													return <option value={key}>{e}</option>;
-												})}
-											</select>
-							
+											System for the alert: {this.state.systems[this.selection]}							
 											<br></br>
 											Field for the alert:
 											<select value={this.state.field} onChange={this.handleField}>
@@ -383,22 +379,15 @@ class App extends Component {
 						<div className="alertManager">
 							<br></br>
 								<form onSubmit={this.handleDeleteAlert}>
-									<label>Choose Which System to Delete From:
-									<select value={this.state.value} onChange={this.handleChange}>
-										{this.state.systems.map((e, key) => {
-										return <option value={key}>{e}</option>;
-									})}
-								</select>
-							
-							<br></br>
-							Alert to be deleted:
-							<select value={this.state.delAlertName} onChange={this.handleDelAlertName}>
-								{this.state.allAlerts.map((e, key) => {
-									return <option value={e}>{e}</option>;
-								})}
-							</select>
-							<input type="submit" value="Delete Alert" />
-							</label>
+									System for the alert: {this.state.systems[this.selection]}
+									<br></br>
+									Alert to be deleted:
+									<select value={this.state.delAlertName} onChange={this.handleDelAlertName}>
+										{this.state.allAlerts.map((e, key) => {
+											return <option value={e}>{e}</option>;
+										})}
+									</select>
+									<input type="submit" value="Delete Alert" />
 							</form><br/>
 							</div>
 						</ReactShow>
