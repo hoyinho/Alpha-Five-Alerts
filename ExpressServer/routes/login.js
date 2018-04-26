@@ -13,13 +13,17 @@ router.post('/', function(req, res, next){
 	
 	// Make  an alert object, and send to Mongoose
 	db.validate_Login(login.username,login.password).then(function(confirmation){ 
-	if(confirmation.length()==0){
+	var names = {};
+	names = [];
+	console.log("confirmation: ");
+	console.log(confirmation[0]);
+	if(confirmation[0]["username"]==''){
 		console.log("bad stuff");
-		res.json("");
+		res.json(confirmation);
 	}
 	else{
 		console.log("good stuff")
-		res.json(login.username);
+		res.json(confirmation);
 	}
 	});
 	

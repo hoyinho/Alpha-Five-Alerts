@@ -27,7 +27,7 @@ class App extends Component {
 	 	allAlerts: [],
 	 	User: "",
 	 	Pass: "",
-	 	login: [""]
+	 	login: ""
 	 }
 
 	componentDidMount() {
@@ -77,31 +77,30 @@ class App extends Component {
 				password: this.state.Pass
 			})
 		})
-		.then(res => res)
-		.then(login => this.setState({ login }));
-		
-		if(this.state.login[0] !== ""){
-			this.setState({isLoggedIn:true});
+		.then(res=>res.json())
+		.then(temp => this.setState({login:temp[0]["username"]}))
+		.then(console.log("Login state set"));
+		if(this.state.login == ""){
+			window.alert("messed up");
 		}
 		else{
-			window.alert("messed up ");
+			this.setState({isLoggedIn:true});
+			fetch('/systems')
+			.then(res => res.json())
+			.then(systems => this.setState({ systems }));
+			fetch('/trigAlerts') 
+			.then(res => res.json())
+			.then(trigAlerts => this.setState({ trigAlerts }));
+			fetch('/idleAlerts') 
+			.then(res => res.json())
+			.then(idleAlerts => this.setState({ idleAlerts }));
+    		fetch('/allAlerts')
+      		.then(res => res.json())
+      		.then(allAlerts => this.setState({ allAlerts }));
+			fetch('/status')
+			.then(res => res.json())
+      		.then(statuses => this.setState({ statuses }));
 		};
-
-		fetch('/systems')
-		.then(res => res.json())
-		.then(systems => this.setState({ systems }));
-		fetch('/trigAlerts') 
-		.then(res => res.json())
-		.then(trigAlerts => this.setState({ trigAlerts }));
-		fetch('/idleAlerts') 
-		.then(res => res.json())
-		.then(idleAlerts => this.setState({ idleAlerts }));
-    	fetch('/allAlerts')
-      	.then(res => res.json())
-      	.then(allAlerts => this.setState({ allAlerts }));
-		fetch('/status')
-		.then(res => res.json())
-      	.then(statuses => this.setState({ statuses }));
 	}
 	handleLogin(event){
 		event.preventDefault();
@@ -135,6 +134,9 @@ class App extends Component {
 			this.setState({ trigAlerts:[[]]});
 			this.setState({ idleAlerts:[[]]});
 			this.setState({ allAlerts:[] });
+			this.setState({ login:""})
+			this.setState({ Pass:""})
+			this.setState({ User:""})
 		}
 	}
 	handleAlertCreate(event){
