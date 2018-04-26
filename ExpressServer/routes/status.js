@@ -2,16 +2,15 @@ var express = require('express');
 var router = express.Router();
 var db = require('./../../database/dbQuery');
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-	console.log("\n\n\n***************\n\n Get All Systems\n\n\n\n***************\n\n");
-	var systemNames = db.get_All_Systems_Names("Hoyin");
+router.post('/', function(req, res, next) {
+	const login = req.body;
+	var systemNames = db.get_All_Systems_Names(login.username);
     systemNames.then(function(systems){
 		var sysNames = {};
 		sysNames = ["Select a System"];
 		for (i = 0; i < systems.length; i++){
 			sysNames.push(systems[i]["systems"]["companyName"]);
 		}
-		//console.log(sysNames);
 		var statusNames = db.get_All_Systems("Hoyin");   
 		statusNames.then(function(statuses){
 			var names = {};
@@ -36,11 +35,6 @@ router.get('/', function(req, res, next) {
 				names[i].push("Updated:                                                "+statuses[i-1]["systems"]["updated"]);
 				
 			}
-			//console.log("\n***Pushing into correct system name array***\n")
-			
-				//console.log("For loop done");
-			//temp = ["Select a System to view statuses"] + temp;
-			//console.log(names);
 			res.send(names);
 		});
 	});

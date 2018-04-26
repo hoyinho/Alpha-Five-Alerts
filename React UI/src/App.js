@@ -24,7 +24,7 @@ class App extends Component {
 	 	threshold: "",
 	 	delAlertName: "------", 
 		delSysName: "",
-	 	allAlerts: [],
+	 	allAlerts: [[]],
 	 	User: "",
 	 	Pass: "",
 	 	login: ""
@@ -37,7 +37,6 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.handleChange = this.handleChange.bind(this);
-		this.handleLogin = this.handleLogin.bind(this);
 		this.handleLogout = this.handleLogout.bind(this);
 		this.handleAlertCreate = this.handleAlertCreate.bind(this);
 		this.handleAlertDelete = this.handleAlertDelete.bind(this);
@@ -56,7 +55,7 @@ class App extends Component {
 		this.alertName="Name";
 		this.handleUser = this.handleUser.bind(this);
 		this.handlePass = this.handlePass.bind(this);
-		this.handlelogin2 = this.handlelogin2.bind(this);
+		this.handleLogin = this.handleLogin.bind(this);
 	}
 	handleUser(event){
 		this.setState({User:event.target.value});
@@ -64,7 +63,7 @@ class App extends Component {
 	handlePass(event){
 		this.setState({Pass:event.target.value});
 	}
-	handlelogin2(event){
+	handleLogin(event){
 		event.preventDefault();
 		fetch('/login',{ 
 			method:'POST',
@@ -86,40 +85,67 @@ class App extends Component {
 		}
 		else{
 			this.setState({isLoggedIn:true});
-			fetch('/systems')
+			fetch('/systems', {
+				method: 'POST',
+				headers:{
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					username: this.state.login
+				})
+			})
 			.then(res => res.json())
 			.then(systems => this.setState({ systems }));
-			fetch('/trigAlerts') 
+			fetch('/trigAlerts', {
+				method: 'POST',
+				headers:{
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					username: this.state.login
+				})
+			}) 
 			.then(res => res.json())
 			.then(trigAlerts => this.setState({ trigAlerts }));
-			fetch('/idleAlerts') 
+			fetch('/idleAlerts', {
+				method: 'POST',
+				headers:{
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					username: this.state.login
+				})
+			}) 
 			.then(res => res.json())
 			.then(idleAlerts => this.setState({ idleAlerts }));
-    		fetch('/allAlerts')
+    		fetch('/allAlerts', {
+				method: 'POST',
+				headers:{
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					username: this.state.login
+				})
+			})
       		.then(res => res.json())
       		.then(allAlerts => this.setState({ allAlerts }));
-			fetch('/status')
+			fetch('/status', {
+				method: 'POST',
+				headers:{
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					username: this.state.login
+				})
+			})
 			.then(res => res.json())
       		.then(statuses => this.setState({ statuses }));
 		}});
-	}
-	handleLogin(event){
-		event.preventDefault();
-		if(!this.state.isLoggedIn){
-			this.setState({isLoggedIn:true});
-		fetch('/systems')
-		.then(res => res.json())
-		.then(systems => this.setState({ systems }));
-		fetch('/trigAlerts') 
-		.then(res => res.json())
-		.then(trigAlerts => this.setState({ trigAlerts }));
-		fetch('/idleAlerts') 
-		.then(res => res.json())
-		.then(idleAlerts => this.setState({ idleAlerts }));
-    	fetch('/allAlerts')
-      	.then(res => res.json())
-      	.then(allAlerts => this.setState({ allAlerts }));
-		}
 	}
 	handleLogout(event){
 		event.preventDefault();
@@ -129,12 +155,12 @@ class App extends Component {
 			this.setState({ value: 0 });
 			this.setState({ sysName: 0 });
 			this.setState({ field: 0 });
-			this.setState({ delAlertName: 0 });
+			this.setState({ delAlertName: "------" });
 			this.setState({isLoggedIn:false});
 			this.setState({ systems:[]});
 			this.setState({ trigAlerts:[[]]});
 			this.setState({ idleAlerts:[[]]});
-			this.setState({ allAlerts:[] });
+			this.setState({ allAlerts:[[]]});
 			this.setState({ login:""})
 			this.setState({ Pass:""})
 			this.setState({ User:""})
@@ -186,11 +212,14 @@ class App extends Component {
 	}
 	handleNewAlert(event){
 		event.preventDefault();
-		if(this.state.alertName==""){
+		if(this.selection=="0"){
+			window.alert('Please select a system to create alerts');
+		}
+		else if(this.state.alertName==""){
 			window.alert('Please enter an alert name');
 		}
-		else if(this.selection=="0"){
-			window.alert('Please select a system for the alert');
+		else if(this.state.alertName=="------"){
+			window.alert('Please enter a different alert name');
 		}
 		else if(this.state.field==""){
 			window.alert('Please select a field for the alert');
@@ -213,21 +242,51 @@ class App extends Component {
 				sysName: this.state.systems[this.selection]
 			})
 		});
-		fetch('/trigAlerts') 
+		fetch('/trigAlerts', {
+			method: 'POST',
+			headers:{
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				username: this.state.login
+			})
+		}) 
 		.then(res => res.json())
 		.then(trigAlerts => this.setState({ trigAlerts }));
-		fetch('/idleAlerts') 
+		fetch('/idleAlerts', {
+			method: 'POST',
+			headers:{
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				username: this.state.login
+			})
+		}) 
 		.then(res => res.json())
 		.then(idleAlerts => this.setState({ idleAlerts }));
-    	fetch('/allAlerts')
-      	.then(res => res.json())
+    	fetch('/allAlerts', {
+			method: 'POST',
+			headers:{
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				username: this.state.login
+			})
+		})
+		.then(res => res.json())
       	.then(allAlerts => this.setState({ allAlerts }));
 		window.alert(this.state.alertName + " has been created.")
 		}
 	}
 	handleDeleteAlert(event){
 		event.preventDefault();
-		if(this.state.delAlertName=="------"){
+		if(this.selection=="0"){
+			window.alert('Please select a system to delete alerts');
+		}
+		else if(this.state.delAlertName=="------"){
 			window.alert('Please select an alert to delete');
 		}
 		else{
@@ -243,14 +302,41 @@ class App extends Component {
 					systemName: this.state.systems[this.selection]
 				})
 			});
-			fetch('/trigAlerts') 
+			fetch('/trigAlerts', {
+				method: 'POST',
+				headers:{
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					username: this.state.login
+				})
+			}) 
 			.then(res => res.json())
 			.then(trigAlerts => this.setState({ trigAlerts }));
-			fetch('/idleAlerts') 
+			fetch('/idleAlerts', {
+				method: 'POST',
+				headers:{
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					username: this.state.login
+				})
+			}) 
 			.then(res => res.json())
 			.then(idleAlerts => this.setState({ idleAlerts }));
-    		fetch('/allAlerts')
-     	 	.then(res => res.json())
+    		fetch('/allAlerts', {
+				method: 'POST',
+				headers:{
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					username: this.state.login
+				})
+			})
+			.then(res => res.json())
       		.then(allAlerts => this.setState({ allAlerts }));
 			window.alert(this.state.delAlertName + " has been deleted.")
 		}
@@ -271,10 +357,10 @@ class App extends Component {
 		<ReactShow show={!this.state.isLoggedIn}>
 			<div className="login2"> 
 			{this.props.children}
-				<form onSubmit={this.handlelogin2} className = "submitform">
+				<form onSubmit={this.handleLogin} className = "submitform">
 					Username: <input type="text" onChange={this.handleUser} placeholder="Your Username" className= "userpass"/>
 					<br/>Password: <input type="text" onChange={this.handlePass} placeholder="Your Password" className= "userpass"/>
-					<br/><input type="submit" value="Login" className= "form22" onClick={this.handleLogin2}/>
+					<br/><input type="submit" value="Login" className= "form22" onClick={this.handleLogin}/>
 				</form>
 			</div>			
 
@@ -340,12 +426,9 @@ class App extends Component {
 									<br></br>
 									<form onSubmit={this.handleNewAlert}>
 										<label>
+											System for the alert: {this.state.systems[this.selection]}<br/>
 											New Alert Name:
-										
-											<input type="text" onChange={this.handleAlertName} />
-								
-											<br></br>
-											System for the alert: {this.state.systems[this.selection]}							
+											<input type="text" onChange={this.handleAlertName} />							
 											<br></br>
 											Field for the alert:
 											<select value={this.state.field} onChange={this.handleField}>
@@ -383,7 +466,7 @@ class App extends Component {
 									<br></br>
 									Alert to be deleted:
 									<select value={this.state.delAlertName} onChange={this.handleDelAlertName}>
-										{this.state.allAlerts.map((e, key) => {
+										{this.state.allAlerts[this.selection].map((e, key) => {
 											return <option value={e}>{e}</option>;
 										})}
 									</select>

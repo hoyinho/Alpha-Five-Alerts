@@ -2,47 +2,35 @@ var express = require('express');
 var router = express.Router();
 var db = require('./../../database/dbQuery');
 
-router.get('/', function(req, res, next) {
-	//console.log("*****************************Trig Alerts start*****************************");
-	var systemNames = db.get_All_Systems_Names("Hoyin");
+router.post('/', function(req, res, next) {
+	const login = req.body;
+	var systemNames = db.get_All_Systems_Names(login.username);
 	var systemAll = db.get_All_Systems("Hoyin").then(function(systems){
-	console.log("*********************************************")
-	console.log(systems);
 	});
-	console.log("***Systems Print***\n");
     systemNames.then(function(systems){
 	var sysNames = {};
 	sysNames = ["Select a System"];
 	for (i = 0; i < systems.length; i++){
 	    sysNames.push(systems[i]["systems"]["companyName"]);
 	}
-	//console.log(sysNames);
 	var alertsNames = db.get_All_Alerts("Hoyin");   
     alertsNames.then(function(alerts){
-		/*console.log("\n***Result of get_all_alerts***\n");
-		console.log(alerts);
-		console.log("\n***Result of get_all_alerts[0]***\n");
-		console.log(alerts[0]);
-		console.log("\n***Result of get_all_alerts[1]***\n");
-		console.log(alerts[1]);
-		console.log("\n***Result of get_all_alerts[2]***\n");
-		console.log(alerts[2]);*/
 		var names = {};
 		names = [["Select a System to view Alerts"]];
 		for(k = 0; k < systems.length; k++){
 			names.push([])
 		}
-		//console.log("\n***Pushing into correct system name array***\n")
-		for (i = 1; i < alerts.length+1; i++){
-			for(j = 0; j < alerts[i-1]["alerts"].length; j++){
-				if(alerts[i-1]["alerts"][j]["alertThreshold"]%2==1){//if alertThreshold < system
-					names[i].push(alerts[i-1]["alerts"][j]["alertName"]);
+		var index = 1;
+		for (i = 0; i < alerts.length; i++){
+			while(alerts[i]["_id"]!=sysNames[index]){
+				index ++;
+			}
+			for(j = 0; j < alerts[i]["alerts"].length; j++){
+				if(alerts[i]["alerts"][j]["alertThreshold"]%2==1){//if alertThreshold < system
+					names[index].push(alerts[i]["alerts"][j]["alertName"]);
 				}
 			}
 		}
-		//console.log("For loop done");
-	//temp = ["Select a System to view Alerts"] + temp;
-	//console.log(names);
 	res.send(names);
 	});
 });
