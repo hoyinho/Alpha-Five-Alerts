@@ -65,7 +65,14 @@ class App extends Component {
 	}
 	handleLogin(event){
 		event.preventDefault();
-		fetch('/login',{ 
+		if(this.state.User==""){
+				window.alert("Please enter a Username");
+			}
+		else if(this.state.Pass==""){
+			window.alert("Please enter a Passsword");
+		}
+		else{
+			fetch('/login',{ 
 			method:'POST',
 			headers:{ 
 				'Accept': 'application/json',
@@ -78,10 +85,9 @@ class App extends Component {
 		})
 		.then(res=>res.json())
 		.then(temp => this.setState({login:temp[0]["username"]}))
-		.then(console.log("Login state set"))
 		.then(res => {
 		if(this.state.login == ""){
-			window.alert("messed up");
+			window.alert("Incorrect Username or Password");
 		}
 		else{
 			this.setState({isLoggedIn:true});
@@ -145,8 +151,10 @@ class App extends Component {
 			})
 			.then(res => res.json())
       		.then(statuses => this.setState({ statuses }));
+			this.setState({User:""});
+			this.setState({Pass:""});
 		}});
-	}
+	}}
 	handleLogout(event){
 		event.preventDefault();
 		if(this.state.isLoggedIn){
@@ -156,14 +164,12 @@ class App extends Component {
 			this.setState({ sysName: 0 });
 			this.setState({ field: 0 });
 			this.setState({ delAlertName: "------" });
-			this.setState({isLoggedIn:false});
+			this.setState({ isLoggedIn:false});
 			this.setState({ systems:[]});
 			this.setState({ trigAlerts:[[]]});
 			this.setState({ idleAlerts:[[]]});
 			this.setState({ allAlerts:[[]]});
 			this.setState({ login:""})
-			this.setState({ Pass:""})
-			this.setState({ User:""})
 		}
 	}
 	handleAlertCreate(event){
@@ -359,7 +365,7 @@ class App extends Component {
 			{this.props.children}
 				<form onSubmit={this.handleLogin} className = "submitform">
 					Username: <input type="text" onChange={this.handleUser} placeholder="Your Username" className= "userpass"/>
-					<br/>Password: <input type="text" onChange={this.handlePass} placeholder="Your Password" className= "userpass"/>
+					<br/>{"\xa0"/*Puts a space before the word password to make it align nice*/}Password: <input type="text" secureTextEntry={true} onChange={this.handlePass} placeholder="Your Password" className= "userpass"/>
 					<br/><input type="submit" value="Login" className= "form22" onClick={this.handleLogin}/>
 				</form>
 			</div>			
@@ -376,7 +382,7 @@ class App extends Component {
 				</div>
 				
 				<div className="logOut" onClick={this.handleLogout}>
-					<p>Logout</p>
+					<p>Logout of {this.state.login}</p>
 				</div>
 	
 				<div className="leftSide">
@@ -428,7 +434,7 @@ class App extends Component {
 										<label>
 											System for the alert: {this.state.systems[this.selection]}<br/>
 											New Alert Name:
-											<input type="text" onChange={this.handleAlertName} />							
+											<input type="text" placeholder="Alert Name" onChange={this.handleAlertName} />							
 											<br></br>
 											Field for the alert:
 											<select value={this.state.field} onChange={this.handleField}>
@@ -443,7 +449,7 @@ class App extends Component {
 											</select>
 							
 											<br></br>
-											Threshold: <input type="number" onChange={this.handleThreshold} />
+											Threshold: <input type="number" placeholder="Enter a number" onChange={this.handleThreshold} />
 										</label>
 						
 										<br></br>
@@ -455,7 +461,7 @@ class App extends Component {
 					</ReactShow>
 					<ReactShow show={this.state.alertModify}>
 						<div className="alertManager">
-							<p>Modify goes here</p>
+							<br></br>Modify goes here
 						</div>
 					</ReactShow>
 					<ReactShow show={this.state.alertDelete}>

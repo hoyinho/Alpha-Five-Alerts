@@ -61,7 +61,10 @@
 		width:29.8%;
 }
 .alertManager{
-	height:150px;	
+	height:300px;
+	font-family:Lato, sans serif;
+	font-size:120%;
+	color: #FFFFFF;	
 }
 .logOut{
 		display:inline-block;
