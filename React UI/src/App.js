@@ -395,7 +395,7 @@ class App extends Component {
 								})}
 							</select>
 						</label>
-						<input type="submit" value="Submit" />
+						<input type="submit" className="submitbutton" value="Submit" />
 					</form>
 					<br></br>
 					
