@@ -9,7 +9,7 @@ router.post('/', function(req, res, next){
 	//console.log("System Name: " + alert.systemName + "\n");
 	// Tell mongo what to delete
 	db.delete_Alert( alert.username, alert.name, alert.systemName ).then(function(confirmation){
-	//console.log(confirmation)});
+	console.log(confirmation)});
 	
 });//end of POST
 
