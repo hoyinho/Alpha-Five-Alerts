@@ -14,13 +14,13 @@ router.post('/', function(req, res, next){
 	for(i = 0; i < confirmation.length; i++){
 		if(confirmation[i]["username"]==login.username){
 			console.log("Successful login\nUsername: "+login.username+"\nPassword: "+login.password);
-			res.json(confirmation[i]);
+			res.send(confirmation[i]);
 			loggedIn = true;
 		}
 	}
 	if(!loggedIn){
 		console.log("Failed login\nUsername: "+login.username+"\nPassword: "+login.password);
-		res.json(confirmation[0]);
+		res.send(confirmation[0]);
 	}
 	});
 	

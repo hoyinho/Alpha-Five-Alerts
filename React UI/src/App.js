@@ -12,9 +12,9 @@ class App extends Component {
 	state = {
 		isLoggedIn: false,
 		systems: [],
-	 	trigAlerts: [[]], 
-	 	idleAlerts: [[]],
-		statuses:[[]],
+	 	trigAlerts: [["Fetching alerts"]], 
+	 	idleAlerts: [["Fetching alerts"]],
+		statuses:[["Fetching statuses"]],
 		alertCreate: false,
 		alertDelete: false,
 		alertModify: false,
@@ -25,8 +25,8 @@ class App extends Component {
 	 	delAlertName: "------", 
 		delSysName: "",
 	 	allAlerts: [[]],
-	 	User: "",
-	 	Pass: "",
+	 	User: "Hoyin",
+	 	Pass: "password123",
 	 	login: ""
 	 }
 
@@ -171,10 +171,11 @@ class App extends Component {
 			this.setState({ delAlertName: "------" });
 			this.setState({ isLoggedIn:false});
 			this.setState({ systems:[]});
-			this.setState({ trigAlerts:[[]]});
-			this.setState({ idleAlerts:[[]]});
+			this.setState({ trigAlerts:[["Fetching alerts"]]});
+			this.setState({ idleAlerts:[["Fetching alerts"]]});
 			this.setState({ allAlerts:[[]]});
 			this.setState({ login:""});
+			this.setState({ statuses:[["Fetching statuses"]]});
 			this.setState({ alertCreate: false});
 			this.setState({ alertDelete: false});
 			this.setState({ alertModify: false});
@@ -447,7 +448,6 @@ class App extends Component {
 											Field for the alert:
 											<select value={this.state.field} onChange={this.handleField}>
 												<option value={''}>{'Select a field'}</option>;
-												<option value={'sizeTiB'}>{'Size in Terabytes'}</option>;
 												<option value={'freeTiB'}>{'Free space in Terabytes'}</option>;
 												<option value={'freePct'}>{'Free space as a percent'}</option>;
 												<option value={'failedCapacityTiB'}>{'Failed amount in Terabytes'}</option>;

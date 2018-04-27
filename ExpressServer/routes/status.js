@@ -25,9 +25,9 @@ router.post('/', function(req, res, next) {
 				names[i].push("Predicted Full Storage Date: 					    "+statuses[i-1]["systems"]["capacity"]["freePctZeroPredictedDate"]);
 				names[i].push("Filled Capacity In Terabytes:					    "+statuses[i-1]["systems"]["capacity"]["failedCapacityTiB"]);
 				names[i].push("Average CPU Performance:                         "+statuses[i-1]["systems"]["nodes"]["cpuAvgMax"]);
-				names[i].push("Data Rate Average In Kilobytes per second: "+statuses[i-1]["systems"]["Performance"]["dataRateKBPSAvg:"]);
+				names[i].push("Data Rate Average In Kilobytes per second: "+statuses[i-1]["systems"]["Performance"]["dataRateKBPSAvg"]);
 				names[i].push("System ID:                                              "+statuses[i-1]["systems"]["_id"]);
-				names[i].push("Serial Number In Service:                           "+statuses[i-1]["systems"]["serialNumberInserv"]);
+				names[i].push("Serial Number In Service:                           "+statuses[i-1]["systems"]["serialnumberInserv"]);
 				names[i].push("Company Name:                                       "+statuses[i-1]["systems"]["companyName"]);
 				names[i].push("Model:                                                    "+statuses[i-1]["systems"]["model"]);
 				names[i].push("Full Model:                                              "+statuses[i-1]["systems"]["fullModel"]);
