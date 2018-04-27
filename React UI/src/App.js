@@ -3,9 +3,11 @@ import './App.css';
 import logo from './imgs/alphaFiveColorsCircle.png';
 import idleLogo from './imgs/IdleAlertLogo.png';
 import triggeredLogo from './imgs/TrigAlertLogo.png';
+import statusLogo from './imgs/StatusLogo.png';
 import {listAlerts} from './fn';
 import {triggered} from './fn';
-import{listStatuses} from './fn';
+import{listStatusesLeft} from './fn';
+import{listStatusesRight} from './fn';
 import ReactShow from 'react-show';
 
 class App extends Component {
@@ -14,7 +16,7 @@ class App extends Component {
 		systems: [],
 	 	trigAlerts: [["Fetching alerts"]], 
 	 	idleAlerts: [["Fetching alerts"]],
-		statuses:[["Fetching statuses"]],
+		statuses:[[["Fetching statuses",""]]],
 		alertCreate: false,
 		alertDelete: false,
 		alertModify: false,
@@ -55,6 +57,7 @@ class App extends Component {
 		this.handleLogin = this.handleLogin.bind(this);
 		this.state.value = 0;
 		this.selection = 0;
+		this.repeatName = false;
 	}
 	handleUser(event){
 		this.setState({User:event.target.value});
@@ -153,7 +156,6 @@ class App extends Component {
 			})
 			.then(res => res.json())
       		.then(statuses => {
-      			console.log(statuses);
       			this.setState({ statuses });
       		})
 			this.setState({User:""});
@@ -227,14 +229,20 @@ class App extends Component {
 	}
 	handleNewAlert(event){
 		event.preventDefault();
+		for(var y = 0; y<this.state.allAlerts[this.selection].length; y++){
+			if(this.state.alertName===this.state.allAlerts[this.selection][y]){
+				this.repeatName=true;
+			}
+		}
 		if(this.selection=="0"){
 			window.alert('Please select a system to create alerts');
 		}
 		else if(this.state.alertName==""){
 			window.alert('Please enter an alert name');
 		}
-		else if(this.state.alertName=="------"){
+		else if(this.state.alertName=="------"||this.repeatName){
 			window.alert('Please enter a different alert name');
+			this.repeatName=false;
 		}
 		else if(this.state.field==""){
 			window.alert('Please select a field for the alert');
@@ -494,12 +502,14 @@ class App extends Component {
 		</div>
 		<div className ="leftSideViewStatuses">
 					<div className="statusInteriorBox">
-						<b>Statuses:</b>
-						{listStatuses(this.state.statuses[this.selection], idleLogo)}
-						{/**{listAlerts(this.state.idleAlerts[this.selection], idleLogo)}
-						We will be creating a listStatuses function which is effectively the same as list 
-						alert just instead lists out the statuses.					
-						**/}
+						<div className="statusRight">
+						<b>Values:{"\xa0\xa0\xa0\xa0\xa0\xa0"}</b>
+						{listStatusesRight(this.state.statuses[this.selection],statusLogo)}
+						</div>
+						<div className="statusLeft">
+						<b>{"\xa0\xa0"}Statuses types:</b>
+						{listStatusesLeft(this.state.statuses[this.selection],statusLogo)}
+						</div>
 					</div>
 		</div>
 		</ReactShow>

@@ -130,6 +130,30 @@
 		background-color: #3498DB;
 		width:49.8%;
 }
+.statusRight{
+		display:inline-block;
+		float:right;
+		text-align:right;
+		margin-right:0.5%;
+		margin-bottom:.5%;
+		background-color: #64abdb;
+		width:48.7%;
+		border-width: 1px;
+		border-style:solid;
+		border-color: black;
+}
+.statusLeft{
+		display:inline-block;
+		float:right;
+		text-align:left;
+		margin-right:0;
+		margin-bottom:.5%;
+		background-color: #64abdb;
+		width:49%;
+		border-width: 1px;
+		border-style:solid;
+		border-color: black;
+}
 .rightSideTriggered{
 		display:block;
 		margin-left:5%;
@@ -162,9 +186,6 @@
 		margin-bottom:2%;
 		background-color: #64abdb;
 		width:90%;
-		border-width: 1px;
-		border-style:solid;
-		border-color: black;
 }
 .toggleAlertCreate,.toggleAlertDelete,.toggleAlertModify{
 		display:inline-block;

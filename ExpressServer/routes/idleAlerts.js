@@ -60,7 +60,7 @@ router.post('/', function(req, res, next) {
 							}
 							else if(sysFilt[i][1][a2["alertField"]] > a2["alertThreshold"]){
 								//console.log("\nALERT!!!!!\n")
-								response[i+1].push(a2["alertName"] + ": " + sysFilt[i][1][a2["alertField"]] + " hasn't passed " + a2["alertThreshold"]);
+								response[i+1].push(a2["alertName"] + ": " + a2["alertField"] + ": " + sysFilt[i][1][a2["alertField"]] + " hasn't passed " + a2["alertThreshold"]);
 							}
 						}
 						//if the alertfield exists here, then...
@@ -68,7 +68,7 @@ router.post('/', function(req, res, next) {
 							//if status >= threshold, then sound the alarm
 							if(sysFilt[i][2][a2["alertField"]] < a2["alertThreshold"]){
 								//console.log("\nALERT!!!!!\n")
-								response[i+1].push(a2["alertName"] + ": " + sysFilt[i][2][a2["alertField"]] + " hasn't passed " + a2["alertThreshold"]);
+								response[i+1].push(a2["alertName"] + ": " + a2["alertField"] + ": " + sysFilt[i][2][a2["alertField"]] + " hasn't passed " + a2["alertThreshold"]);
 							}
 						}
 						//if the alertfield exists here, then...
@@ -76,7 +76,7 @@ router.post('/', function(req, res, next) {
 							//if status >= threshold, then sound the alarm
 							if(sysFilt[i][3][a2["alertField"]] > a2["alertThreshold"]){
 								//console.log("\nALERT!!!!!\n")
-								response[i+1].push(a2["alertName"] + ": " + sysFilt[i][3][a2["alertField"]] + " hasn't passed " + a2["alertThreshold"]);
+								response[i+1].push(a2["alertName"] + ": " + a2["alertField"] + ": " + sysFilt[i][3][a2["alertField"]] + " hasn't passed " + a2["alertThreshold"]);
 							}
 						}//end of if(s[1/2/3][a2["alertField"]])
 					}//end of if(s[0] === a2["systemName"])
