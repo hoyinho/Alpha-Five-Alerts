@@ -27,8 +27,8 @@ class App extends Component {
 	 	delAlertName: "------", 
 		delSysName: "",
 	 	allAlerts: [[]],
-	 	User: "Hoyin",
-	 	Pass: "password123",
+	 	User: "",
+	 	Pass: "",
 	 	login: ""
 	 }
 
@@ -456,11 +456,11 @@ class App extends Component {
 											Field for the alert:
 											<select value={this.state.field} onChange={this.handleField}>
 												<option value={''}>{'Select a field'}</option>;
-												<option value={'freeTiB'}>{'Free space in Terabytes'}</option>;
-												<option value={'freePct'}>{'Free space as a percent'}</option>;
-												<option value={'failedCapacityTiB'}>{'Failed amount in Terabytes'}</option>;
-												<option value={'cpuAvgMax'}>{'Average maximum CPU usage'}</option>;
-												<option value={'dataRateKBPSAvg'}>{'Data rate in KBPS'}</option>;
+												<option value={'freeTiB'}>{'Free space in Terabytes is less than'}</option>;
+												<option value={'freePct'}>{'Free space as a percent is less than'}</option>;
+												<option value={'failedCapacityTiB'}>{'Failed amount in Terabytes is more than'}</option>;
+												<option value={'cpuAvgMax'}>{'Average maximum CPU usage is more than'}</option>;
+												<option value={'dataRateKBPSAvg'}>{'Data rate in KBPS is less than'}</option>;
 												})}
 											</select>
 							
@@ -511,6 +511,7 @@ class App extends Component {
 						{listStatusesLeft(this.state.statuses[this.selection],statusLogo)}
 						</div>
 					</div>
+					<br></br><br></br><br></br>
 		</div>
 		</ReactShow>
 	</div>
