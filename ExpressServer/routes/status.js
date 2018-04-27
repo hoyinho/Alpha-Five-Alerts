@@ -11,7 +11,7 @@ router.post('/', function(req, res, next) {
 		for (i = 0; i < systems.length; i++){
 			sysNames.push(systems[i]["systems"]["companyName"]);
 		}
-		var statusNames = db.get_All_Systems("Hoyin");   
+		var statusNames = db.get_All_Systems(login.username);   
 		statusNames.then(function(statuses){
 			var names = {};
 			names = [["Select a System to view statuses"]];

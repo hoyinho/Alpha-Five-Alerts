@@ -50,12 +50,11 @@ class App extends Component {
 		this.handleAlertName = this.handleAlertName.bind(this);
 		this.handleThreshold = this.handleThreshold.bind(this);
 		this.handleDeleteAlert = this.handleDeleteAlert.bind(this);
-		this.state.value = 0;
-		this.selection = 0;
-		this.alertName="Name";
 		this.handleUser = this.handleUser.bind(this);
 		this.handlePass = this.handlePass.bind(this);
 		this.handleLogin = this.handleLogin.bind(this);
+		this.state.value = 0;
+		this.selection = 0;
 	}
 	handleUser(event){
 		this.setState({User:event.target.value});
@@ -175,7 +174,10 @@ class App extends Component {
 			this.setState({ trigAlerts:[[]]});
 			this.setState({ idleAlerts:[[]]});
 			this.setState({ allAlerts:[[]]});
-			this.setState({ login:""})
+			this.setState({ login:""});
+			this.setState({ alertCreate: false});
+			this.setState({ alertDelete: false});
+			this.setState({ alertModify: false});
 		}
 	}
 	handleAlertCreate(event){

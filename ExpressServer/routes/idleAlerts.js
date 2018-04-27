@@ -11,7 +11,7 @@ router.post('/', function(req, res, next) {
 		for (i = 0; i < systems.length; i++){
 			sysNames.push(systems[i]["systems"]["companyName"]);
 		}
-		var alertsNames = db.get_All_Alerts("Hoyin");   
+		var alertsNames = db.get_All_Alerts(login.username);   
 		alertsNames.then(function(alerts){
 		var names = {};
 		names = [["Select a System to view Alerts"]];

@@ -5,7 +5,7 @@ var db = require('./../../database/dbQuery');
 router.post('/', function(req, res, next) {
 	const login = req.body;
 	var systemNames = db.get_All_Systems_Names(login.username);
-	var systemAll = db.get_All_Systems("Hoyin").then(function(systems){
+	var systemAll = db.get_All_Systems(login.username).then(function(systems){
 	});
     systemNames.then(function(systems){
 	var sysNames = {};
@@ -13,7 +13,7 @@ router.post('/', function(req, res, next) {
 	for (i = 0; i < systems.length; i++){
 	    sysNames.push(systems[i]["systems"]["companyName"]);
 	}
-	var alertsNames = db.get_All_Alerts("Hoyin");   
+	var alertsNames = db.get_All_Alerts(login.username);   
     alertsNames.then(function(alerts){
 		var names = {};
 		names = [["Select a System to view Alerts"]];

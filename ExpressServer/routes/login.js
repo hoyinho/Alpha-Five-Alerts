@@ -22,14 +22,6 @@ router.post('/', function(req, res, next){
 		console.log("Failed login\nUsername: "+login.username+"\nPassword: "+login.password);
 		res.json(confirmation[0]);
 	}
-	//if(confirmation[0]["username"]==''){
-	//	console.log("Failed login\nUsername: "+login.username+"\nPassword: "+login.password);
-	//	res.json(confirmation);
-	//}
-	//else{
-	//	console.log("Successful login\nUsername: "+login.username+"\nPassword: "+login.password);
-	//	res.json(confirmation);
-	//}
 	});
 	
 });//end of POST

@@ -12,7 +12,7 @@ router.post('/', function(req, res, next) {
 			sysNames.push(systems[i]["systems"]["companyName"]);
 		}
 		//console.log(sysNames);
-	var alertsNames = db.get_All_Alerts("Hoyin");   
+	var alertsNames = db.get_All_Alerts(login.username);   
     alertsNames.then(function(alerts){
     	//console.log(alerts);
     	//console.log(alerts[0]);
