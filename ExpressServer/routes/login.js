@@ -9,17 +9,27 @@ router.post('/', function(req, res, next){
 	//printing content of alert to console
 	
 	// Make  an alert object, and send to Mongoose
-	db.validate_Login(login.username,login.password).then(function(confirmation){ 
-	var names = {};
-	names = [];
-	if(confirmation[0]["username"]==''){
+	db.validate_Login(login.username,login.password).then(function(confirmation){
+	var loggedIn = false;
+	for(i = 0; i < confirmation.length; i++){
+		if(confirmation[i]["username"]==login.username){
+			console.log("Successful login\nUsername: "+login.username+"\nPassword: "+login.password);
+			res.json(confirmation[i]);
+			loggedIn = true;
+		}
+	}
+	if(!loggedIn){
 		console.log("Failed login\nUsername: "+login.username+"\nPassword: "+login.password);
-		res.json(confirmation);
+		res.json(confirmation[0]);
 	}
-	else{
-		console.log("Successful login\nUsername: "+login.username+"\nPassword: "+login.password);
-		res.json(confirmation);
-	}
+	//if(confirmation[0]["username"]==''){
+	//	console.log("Failed login\nUsername: "+login.username+"\nPassword: "+login.password);
+	//	res.json(confirmation);
+	//}
+	//else{
+	//	console.log("Successful login\nUsername: "+login.username+"\nPassword: "+login.password);
+	//	res.json(confirmation);
+	//}
 	});
 	
 });//end of POST

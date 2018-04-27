@@ -84,7 +84,10 @@ class App extends Component {
 			})
 		})
 		.then(res=>res.json())
-		.then(temp => this.setState({login:temp[0]["username"]}))
+		.then(temp => {
+			console.log(temp["username"]);
+			this.setState({login:temp["username"]});
+		})
 		.then(res => {
 		if(this.state.login == ""){
 			window.alert("Incorrect Username or Password");
@@ -150,7 +153,10 @@ class App extends Component {
 				})
 			})
 			.then(res => res.json())
-      		.then(statuses => this.setState({ statuses }));
+      		.then(statuses => {
+      			console.log(statuses);
+      			this.setState({ statuses });
+      		})
 			this.setState({User:""});
 			this.setState({Pass:""});
 		}});
