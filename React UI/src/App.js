@@ -453,7 +453,7 @@ class App extends Component {
 											New Alert Name:
 											<input type="text" placeholder="Alert Name" onChange={this.handleAlertName} />							
 											<br></br>
-											Field for the alert:
+											Trigger the alert when:
 											<select value={this.state.field} onChange={this.handleField}>
 												<option value={''}>{'Select a field'}</option>;
 												<option value={'freeTiB'}>{'Free space in Terabytes is less than'}</option>;
@@ -470,7 +470,7 @@ class App extends Component {
 						
 										<br></br>
 						
-										<input type="submit" value="Save Alert" />
+										<input type="submit" className="submitbutton" value="Save Alert" />
 									</form>
 									<br></br>
 						</div>
@@ -492,7 +492,7 @@ class App extends Component {
 											return <option value={e}>{e}</option>;
 										})}
 									</select>
-									<input type="submit" value="Delete Alert" />
+									<input type="submit" className="submitbutton" value="Delete Alert" />
 							</form><br/>
 							</div>
 						</ReactShow>
