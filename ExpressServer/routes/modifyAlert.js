@@ -3,7 +3,33 @@ var router = express.Router();
 var db = require('./../../database/dbQuery');
 
 router.post('/', function(req, res, next){
-	const newValues = req.body;
+	var newValues = req.body; /*Note to UI Developers
+													req.body needs: 
+													{username,
+													current alert system???,
+													Current name of alert,
+													new name of alert,
+													new threshold value,
+													new field}
+												It would also make the route 100 times
+												easier/cleaner to write if you also return:
+													{current threshold value,
+													current field}
+												If you send those two values along too then
+												we don't need to loop to look them up.
+												*/
+					
+	var alerts = db.get_All_Alerts(login.username).then(function(currAlerts){
+	
+	if(!newValues.alertName){ /*newValues.alertName = currAlert[][][] */}else{}
+	if(!newValues.alertThreshold){	/*newValues.alertThreshold = currAlert[][][] */}else{}
+	if(!newValues.alertField){	/*newValues.alertField =currAlert[][][] */}else{}
+	
+	db.change_Alert(newValues.username, newValues.name, newValues).then(function(confirmation){console.log(confirmation);});
+	
+	});// end of get_All_Alerts
+	
+	
 	
 	//Commented is two ways we can attend modifying an alert. The first way is:
 		//db.change_Alert(newValues.username, newValues.name, newValues).then(function(confirmation){console.log(confirmation);});
