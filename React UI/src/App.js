@@ -381,7 +381,7 @@ class App extends Component {
 				<div className="currSys">
 					<br/><form onSubmit={this.handleSubmit}>
 						<label>
-							Choose a system:
+						{"\xa0\xa0\xa0\xa0\xa0\xa0\xa0"}Choose a system:
 							< select value={this.state.value} onChange={this.handleChange} className = "dropdown">
 								{this.state.systems.map((e, key) => {
 									return <option value={key}>{e}</option>;
