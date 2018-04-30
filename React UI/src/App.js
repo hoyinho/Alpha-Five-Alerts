@@ -381,7 +381,7 @@ class App extends Component {
 				<div className="currSys">
 					<br/><form onSubmit={this.handleSubmit}>
 						<label>
-							Choose a device:
+							Choose a system:
 							<select value={this.state.value} onChange={this.handleChange}>
 								{this.state.systems.map((e, key) => {
 									return <option value={key}>{e}</option>;
