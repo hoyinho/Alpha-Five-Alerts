@@ -415,13 +415,13 @@ class App extends Component {
 	
 					<br></br>
 						<div className="toggleAlertCreate" onClick={this.handleAlertCreate}>
-							<b>Toggle Alert Creator</b>
+							<b>Alert Creator</b>
 						</div>
 						<div className="toggleAlertModify" onClick={this.handleAlertModify}>
-							<b>Toggle Alert Modifier</b>
+							<b>Alert Modifier</b>
 						</div>
 						<div className="toggleAlertDelete" onClick={this.handleAlertDelete}>
-							<b>Toggle Alert Deleter</b>
+							<b>Alert Deleter</b>
 						</div>
 					<br></br>
 					<ReactShow show={this.state.alertCreate}>
