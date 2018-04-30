@@ -370,8 +370,8 @@ class App extends Component {
 			<div className="login2"> 
 			{this.props.children}
 				<form onSubmit={this.handleLogin} className = "submitform">
-					Username: <input type="text" onChange={this.handleUser} placeholder="Your Username" className= "userpass"/>
-					<br/>{"\xa0"/*Puts a space before the word password to make it align nice*/}Password: <input type="text" secureTextEntry={true} onChange={this.handlePass} placeholder="Your Password" className= "userpass"/>
+					Username: <input type="text" onChange={this.handleUser} placeholder="Your Username" className= "user"/>
+					<br/>{"\xa0"/*Puts a space before the word password to make it align nice*/}Password: <input type="text" secureTextEntry={true} onChange={this.handlePass} placeholder="Your Password" className= "pass"/>
 					<br/><input type="submit" value="Login" className= "form22" onClick={this.handleLogin}/>
 				</form>
 			</div>			
