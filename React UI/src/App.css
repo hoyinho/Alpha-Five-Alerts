@@ -24,12 +24,12 @@
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	box-sizing: border-box;
-	background-color: #3498DB;
+	background-color: #f45f5f;
 	margin: 20px 8px;
 	cursor:pointer;
 }
 .form22:hover{
-	background-color: #f45f5f; 
+	background-color: #991212; 
     color: white;
 }
 .userpass{
