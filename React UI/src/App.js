@@ -160,7 +160,6 @@ class App extends Component {
 	handleLogout(event){
 		event.preventDefault();
 		if(this.state.isLoggedIn){
-			this.setState({alertMan:false});
 			this.setState({ value: 0 });
 			this.setState({ sysName: 0 });
 			this.setState({ field: 0 });
@@ -290,7 +289,8 @@ class App extends Component {
 			})
 			.then(res => res.json())
       		.then(allAlerts => this.setState({ allAlerts }));
-			window.alert(this.state.alertName + " has been created.")
+			this.setState({threshold:""});
+			this.setState({alertName:""});
 		}
 	}
 	handleDeleteAlert(event){
@@ -350,7 +350,7 @@ class App extends Component {
 			})
 			.then(res => res.json())
       		.then(allAlerts => this.setState({ allAlerts }));
-			window.alert(this.state.delAlertName + " has been deleted.")
+			this.setState({ delAlertName: "------" });
 		}
 	}
 	render() {
@@ -431,7 +431,7 @@ class App extends Component {
 										<label>
 											System for the alert: {this.state.systems[this.state.value]}<br/>
 											New Alert Name:
-											<input type="text" placeholder="Alert Name" onChange={this.handleAlertName} />							
+											<input type="text" placeholder="Alert Name" value={this.state.alertName}onChange={this.handleAlertName} />							
 											<br></br>
 											Trigger the alert when:
 											<select value={this.state.field} onChange={this.handleField}>
@@ -445,7 +445,7 @@ class App extends Component {
 											</select>
 							
 											<br></br>
-											Threshold: <input type="number" placeholder="Enter a number" onChange={this.handleThreshold} />
+											Threshold: <input type="number" placeholder="Enter a number" value={this.state.threshold} onChange={this.handleThreshold} />
 										</label>
 						
 										<br></br>
