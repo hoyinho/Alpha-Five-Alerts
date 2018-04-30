@@ -31,7 +31,7 @@ router.post('/', function(req, res, next) {
 							//if status >= threshold, then sound the alarm
 							if(a2["alertField"] === "failedCapacityTiB"){
 								 if(sysFilt[i][1][a2["alertField"]] < a2["alertThreshold"]){
-									response[i+1].push(a2["alertName"]);
+									response[i+1].push(a2["alertName"]+ ": " + a2["alertField"] + ": " + sysFilt[i][1][a2["alertField"]] + " hasn't passed " + a2["alertThreshold"]);
 								 }
 							}
 							else if(sysFilt[i][1][a2["alertField"]] > a2["alertThreshold"]){

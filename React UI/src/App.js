@@ -32,21 +32,6 @@ class App extends Component {
 	 }
 	componentDidMount() {
 		document.title = "Alpha V Alerts"
-		fetch('/systems')
-		.then(res => res.json())
-		.then(systems => this.setState({ systems }));
-		fetch('/trigAlerts') 
-		.then(res => res.json())
-		.then(trigAlerts => this.setState({ trigAlerts }));
-		fetch('/idleAlerts') 
-		.then(res => res.json())
-		.then(idleAlerts => this.setState({ idleAlerts }));
-    	fetch('/allAlerts')
-      	.then(res => res.json())
-      	.then(allAlerts => this.setState({ allAlerts }));
-		fetch('/status')
-		.then(res => res.json())
-      	.then(statuses => this.setState({ statuses }));
 	}
 	constructor(props) {
 		super(props);
