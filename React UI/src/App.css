@@ -32,7 +32,20 @@
 	background-color: #f45f5f; 
     color: white;
 }
-.userpass{
+.user{
+	width: 60%;
+	height: 500%;
+	padding: 12px 12px;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	margin: 1px 0;
+}
+.pass{
+	-webkit-text-security: disc;
+	-moz-text-security: disc;
+	text-security: disc;
 	width: 60%;
 	height: 500%;
 	padding: 12px 12px;
@@ -46,7 +59,7 @@
 	background-color: #FFFFFF;
 }
 .welcomeBanner{
-		background-color: #3498DB;
+		background-color: #FFA9A9;
 		height:150px;
 		margin-bottom:0.5%;
 		border-width: 1px;
