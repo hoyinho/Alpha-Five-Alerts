@@ -2,49 +2,64 @@ var express = require('express');
 var router = express.Router();
 var db = require('./../../database/dbQuery');
 
-router.get('/', function(req, res, next) {
-	//console.log("*****************************Trig Alerts start*****************************");
-	var systemNames = db.get_All_Systems_Names("Hoyin");
-	var systemAll = db.get_All_Systems("Hoyin").then(function(systems){
-	console.log("*********************************************")
-	console.log(systems);
-	});
-	console.log("***Systems Print***\n");
-    systemNames.then(function(systems){
-	var sysNames = {};
-	sysNames = ["Select a System"];
-	for (i = 0; i < systems.length; i++){
-	    sysNames.push(systems[i]["systems"]["companyName"]);
-	}
-	//console.log(sysNames);
-	var alertsNames = db.get_All_Alerts("Hoyin");   
-    alertsNames.then(function(alerts){
-		/*console.log("\n***Result of get_all_alerts***\n");
-		console.log(alerts);
-		console.log("\n***Result of get_all_alerts[0]***\n");
-		console.log(alerts[0]);
-		console.log("\n***Result of get_all_alerts[1]***\n");
-		console.log(alerts[1]);
-		console.log("\n***Result of get_all_alerts[2]***\n");
-		console.log(alerts[2]);*/
-		var names = {};
-		names = [["Select a System to view Alerts"]];
-		for(k = 0; k < systems.length; k++){
-			names.push([])
+router.post('/', function(req, res, next) {
+	var login = req.body;
+	var systems = db.get_All_Systems(login.username).then(function(system){
+		var alerts = db.get_All_Alerts(login.username).then(function(alert){
+		
+		//filter out needed "field: values" for comparing agaisnt alerts. companyName=systemName
+		var sysFilt = system.map(function(x){ 
+			return [ x["systems"]["companyName"], x["systems"]["capacity"], x["systems"]["nodes"], x["systems"]["Performance"] ]; 
+		})
+		
+		//filter the alert: objects into filtedAlerts
+		var filteredAlerts = alert.map(function(a){ return a["alerts"]; });
+		
+		var response = {};
+		response = [["Select a System to view Alerts"]];
+		for(k = 0; k < system.length; k++){
+			response.push([]);
 		}
-		//console.log("\n***Pushing into correct system name array***\n")
-		for (i = 1; i < alerts.length+1; i++){
-			for(j = 0; j < alerts[i-1]["alerts"].length; j++){
-				if(alerts[i-1]["alerts"][j]["alertThreshold"]%2==1){//if alertThreshold < system
-					names[i].push(alerts[i-1]["alerts"][j]["alertName"]);
-				}
-			}
-		}
-		//console.log("For loop done");
-	//temp = ["Select a System to view Alerts"] + temp;
-	//console.log(names);
-	res.send(names);
+		//compare alerts agaisnt system
+		for(i = 0; i < system.length; i++){
+			filteredAlerts.map(function(a){
+				a.map(function(a2){
+					//if system names match, then..
+					if(sysFilt[i][0] === a2["systemName"]){
+						//if the alertfield exists here, then...
+						if(sysFilt[i][1][a2["alertField"]]){
+							//if status >= threshold, then sound the alarm
+							if(a2["alertField"] === "failedCapacityTiB"){
+								 if(sysFilt[i][1][a2["alertField"]] >= a2["alertThreshold"]){
+									response[i+1].push(a2["alertName"]);
+								 }
+							}
+							else if(sysFilt[i][1][a2["alertField"]] <= a2["alertThreshold"]){
+								response[i+1].push(a2["alertName"] + ": " + a2["alertField"] + ": " + sysFilt[i][1][a2["alertField"]] + " has passed " + a2["alertThreshold"]);
+							}
+						}
+						//if the alertfield exists here, then...
+						else if(sysFilt[i][2][a2["alertField"]]){
+							//if status >= threshold, then sound the alarm
+							if(sysFilt[i][2][a2["alertField"]] >= a2["alertThreshold"]){
+								response[i+1].push(a2["alertName"] + ": " + a2["alertField"] + ": " + sysFilt[i][2][a2["alertField"]] + " has passed " + a2["alertThreshold"]);
+							}
+						}
+						//if the alertfield exists here, then...
+						else if(sysFilt[i][3][a2["alertField"]]){
+							//if status >= threshold, then sound the alarm
+							if(sysFilt[i][3][a2["alertField"]] <= a2["alertThreshold"]){
+								response[i+1].push(a2["alertName"] + ": " + a2["alertField"] + ": " + sysFilt[i][3][a2["alertField"]] + " has passed " + a2["alertThreshold"]);
+							}
+						}//end of if(s[1/2/3][a2["alertField"]])
+					}//end of if(s[0] === a2["systemName"])
+				});//end of 'a2' map
+			});//end of 'a' map
+		}//);//end of 's' map	
+		
+		//send all triggered alerts to UI
+		res.send(response);
+		});	
 	});
-});
-});
+});//end of router.get()
 module.exports = router;

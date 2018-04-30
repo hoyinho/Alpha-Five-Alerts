@@ -22,12 +22,25 @@ export function listAlerts(list, bullet){
 	return <ul>{alertList}</ul>;
 }
 
-export function listStatuses(list, bullet){
+export function listStatusesLeft(list, bullet){
+	if(list.length=="0"){
+		return <ul><li key={ 0 }> {<b><img src={bullet} height="16" width="16" alt="fancy bullet points"/>{ "No statuses to display"}</b>}</li></ul>;
+	}
+	var alertList = list.map(function(name, index){
+		if(index>0){
+			return <li key={ index }> {<b><img src={bullet} height="16" width="16" alt="fancy bullet points"/>{ "\xa0" + name[0]}</b>}</li>;
+		}
+	})
+	return <ul>{alertList}</ul>;
+}
+export function listStatusesRight(list, bullet){
 	if(list.length=="0"){
 		return <ul><li key={ 0 }> {<b><img src={bullet} height="16" width="16" alt="fancy bullet points"/>{ "\xa0\xa0\xa0\xa0No alerts to display"}</b>}</li></ul>;
 	}
 	var alertList = list.map(function(name, index){
-		return <li key={ index }> {<b><img src={bullet} height="16" width="16" alt="fancy bullet points"/>{ "\xa0\xa0\xa0\xa0"+ name}</b>}</li>;
+		if(index>0){
+			return <li key={ index }> {<b>{ "\xa0\xa0\xa0\xa0"+ name[1]+"\xa0\xa0\xa0"}</b>}</li>;
+		}
 	})
 	return <ul>{alertList}</ul>;
 }

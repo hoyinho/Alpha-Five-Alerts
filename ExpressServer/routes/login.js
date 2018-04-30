@@ -7,19 +7,20 @@ router.post('/', function(req, res, next){
 	const login = req.body 
 	
 	//printing content of alert to console
-	console.log("\n\nContent of req.body for New Alert from React to Express:\n\n" +
-	login.username + "\n" +
-	login.password + "\n");
 	
 	// Make  an alert object, and send to Mongoose
-	db.validate_Login(login.username,login.password).then(function(confirmation)){ 
-	if(confirmation.length()==0){
-		console.log("bad stuff");
-		res.send("");
+	db.validate_Login(login.username,login.password).then(function(confirmation){
+	var loggedIn = false;
+	for(i = 0; i < confirmation.length; i++){
+		if(confirmation[i]["username"]==login.username){
+			console.log("Successful login\nUsername: "+login.username+"\nPassword: "+login.password);
+			res.send(confirmation[i]);
+			loggedIn = true;
+		}
 	}
-	else{
-		console.log("good stuff")
-		res.send(login.username);
+	if(!loggedIn){
+		console.log("Failed login\nUsername: "+login.username+"\nPassword: "+login.password);
+		res.send(confirmation[0]);
 	}
 	});
 	

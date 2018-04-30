@@ -2,7 +2,7 @@
 
 .App {
   text-align: center;
-  background-color: #F5F5F5;
+  background-color: #FFFFFF;
 }
 .submitform{
 	width: 30%;
@@ -10,7 +10,7 @@
 	padding: 18px 12px;
 	display: inline-block;
 	border: 1px solid #ccc;
-	border-radius: 4px;
+	border-radius: 20px;
 	box-sizing: border-box;
 	background-color: #3498DB;
 	margin: 20px 8px;
@@ -26,6 +26,7 @@
 	box-sizing: border-box;
 	background-color: #3498DB;
 	margin: 20px 8px;
+	cursor:pointer;
 }
 .form22:hover{
 	background-color: #f45f5f; 
@@ -42,7 +43,7 @@
 	margin: 1px 0;
 }
 .login2{
-	background-color: #f2f2f2;
+	background-color: #FFFFFF;
 }
 .welcomeBanner{
 		background-color: #3498DB;
@@ -59,18 +60,33 @@
 		margin-top:38px;
 		background-color: #3498DB;
 		width:29.8%;
+		border-radius: 0px 125px 125px 0px;
+
 }
 .alertManager{
-	height:150px;	
+	height:300px;
+	font-family:Lato, sans serif;
+	font-size:120%;
+	color: #FFFFFF;	
+}
+.submitbutton{
+	cursor:pointer;
 }
 .logOut{
 		display:inline-block;
 		float:right;
 		margin-left: 10%;
-		margin-right:0;
+		margin-right:0px;
 		margin-top:38px;
-		background-color: #3498DB;
+		background-color: #d61b1b;
 		width:19.8%;
+		cursor:pointer;
+	    border-radius: 125px 0px 0px 125px;
+}
+.logOut:hover{
+		background-color: #991212;
+	    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+
 }
 .middleLogo{
 		display:inline-block;
@@ -89,6 +105,7 @@
 		background-color: #3498DB;
 		width:49.8%;
 		height:80px;
+		border-radius: 0px 10px 10px 0px;
 }
 .leftSideStatus{
 		display:inline-block;
@@ -97,6 +114,7 @@
 		margin-bottom:.5%;
 		background-color: #3498DB;
 		width:49.8%;
+		border-radius: 0px 10px 10px 0px;
 
 }
 .leftSideViewStatuses{
@@ -106,6 +124,7 @@
 		margin-bottom:.5%;
 		background-color: #3498DB;
 		width:49.8%;
+		border-radius: 0px 10px 10px 0px;
 }
 .rightSide{
 		display:inline-block;
@@ -114,6 +133,31 @@
 		margin-bottom:.5%;
 		background-color: #3498DB;
 		width:49.8%;
+		border-radius: 10px 0px 0px 10px;
+}
+.statusRight{
+		display:inline-block;
+		float:right;
+		text-align:right;
+		margin-right:0.5%;
+		margin-bottom:.5%;
+		background-color: #64abdb;
+		width:48.7%;
+		border-width: 1px 1px 1px 0;
+		border-style:solid;
+		border-color: black;
+}
+.statusLeft{
+		display:inline-block;
+		float:right;
+		text-align:left;
+		margin-right:0;
+		margin-bottom:.5%;
+		background-color: #64abdb;
+		width:49%;
+		border-width: 1px 0 1px 1px;
+		border-style:solid;
+		border-color: black;
 }
 .rightSideTriggered{
 		display:block;
@@ -138,6 +182,68 @@
 		border-style:solid;
 		border-color: black;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.toggleAlertCreate,.toggleAlertDelete,.toggleAlertModify{
+		display:inline-block;
+		font-family:lato;
+		margin-bottom:.5%;
+		color:#FFFFFF;
+		background-color: #64abdb;
+		width:30%;
+		cursor:pointer;
+		padding: 5px 5px;
+		font-size: 15px;
+		text-decoration: none;
+  		border: solid;
+		border-width: 2px;
+  		border-radius: 5px;
+  		border-color: #000000;
+} 
+  
 .statusInteriorBox{
 		display:block;
 		margin-left:5%;
@@ -154,6 +260,7 @@
 .toggleAlertMan{
 		display:block;
 		margin-left:5%;
+}
 .toggleAlertCreate{
 		display:inline-block;
 		font-family:lato;
@@ -175,17 +282,15 @@
 		border-width: 1px;
 		border-style:solid;
 		border-color: black;
+
 }
-.toggleAlertModify{
-		display:inline-block;
-		font-family:lato;
-		margin-bottom:.5%;
-		color:#FFFFFF;
-		background-color: #64abdb;
-		width:30%;
-		border-width: 1px;
-		border-style:solid;
-		border-color: black;
+
+
+.toggleAlertCreate:hover, .toggleAlertDelete:hover, .toggleAlertModify:hover{
+	background-color: #2179af;
+  	box-shadow: 0 5px #64727a;
+  	transform: translateY(1px);
+
 }
 li {list-style-type: none;}
 
@@ -236,7 +341,7 @@ div{
 	float:right;
 	margin-right:0;
 	width:25%;
-	background-color: #3498DB
+	background-color: #3498DB;
 }
 #leftSideOfPage{
 	display:inline-block;
