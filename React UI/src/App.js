@@ -370,8 +370,8 @@ class App extends Component {
 			<div className="login2"> 
 			{this.props.children}
 				<form onSubmit={this.handleLogin} className = "submitform">
-					Username: <input type="text" onChange={this.handleUser} placeholder="Your Username" className= "userpass"/>
-					<br/>{"\xa0"/*Puts a space before the word password to make it align nice*/}Password: <input type="text" secureTextEntry={true} onChange={this.handlePass} placeholder="Your Password" className= "userpass"/>
+					Username: <input type="text" onChange={this.handleUser} placeholder="Your Username" className= "user"/>
+					<br/>{"\xa0"/*Puts a space before the word password to make it align nice*/}Password: <input type="text" secureTextEntry={true} onChange={this.handlePass} placeholder="Your Password" className= "pass"/>
 					<br/><input type="submit" value="Login" className= "form22" onClick={this.handleLogin}/>
 				</form>
 			</div>			
@@ -381,7 +381,7 @@ class App extends Component {
 				<div className="currSys">
 					<br/><form onSubmit={this.handleSubmit}>
 						<label>
-							Choose a device:
+							Choose a system:
 							<select value={this.state.value} onChange={this.handleChange}>
 								{this.state.systems.map((e, key) => {
 									return <option value={key}>{e}</option>;
@@ -415,13 +415,13 @@ class App extends Component {
 	
 					<br></br>
 						<div className="toggleAlertCreate" onClick={this.handleAlertCreate}>
-							<b>Toggle Alert Creator</b>
+							<b>Alert Creator</b>
 						</div>
 						<div className="toggleAlertModify" onClick={this.handleAlertModify}>
-							<b>Toggle Alert Modifier</b>
+							<b>Alert Modifier</b>
 						</div>
 						<div className="toggleAlertDelete" onClick={this.handleAlertDelete}>
-							<b>Toggle Alert Deleter</b>
+							<b>Alert Deleter</b>
 						</div>
 					<br></br>
 					<ReactShow show={this.state.alertCreate}>
