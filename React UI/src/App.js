@@ -5,42 +5,17 @@ import idleLogo from './imgs/IdleAlertLogo.png';
 import triggeredLogo from './imgs/TrigAlertLogo.png';
 import statusLogo from './imgs/StatusLogo.png';
 import {listAlerts} from './fn';
-import {triggered} from './fn'; import{listStatuses} from './fn';import{listStatusesRight} from './fn';import{listStatusesLeft} from './fn';
-
-
-
-
-
-
+import {triggered} from './fn'; import{listStatusesRight} from './fn';import{listStatusesLeft} from './fn';
 import ReactShow from 'react-show';
 
 class App extends Component {
 	state = {
 		isLoggedIn: false,
 		systems: [],
-
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-
-	 	trigAlerts: [[]], 
-	 	idleAlerts: [[]], 
-		statuses:[[]],
 	 	alertMan: false, 
-
 	 	trigAlerts: [["Fetching alerts"]], 
 	 	idleAlerts: [["Fetching alerts"]],
 		statuses:[[["Fetching statuses",""]]],
-
 		alertCreate: false,
 		alertDelete: false,
 		alertModify: false,
@@ -55,32 +30,6 @@ class App extends Component {
 	 	Pass: "",
 	 	login: ""
 	 }
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	componentDidMount() {
 		document.title = "Alpha V Alerts"
 		fetch('/systems')
@@ -99,7 +48,6 @@ class App extends Component {
 		.then(res => res.json())
       	.then(statuses => this.setState({ statuses }));
 	}
-
 	constructor(props) {
 		super(props);
 		this.handleChange = this.handleChange.bind(this);
@@ -315,57 +263,57 @@ class App extends Component {
 			window.alert('Please enter a threshold for the alert');
 		}
 		else{
-		fetch('/newAlert',{ 
-			method:'POST',
-			headers:{ 
-				'Accept': 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				username: this.state.login, 
-				name: this.state.alertName,
-				threshold: this.state.threshold,
-				field: this.state.field,
-				sysName: this.state.systems[this.selection]
+			fetch('/newAlert',{ 
+				method:'POST',
+				headers:{ 
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					username: this.state.login, 
+					name: this.state.alertName,
+					threshold: this.state.threshold,
+					field: this.state.field,
+					sysName: this.state.systems[this.selection]
+				})
+			});
+			fetch('/trigAlerts', {
+				method: 'POST',
+				headers:{
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					username: this.state.login
+				})
+			}) 
+			.then(res => res.json())
+			.then(trigAlerts => this.setState({ trigAlerts }));
+			fetch('/idleAlerts', {
+				method: 'POST',
+				headers:{
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					username: this.state.login
+				})
+			}) 
+			.then(res => res.json())
+			.then(idleAlerts => this.setState({ idleAlerts }));
+    		fetch('/allAlerts', {
+				method: 'POST',
+				headers:{
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					username: this.state.login
+				})
 			})
-		});
-		fetch('/trigAlerts', {
-			method: 'POST',
-			headers:{
-				'Accept': 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				username: this.state.login
-			})
-		}) 
-		.then(res => res.json())
-		.then(trigAlerts => this.setState({ trigAlerts }));
-		fetch('/idleAlerts', {
-			method: 'POST',
-			headers:{
-				'Accept': 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				username: this.state.login
-			})
-		}) 
-		.then(res => res.json())
-		.then(idleAlerts => this.setState({ idleAlerts }));
-    	fetch('/allAlerts', {
-			method: 'POST',
-			headers:{
-				'Accept': 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				username: this.state.login
-			})
-		})
-		.then(res => res.json())
-      	.then(allAlerts => this.setState({ allAlerts }));
-		window.alert(this.state.alertName + " has been created.")
+			.then(res => res.json())
+      		.then(allAlerts => this.setState({ allAlerts }));
+			window.alert(this.state.alertName + " has been created.")
 		}
 	}
 	handleDeleteAlert(event){
@@ -436,11 +384,11 @@ class App extends Component {
 		<title>Alpha V Alert System </title>
 		</header>
 
-
 		<div className="welcomeBanner" >
 		<h2>Welcome To</h2>
 		<h1>The Alpha V Alert System</h1>
 		</div>
+		
 		<ReactShow show={!this.state.isLoggedIn}>
 			<div className="login2"> 
 			{this.props.children}
@@ -450,7 +398,6 @@ class App extends Component {
 					<br/><input type="submit" value="Login" className= "form22" onClick={this.handleLogin}/>
 				</form>
 			</div>			
-
 		</ReactShow>
 			
 		<ReactShow show={this.state.isLoggedIn}>

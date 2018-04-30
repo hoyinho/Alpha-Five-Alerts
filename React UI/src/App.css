@@ -182,51 +182,6 @@
 		border-style:solid;
 		border-color: black;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .toggleAlertCreate,.toggleAlertDelete,.toggleAlertModify{
 		display:inline-block;
 		font-family:lato;
@@ -242,8 +197,7 @@
 		border-width: 2px;
   		border-radius: 5px;
   		border-color: #000000;
-} 
-  
+}  
 .statusInteriorBox{
 		display:block;
 		margin-left:5%;
@@ -253,9 +207,6 @@
 		margin-bottom:2%;
 		background-color: #64abdb;
 		width:90%;
-		border-width: 1px;
-		border-style:solid;
-		border-color: black;
 }
 .toggleAlertMan{
 		display:block;
@@ -284,8 +235,6 @@
 		border-color: black;
 
 }
-
-
 .toggleAlertCreate:hover, .toggleAlertDelete:hover, .toggleAlertModify:hover{
 	background-color: #2179af;
   	box-shadow: 0 5px #64727a;
@@ -315,9 +264,6 @@ h2{
 		font-family: 'Lobster', cursive;
 		font-size:180%;
 		color:#FFFFFF;
-}
-NavLink{
-	color:#FFFFFF
 }
 div{
 /*These are the div, protocols. */
