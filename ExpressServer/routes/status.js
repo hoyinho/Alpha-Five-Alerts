@@ -24,7 +24,7 @@ router.post('/', function(req, res, next) {
 				names[i].push(["Free Storage Percentage:",statuses[i-1]["systems"]["capacity"]["freePct"]]);
 				names[i].push(["Predicted Full Storage Date:",statuses[i-1]["systems"]["capacity"]["freePctZeroPredictedDate"]]);
 				names[i].push(["Filled Capacity In Terabytes:",statuses[i-1]["systems"]["capacity"]["failedCapacityTiB"]]);
-				names[i].push(["Average CPU Performance:",statuses[i-1]["systems"]["nodes"]["cpuAvgMax"]]);
+				names[i].push(["Average CPU Utilization:",statuses[i-1]["systems"]["nodes"]["cpuAvgMax"]]);
 				names[i].push(["Data Rate Average In KBPS:",statuses[i-1]["systems"]["Performance"]["dataRateKBPSAvg"]]);
 				names[i].push(["System ID:",statuses[i-1]["systems"]["_id"]]);
 				names[i].push(["Serial Number In Service:",statuses[i-1]["systems"]["serialnumberInserv"]]);

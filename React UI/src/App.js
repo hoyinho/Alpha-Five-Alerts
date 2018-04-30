@@ -40,7 +40,6 @@ class App extends Component {
 		this.handleAlertCreate = this.handleAlertCreate.bind(this);
 		this.handleAlertDelete = this.handleAlertDelete.bind(this);
 		this.handleAlertModify = this.handleAlertModify.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleDelAlertName = this.handleDelAlertName.bind(this);
 		this.handleDelSysName = this.handleDelSysName.bind(this);
 		this.handleNewAlert = this.handleNewAlert.bind(this);
@@ -53,7 +52,6 @@ class App extends Component {
 		this.handlePass = this.handlePass.bind(this);
 		this.handleLogin = this.handleLogin.bind(this);
 		this.state.value = 0;
-		this.selection = 0;
 		this.repeatName = false;
 	}
 	handleUser(event){
@@ -163,7 +161,6 @@ class App extends Component {
 		event.preventDefault();
 		if(this.state.isLoggedIn){
 			this.setState({alertMan:false});
-			this.selection = 0;
 			this.setState({ value: 0 });
 			this.setState({ sysName: 0 });
 			this.setState({ field: 0 });
@@ -201,11 +198,6 @@ class App extends Component {
 	handleChange(event) {
 		this.setState({ value: event.target.value });
 	}
-	handleSubmit(event) {
-		event.preventDefault();
-		this.selection = this.state.value;
-		this.forceUpdate();
-	}
 	handleAlertName(event){
 		this.setState({alertName:event.target.value});
 	}
@@ -226,12 +218,12 @@ class App extends Component {
 	}
 	handleNewAlert(event){
 		event.preventDefault();
-		for(var y = 0; y<this.state.allAlerts[this.selection].length; y++){
-			if(this.state.alertName===this.state.allAlerts[this.selection][y]){
+		for(var y = 0; y<this.state.allAlerts[this.state.value].length; y++){
+			if(this.state.alertName===this.state.allAlerts[this.state.value][y]){
 				this.repeatName=true;
 			}
 		}
-		if(this.selection=="0"){
+		if(this.state.value=="0"){
 			window.alert('Please select a system to create alerts');
 		}
 		else if(this.state.alertName==""){
@@ -259,7 +251,7 @@ class App extends Component {
 					name: this.state.alertName,
 					threshold: this.state.threshold,
 					field: this.state.field,
-					sysName: this.state.systems[this.selection]
+					sysName: this.state.systems[this.state.value]
 				})
 			});
 			fetch('/trigAlerts', {
@@ -303,7 +295,7 @@ class App extends Component {
 	}
 	handleDeleteAlert(event){
 		event.preventDefault();
-		if(this.selection=="0"){
+		if(this.state.value=="0"){
 			window.alert('Please select a system to delete alerts');
 		}
 		else if(this.state.delAlertName=="------"){
@@ -319,7 +311,7 @@ class App extends Component {
 				body: JSON.stringify({
 					username: this.state.login, 
 					name: this.state.delAlertName,
-					systemName: this.state.systems[this.selection]
+					systemName: this.state.systems[this.state.value]
 				})
 			});
 			fetch('/trigAlerts', {
@@ -387,7 +379,16 @@ class App extends Component {
 			
 		<ReactShow show={this.state.isLoggedIn}>
 				<div className="currSys">
-					<p>System Name: {this.state.systems[this.selection]}</p>
+					<br/><form onSubmit={this.handleSubmit}>
+						<label>
+							Choose a device:
+							<select value={this.state.value} onChange={this.handleChange}>
+								{this.state.systems.map((e, key) => {
+									return <option value={key}>{e}</option>;
+								})}
+							</select>
+						</label>
+					</form><br/>
 				</div>
 				
 				<div className="middleLogo"> 
@@ -398,35 +399,18 @@ class App extends Component {
 					<p>Logout of {this.state.login}</p>
 				</div>
 	
-				<div className="leftSide">
-					<form onSubmit={this.handleSubmit}>
-						<label>
-						<br></br>Choose Which System to Monitor:
-							<select value={this.state.value} onChange={this.handleChange}>
-								{this.state.systems.map((e, key) => {
-									return <option value={key}>{e}</option>;
-								})}
-							</select>
-						</label>
-						<input type="submit" className="submitbutton" value="Submit" />
-					</form>
-					<br></br>
-					
-				</div>
-	
 				<div className="rightSide">
 					<p>Alerts for Current System</p>
-					<br></br>
 					<div className="rightSideTriggered">
 						<b>Triggered Alerts:</b>
-						{listAlerts(this.state.trigAlerts[this.selection], triggeredLogo)}
+						{listAlerts(this.state.trigAlerts[this.state.value], triggeredLogo)}
 					</div>
 	
 					<br></br>
 	
 					<div className="rightSideIdle">
 						<b>Idle Alerts:</b>
-						{listAlerts(this.state.idleAlerts[this.selection], idleLogo)}
+						{listAlerts(this.state.idleAlerts[this.state.value], idleLogo)}
 					</div>
 	
 					<br></br>
@@ -445,7 +429,7 @@ class App extends Component {
 									<br></br>
 									<form onSubmit={this.handleNewAlert}>
 										<label>
-											System for the alert: {this.state.systems[this.selection]}<br/>
+											System for the alert: {this.state.systems[this.state.value]}<br/>
 											New Alert Name:
 											<input type="text" placeholder="Alert Name" onChange={this.handleAlertName} />							
 											<br></br>
@@ -480,11 +464,11 @@ class App extends Component {
 						<div className="alertManager">
 							<br></br>
 								<form onSubmit={this.handleDeleteAlert}>
-									System for the alert: {this.state.systems[this.selection]}
+									System for the alert: {this.state.systems[this.state.value]}
 									<br></br>
 									Alert to be deleted:
 									<select value={this.state.delAlertName} onChange={this.handleDelAlertName}>
-										{this.state.allAlerts[this.selection].map((e, key) => {
+										{this.state.allAlerts[this.state.value].map((e, key) => {
 											return <option value={e}>{e}</option>;
 										})}
 									</select>
@@ -494,17 +478,17 @@ class App extends Component {
 						</ReactShow>
 				</div>
 		<div className="leftSideStatus">
-			{triggered(this.state.trigAlerts[this.selection], this.selection)}
+			{triggered(this.state.trigAlerts[this.state.value], this.state.value)}
 		</div>
 		<div className ="leftSideViewStatuses">
 					<div className="statusInteriorBox">
 						<div className="statusRight">
 						<b>Values:{"\xa0\xa0\xa0\xa0\xa0\xa0"}</b>
-						{listStatusesRight(this.state.statuses[this.selection],statusLogo)}
+						{listStatusesRight(this.state.statuses[this.state.value],statusLogo)}
 						</div>
 						<div className="statusLeft">
 						<b>{"\xa0\xa0"}Statuses types:</b>
-						{listStatusesLeft(this.state.statuses[this.selection],statusLogo)}
+						{listStatusesLeft(this.state.statuses[this.state.value],statusLogo)}
 						</div>
 					</div>
 					<br></br><br></br><br></br>
