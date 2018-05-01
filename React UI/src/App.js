@@ -445,7 +445,7 @@ class App extends Component {
 											</select>
 							
 											<br></br>
-											Threshold: <input type="number" placeholder="Enter a number" value={this.state.threshold} onChange={this.handleThreshold} />
+											Threshold: <input type="number" placeholder="Enter a number" value={this.state.threshold} onChange={this.handleThreshold} step="0.0001"/>
 										</label>
 						
 										<br></br>
