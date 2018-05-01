@@ -291,6 +291,68 @@ class App extends Component {
       		.then(allAlerts => this.setState({ allAlerts }));
 			this.setState({threshold:""});
 			this.setState({alertName:""});
+			this.setState({field:""});
+		}
+	}	
+	handleModAlert(event){
+		event.preventDefault();
+		if(this.state.value=="0"){
+			window.alert('Please select a system to create alerts');
+		}
+		else{
+			fetch('/modifyAlert',{ 
+				method:'POST',
+				headers:{ 
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					username: this.state.login, 
+					name: this.state.alertName,
+					threshold: this.state.threshold,
+					field: this.state.field,
+					sysName: this.state.systems[this.state.value]
+				})
+			});
+			fetch('/trigAlerts', {
+				method: 'POST',
+				headers:{
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					username: this.state.login
+				})
+			}) 
+			.then(res => res.json())
+			.then(trigAlerts => this.setState({ trigAlerts }));
+			fetch('/idleAlerts', {
+				method: 'POST',
+				headers:{
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					username: this.state.login
+				})
+			}) 
+			.then(res => res.json())
+			.then(idleAlerts => this.setState({ idleAlerts }));
+    		fetch('/allAlerts', {
+				method: 'POST',
+				headers:{
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					username: this.state.login
+				})
+			})
+			.then(res => res.json())
+      		.then(allAlerts => this.setState({ allAlerts }));
+			this.setState({threshold:""});
+			this.setState({alertName:""});
+			this.setState({field:""});
 		}
 	}
 	handleDeleteAlert(event){
@@ -445,7 +507,7 @@ class App extends Component {
 											</select>
 							
 											<br></br>
-											Threshold: <input type="number" placeholder="Enter a number" value={this.state.threshold} onChange={this.handleThreshold} />
+											Threshold: <input type="number" placeholder="Enter a number" value={this.state.threshold} onChange={this.handleThreshold} step="0.00001"/>
 										</label>
 						
 										<br></br>
@@ -457,7 +519,18 @@ class App extends Component {
 					</ReactShow>
 					<ReactShow show={this.state.alertModify}>
 						<div className="alertManager">
-							<br></br>Modify goes here
+							<form onSubmit={this.handleModAlert}>
+							<br/>Alert to be modified: <select value={this.state.modAlertName} onChange={this.handleModAlertName}>
+										{this.state.allAlerts[this.state.value].map((e, key) => {
+											return <option value={e}>{e}</option>;
+										})}				
+							</select>
+							<br/>New Alert Name:
+							<input type="text" placeholder="Alert Name" value={this.state.newModAlertName} onChange={this.handleNewModAlertName} />
+							<br/>
+							Threshold: <input type="number" placeholder="Enter a number" value={this.state.newThreshold} onChange={this.handleNewThreshold} step="0.00001"/>
+							<br/><input type="submit" className="submitbutton" value="Save Alert" />
+							</form>
 						</div>
 					</ReactShow>
 					<ReactShow show={this.state.alertDelete}>
