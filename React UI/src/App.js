@@ -383,9 +383,9 @@ class App extends Component {
 						<label>
 							Choose a system:
 							< select value={this.state.value} onChange={this.handleChange} className = "dropdown">
-								{this.state.systems.map((e, key) => {
-									return <option value={key}>{e}</option>;
-								})}
+									{this.state.systems.map((e, key) => {
+										return <option value={key}>{e}</option>;
+									})}
 							</select>
 						</label>
 					</form><br/>
