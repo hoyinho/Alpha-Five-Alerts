@@ -167,10 +167,10 @@ class App extends Component {
 		if(this.state.isLoggedIn){
 			this.setState({ isLoggedIn:false});
 			this.setState({ systems:[]});
-			this.setState({ sysSelect: 0 });
 			this.setState({ trigAlerts:[["Fetching alerts"]]});
 			this.setState({ idleAlerts:[["Fetching alerts"]]});
 			this.setState({ statuses:[["Fetching statuses"]]});
+			this.setState({ sysSelect: 0 });
 			this.setState({ alertCreate: false});
 			this.setState({ alertDelete: false});
 			this.setState({ alertModify: false});
@@ -549,7 +549,8 @@ class App extends Component {
 					<ReactShow show={this.state.alertModify}>
 						<div className="alertManager">
 							<form onSubmit={this.handleModAlert}>
-							<br/>Alert to be modified: <select value={this.state.modAlertName} onChange={this.handleModAlertName}>
+							<br/>System for the alert: {this.state.systems[this.state.sysSelect]}<br/>
+							Alert to be modified: <select value={this.state.modAlertName} onChange={this.handleModAlertName}>
 										{this.state.allAlerts[this.state.sysSelect].map((e, key) => {
 											return <option value={e}>{e}</option>;
 										})}				

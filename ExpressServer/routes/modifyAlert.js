@@ -9,15 +9,12 @@ var db = require('./../../database/dbQuery');
 					sysName: this.state.systems[this.state.sysSelect] */
 router.post('/', function(req, res, next){
 	var newValues = req.body;
-					
-	var alerts = db.get_Alert(newValues.username, newValues.oldName, newValues.sysName).then(function(currAlert){});
-	
-	//if(!newValues.alertName){ /*newValues.alertName = currAlert[][][] */}else{}
-	//if(!newValues.alertThreshold){	/*newValues.alertThreshold = currAlert[][][] */}else{}
-	//if(!newValues.alertField){	/*newValues.alertField =currAlert[][][] */}else{}
-	
-	//db.change_Alert(newValues.username, newValues.name, newValues).then(function(confirmation){console.log(confirmation);});
-	 console.log(currAlert);
+	var alerts = db.get_Alert(newValues.username, newValues.oldName, newValues.sysName).then(function(currAlert){
+		if(!newValues.newName){ newValues.newName = currAlert["alerts"][0]["alertName"] }
+		if(!newValues.newThreshold){ newValues.newThreshold = currAlert["alerts"][0]["alertThreshold"]}
+		if(!newValues.newField){ newValues.newField = currAlert["alerts"][0]["alertField"]}
+		db.delete_Alert( newValues.username, currAlert["alerts"][0]["alertName"], currAlert["alerts"][0]["systemName"]).then(function(confirmation){});
+		db.create_Alert(newValues.username, newValues.newName, newValues.newThreshold, newValues.newField, newValues.sysName).then(function(confirmation){});
 	});// end of get_One_Alerts
 	
 	
@@ -28,11 +25,6 @@ router.post('/', function(req, res, next){
 	//The second approach is:
 		//const oldValues = old alert based on name
 		//var newAlert; Will be propagated with values during if statements 
-	
-		//All if's store the desired value into newAlert, if's check for empty values in newValues
-		//if (newValues.name is empty) then use oldValues.name, else use newValues.name
-		//if (newValues.threshold is empty) then use oldValues.threshold, else use newValues.threshold
-		//if (newValues.field is empty) then use oldValues.field, else use newValues.field
 	
 		//Delete the old copy of the alert from the database
 		//db.delete_Alert( oldValues.username, oldValues.name ).then(function(confirmation){console.log(confirmation)});
