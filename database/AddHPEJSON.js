@@ -8,7 +8,6 @@ var db = mongoose.connection;
 var User = require("./user");
 var System = require("./dbQuery");
 
-
 // connection error
 db.on('error', console.error.bind(console, 'connection error:'));
 
