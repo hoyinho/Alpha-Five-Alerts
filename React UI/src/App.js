@@ -12,19 +12,17 @@ class App extends Component {
 	state = {
 		isLoggedIn: false,
 		systems: [],
-	 	alertMan: false, 
+		sysSelect: 0,
 	 	trigAlerts: [["Fetching alerts"]], 
 	 	idleAlerts: [["Fetching alerts"]],
 		statuses:[[["Fetching statuses",""]]],
 		alertCreate: false,
 		alertDelete: false,
 		alertModify: false,
-	 	sysName: "0", 
 	 	alertName:"", 
 	 	field: "", 
 	 	threshold: "",
 	 	delAlertName: "------", 
-		delSysName: "",
 	 	allAlerts: [[]],
 	 	User: "",
 	 	Pass: "",
@@ -35,15 +33,13 @@ class App extends Component {
 	}
 	constructor(props) {
 		super(props);
-		this.handleChange = this.handleChange.bind(this);
+		this.handleSysSelect = this.handleSysSelect.bind(this);
 		this.handleLogout = this.handleLogout.bind(this);
 		this.handleAlertCreate = this.handleAlertCreate.bind(this);
 		this.handleAlertDelete = this.handleAlertDelete.bind(this);
 		this.handleAlertModify = this.handleAlertModify.bind(this);
 		this.handleDelAlertName = this.handleDelAlertName.bind(this);
-		this.handleDelSysName = this.handleDelSysName.bind(this);
 		this.handleNewAlert = this.handleNewAlert.bind(this);
-		this.handleSysName = this.handleSysName.bind(this);
 		this.handleField = this.handleField.bind(this);
 		this.handleAlertName = this.handleAlertName.bind(this);
 		this.handleThreshold = this.handleThreshold.bind(this);
@@ -51,7 +47,7 @@ class App extends Component {
 		this.handleUser = this.handleUser.bind(this);
 		this.handlePass = this.handlePass.bind(this);
 		this.handleLogin = this.handleLogin.bind(this);
-		this.state.value = 0;
+		this.state.sysSelect = 0;
 		this.repeatName = false;
 	}
 	handleUser(event){
@@ -62,10 +58,10 @@ class App extends Component {
 	}
 	handleLogin(event){
 		event.preventDefault();
-		if(this.state.User==""){
+		if(this.state.User===""){
 				window.alert("Please enter a Username");
 			}
-		else if(this.state.Pass==""){
+		else if(this.state.Pass===""){
 			window.alert("Please enter a Passsword");
 		}
 		else{
@@ -86,7 +82,7 @@ class App extends Component {
 			this.setState({login:temp["username"]});
 		})
 		.then(res => {
-		if(this.state.login == ""){
+		if(this.state.login===""){
 			window.alert("Incorrect Username or Password");
 		}
 		else{
@@ -160,20 +156,23 @@ class App extends Component {
 	handleLogout(event){
 		event.preventDefault();
 		if(this.state.isLoggedIn){
-			this.setState({ value: 0 });
-			this.setState({ sysName: 0 });
-			this.setState({ field: 0 });
-			this.setState({ delAlertName: "------" });
 			this.setState({ isLoggedIn:false});
 			this.setState({ systems:[]});
+			this.setState({ sysSelect: 0 });
 			this.setState({ trigAlerts:[["Fetching alerts"]]});
 			this.setState({ idleAlerts:[["Fetching alerts"]]});
-			this.setState({ allAlerts:[[]]});
-			this.setState({ login:""});
 			this.setState({ statuses:[["Fetching statuses"]]});
 			this.setState({ alertCreate: false});
 			this.setState({ alertDelete: false});
 			this.setState({ alertModify: false});
+	 		this.setState({ alertName:""});
+			this.setState({ field: "" });
+			this.setState({ threshold: 0});
+			this.setState({ delAlertName: "------" });
+			this.setState({ allAlerts:[[]]});
+			this.setState({ User: ""});
+			this.setState({ Pass: ""});
+			this.setState({ login:""});
 		}
 	}
 	handleAlertCreate(event){
@@ -194,20 +193,14 @@ class App extends Component {
 		this.setState({alertCreate:false});
 		this.setState({alertDelete:false});
 	}
-	handleChange(event) {
-		this.setState({ value: event.target.value });
+	handleSysSelect(event) {
+		this.setState({ sysSelect: event.target.value });
 	}
 	handleAlertName(event){
 		this.setState({alertName:event.target.value});
 	}
-	handleDelSysName(event){
-		this.setState({delAlertName:event.target.value});
-	}
 	handleDelAlertName(event){
 		this.setState({delAlertName:event.target.value});
-	}
-	handleSysName(event){
-		this.setState({sysName:event.target.value});
 	}
 	handleField(event){
 		this.setState({field:event.target.value});
@@ -217,25 +210,25 @@ class App extends Component {
 	}
 	handleNewAlert(event){
 		event.preventDefault();
-		for(var y = 0; y<this.state.allAlerts[this.state.value].length; y++){
-			if(this.state.alertName===this.state.allAlerts[this.state.value][y]){
+		for(var y = 0; y<this.state.allAlerts[this.state.sysSelect].length; y++){
+			if(this.state.alertName===this.state.allAlerts[this.state.sysSelect][y]){
 				this.repeatName=true;
 			}
 		}
-		if(this.state.value=="0"){
+		if(this.state.sysSelect===0){
 			window.alert('Please select a system to create alerts');
 		}
-		else if(this.state.alertName==""){
+		else if(this.state.alertName===""){
 			window.alert('Please enter an alert name');
 		}
-		else if(this.state.alertName=="------"||this.repeatName){
+		else if(this.state.alertName==="------"||this.repeatName){
 			window.alert('Please enter a different alert name');
 			this.repeatName=false;
 		}
-		else if(this.state.field==""){
+		else if(this.state.field===""){
 			window.alert('Please select a field for the alert');
 		}
-		else if(this.state.threshold==""){
+		else if(this.state.threshold===""){
 			window.alert('Please enter a threshold for the alert');
 		}
 		else{
@@ -250,7 +243,7 @@ class App extends Component {
 					name: this.state.alertName,
 					threshold: this.state.threshold,
 					field: this.state.field,
-					sysName: this.state.systems[this.state.value]
+					sysName: this.state.systems[this.state.sysSelect]
 				})
 			});
 			fetch('/trigAlerts', {
@@ -291,14 +284,76 @@ class App extends Component {
       		.then(allAlerts => this.setState({ allAlerts }));
 			this.setState({threshold:""});
 			this.setState({alertName:""});
+			this.setState({field:""});
+		}
+	}	
+	handleModAlert(event){
+		event.preventDefault();
+		if(this.state.sysSelect===0){
+			window.alert('Please select a system to create alerts');
+		}
+		else{
+			fetch('/modifyAlert',{ 
+				method:'POST',
+				headers:{ 
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					username: this.state.login, 
+					name: this.state.alertName,
+					threshold: this.state.threshold,
+					field: this.state.field,
+					sysName: this.state.systems[this.state.sysSelect]
+				})
+			});
+			fetch('/trigAlerts', {
+				method: 'POST',
+				headers:{
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					username: this.state.login
+				})
+			}) 
+			.then(res => res.json())
+			.then(trigAlerts => this.setState({ trigAlerts }));
+			fetch('/idleAlerts', {
+				method: 'POST',
+				headers:{
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					username: this.state.login
+				})
+			}) 
+			.then(res => res.json())
+			.then(idleAlerts => this.setState({ idleAlerts }));
+    		fetch('/allAlerts', {
+				method: 'POST',
+				headers:{
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					username: this.state.login
+				})
+			})
+			.then(res => res.json())
+      		.then(allAlerts => this.setState({ allAlerts }));
+			this.setState({threshold:""});
+			this.setState({alertName:""});
+			this.setState({field:""});
 		}
 	}
 	handleDeleteAlert(event){
 		event.preventDefault();
-		if(this.state.value=="0"){
+		if(this.state.sysSelect===0){
 			window.alert('Please select a system to delete alerts');
 		}
-		else if(this.state.delAlertName=="------"){
+		else if(this.state.delAlertName==="------"){
 			window.alert('Please select an alert to delete');
 		}
 		else{
@@ -311,7 +366,7 @@ class App extends Component {
 				body: JSON.stringify({
 					username: this.state.login, 
 					name: this.state.delAlertName,
-					systemName: this.state.systems[this.state.value]
+					systemName: this.state.systems[this.state.sysSelect]
 				})
 			});
 			fetch('/trigAlerts', {
@@ -371,7 +426,7 @@ class App extends Component {
 			{this.props.children}
 				<form onSubmit={this.handleLogin} className = "submitform">
 					Username: <input type="text" onChange={this.handleUser} placeholder="Your Username" className= "user"/>
-					<br/>{"\xa0"/*Puts a space before the word password to make it align nice*/}Password: <input type="text" secureTextEntry={true} onChange={this.handlePass} placeholder="Your Password" className= "pass"/>
+					<br/>{"\xa0"/*Puts a space before the word password to make it align nice*/}Password: <input type="password" secureTextEntry={true} onChange={this.handlePass} placeholder="Your Password" className= "pass"/>
 					<br/><input type="submit" value="Login" className= "form22" onClick={this.handleLogin}/>
 				</form>
 			</div>			
@@ -381,11 +436,11 @@ class App extends Component {
 				<div className="currSys">
 					<br/><form onSubmit={this.handleSubmit}>
 						<label>
-							Choose a system:
-							< select value={this.state.value} onChange={this.handleChange} className = "dropdown">
-									{this.state.systems.map((e, key) => {
-										return <option value={key}>{e}</option>;
-									})}
+						{"\xa0\xa0\xa0\xa0\xa0\xa0\xa0"}Choose a system:
+							< select value={this.state.sysSelect} onChange={this.handleSysSelect} className = "dropdown">
+								{this.state.systems.map((e, key) => {
+									return <option value={key}>{e}</option>;
+								})}
 							</select>
 						</label>
 					</form><br/>
@@ -403,14 +458,14 @@ class App extends Component {
 					<p>Alerts for Current System</p>
 					<div className="rightSideTriggered">
 						<b>Triggered Alerts:</b>
-						{listAlerts(this.state.trigAlerts[this.state.value], triggeredLogo)}
+						{listAlerts(this.state.trigAlerts[this.state.sysSelect], triggeredLogo)}
 					</div>
 	
 					<br></br>
 	
 					<div className="rightSideIdle">
 						<b>Idle Alerts:</b>
-						{listAlerts(this.state.idleAlerts[this.state.value], idleLogo)}
+						{listAlerts(this.state.idleAlerts[this.state.sysSelect], idleLogo)}
 					</div>
 	
 					<br></br>
@@ -429,7 +484,7 @@ class App extends Component {
 									<br></br>
 									<form onSubmit={this.handleNewAlert}>
 										<label>
-											System for the alert: {this.state.systems[this.state.value]}<br/>
+											System for the alert: {this.state.systems[this.state.sysSelect]}<br/>
 											New Alert Name:
 											<input type="text" placeholder="Alert Name" value={this.state.alertName}onChange={this.handleAlertName} />							
 											<br></br>
@@ -445,7 +500,7 @@ class App extends Component {
 											</select>
 							
 											<br></br>
-											Threshold: <input type="number" placeholder="Enter a number" value={this.state.threshold} onChange={this.handleThreshold} />
+											Threshold: <input type="number" placeholder="Enter a number" value={this.state.threshold} onChange={this.handleThreshold} step="0.00001"/>
 										</label>
 						
 										<br></br>
@@ -457,18 +512,29 @@ class App extends Component {
 					</ReactShow>
 					<ReactShow show={this.state.alertModify}>
 						<div className="alertManager">
-							<br></br>Modify goes here
+							<form onSubmit={this.handleModAlert}>
+							<br/>Alert to be modified: <select value={this.state.modAlertName} onChange={this.handleModAlertName}>
+										{this.state.allAlerts[this.state.sysSelect].map((e, key) => {
+											return <option value={e}>{e}</option>;
+										})}				
+							</select>
+							<br/>New Alert Name:
+							<input type="text" placeholder="Alert Name" value={this.state.newModAlertName} onChange={this.handleNewModAlertName} />
+							<br/>
+							Threshold: <input type="number" placeholder="Enter a number" value={this.state.newThreshold} onChange={this.handleNewThreshold} step="0.00001"/>
+							<br/><input type="submit" className="submitbutton" value="Save Alert" />
+							</form>
 						</div>
 					</ReactShow>
 					<ReactShow show={this.state.alertDelete}>
 						<div className="alertManager">
 							<br></br>
 								<form onSubmit={this.handleDeleteAlert}>
-									System for the alert: {this.state.systems[this.state.value]}
+									System for the alert: {this.state.systems[this.state.sysSelect]}
 									<br></br>
 									Alert to be deleted:
 									<select value={this.state.delAlertName} onChange={this.handleDelAlertName}>
-										{this.state.allAlerts[this.state.value].map((e, key) => {
+										{this.state.allAlerts[this.state.sysSelect].map((e, key) => {
 											return <option value={e}>{e}</option>;
 										})}
 									</select>
@@ -478,17 +544,17 @@ class App extends Component {
 						</ReactShow>
 				</div>
 		<div className="leftSideStatus">
-			{triggered(this.state.trigAlerts[this.state.value], this.state.value)}
+			{triggered(this.state.trigAlerts[this.state.sysSelect], this.state.sysSelect)}
 		</div>
 		<div className ="leftSideViewStatuses">
 					<div className="statusInteriorBox">
 						<div className="statusRight">
 						<b>Values:{"\xa0\xa0\xa0\xa0\xa0\xa0"}</b>
-						{listStatusesRight(this.state.statuses[this.state.value],statusLogo)}
+						{listStatusesRight(this.state.statuses[this.state.sysSelect],statusLogo)}
 						</div>
 						<div className="statusLeft">
 						<b>{"\xa0\xa0"}Statuses types:</b>
-						{listStatusesLeft(this.state.statuses[this.state.value],statusLogo)}
+						{listStatusesLeft(this.state.statuses[this.state.sysSelect],statusLogo)}
 						</div>
 					</div>
 					<br></br><br></br><br></br>
@@ -499,4 +565,4 @@ class App extends Component {
 	}
 	}
 
-	export default App;
+export default App

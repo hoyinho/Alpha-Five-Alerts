@@ -43,9 +43,6 @@
 	margin: 1px 0;
 }
 .pass{
-	-webkit-text-security: disc;
-	-moz-text-security: disc;
-	text-security: disc;
 	width: 60%;
 	height: 500%;
 	padding: 12px 12px;
@@ -70,6 +67,7 @@
 		display:inline-block;
 		float:left;
 		margin-left:0;
+		text-align:left;
 		margin-top:38px;
 		background-color: #3498DB;
 		width:29.8%;
