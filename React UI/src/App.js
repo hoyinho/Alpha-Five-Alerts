@@ -423,12 +423,7 @@ class App extends Component {
       		.then(allAlerts => this.setState({ allAlerts }));
 			this.setState({ delAlertName: "------" });
 		}
-	}//end of DeleteAlert
-	
-	
-	
-	
-	handleModAlertName(event){
+	}handleModAlertName(event){
 		this.setState({ modAlertName: event.target.value })
 	}
 	handleNewModAlertName(event){
@@ -440,10 +435,6 @@ class App extends Component {
 	handleNewThreshold(event){
 		this.setState({ newThreshold: event.target.value })
 	}
-	
-	
-	
-	
 	render() {
 		return (
 		<div className="App">
