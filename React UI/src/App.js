@@ -26,7 +26,11 @@ class App extends Component {
 	 	allAlerts: [[]],
 	 	User: "",
 	 	Pass: "",
-	 	login: ""
+	 	login: "",
+		oldName: "",
+		newName: "",
+		newThreshold: "",
+		newField: ""
 	 }
 	componentDidMount() {
 		document.title = "Alpha V Alerts"
@@ -47,6 +51,11 @@ class App extends Component {
 		this.handleUser = this.handleUser.bind(this);
 		this.handlePass = this.handlePass.bind(this);
 		this.handleLogin = this.handleLogin.bind(this);
+		this.handleModAlert = this.handleModAlert.bind(this);
+		this.handleModAlertName = this.handleModAlertName.bind(this);
+		this.handleNewModAlertName = this.handleNewModAlertName.bind(this);
+		this.handleNewField = this.handleNewField.bind(this);
+		this.handleNewThreshold = this.handleNewThreshold.bind(this);
 		this.state.sysSelect = 0;
 		this.repeatName = false;
 	}
@@ -173,6 +182,10 @@ class App extends Component {
 			this.setState({ User: ""});
 			this.setState({ Pass: ""});
 			this.setState({ login:""});
+			this.setState({oldName: ""});
+			this.setState({newName: ""});
+			this.setState({newThreshold: ""});
+			this.setState({newField: ""});
 		}
 	}
 	handleAlertCreate(event){
@@ -301,9 +314,10 @@ class App extends Component {
 				},
 				body: JSON.stringify({
 					username: this.state.login, 
-					name: this.state.alertName,
-					threshold: this.state.threshold,
-					field: this.state.field,
+					oldName: this.state.modAlertName,
+					newName: this.state.newModAlertName,
+					newThreshold: this.state.newThreshold,
+					newField: this.state.newField,
 					sysName: this.state.systems[this.state.sysSelect]
 				})
 			});
@@ -343,9 +357,10 @@ class App extends Component {
 			})
 			.then(res => res.json())
       		.then(allAlerts => this.setState({ allAlerts }));
-			this.setState({threshold:""});
-			this.setState({alertName:""});
-			this.setState({field:""});
+			this.setState({modAlertName:""});
+			this.setState({newThreshold:""});
+			this.setState({newAlertName:""});
+			this.setState({newField:""});
 		}
 	}
 	handleDeleteAlert(event){
@@ -407,7 +422,27 @@ class App extends Component {
       		.then(allAlerts => this.setState({ allAlerts }));
 			this.setState({ delAlertName: "------" });
 		}
+	}//end of DeleteAlert
+	
+	
+	
+	
+	handleModAlertName(event){
+		this.setState({ modAlertName: event.target.value })
 	}
+	handleNewModAlertName(event){
+		this.setState({ newModAlertName: event.target.value })
+	}
+	handleNewField(event){
+		this.setState({ newField: event.target.value })
+	}
+	handleNewThreshold(event){
+		this.setState({ newThreshold: event.target.value })
+	}
+	
+	
+	
+	
 	render() {
 		return (
 		<div className="App">
@@ -521,7 +556,17 @@ class App extends Component {
 							<br/>New Alert Name:
 							<input type="text" placeholder="Alert Name" value={this.state.newModAlertName} onChange={this.handleNewModAlertName} />
 							<br/>
-							Threshold: <input type="number" placeholder="Enter a number" value={this.state.newThreshold} onChange={this.handleNewThreshold} step="0.00001"/>
+							Select New Field:
+							<select value={this.state.newField} onChange={this.handleNewField}>
+								<option value={''}>{'Select a field'}</option>;
+								<option value={'freeTiB'}>{'Free space in Terabytes is less than'}</option>;
+								<option value={'freePct'}>{'Free space as a percent is less than'}</option>;
+								<option value={'failedCapacityTiB'}>{'Failed amount in Terabytes is more than'}</option>;
+								<option value={'cpuAvgMax'}>{'Average maximum CPU usage is more than'}</option>;
+								<option value={'dataRateKBPSAvg'}>{'Data rate in KBPS is less than'}</option>;
+								})}
+							</select><br/>
+							New Threshold: <input type="number" placeholder="Enter a number" value={this.state.newThreshold} onChange={this.handleNewThreshold} step="0.00001"/>
 							<br/><input type="submit" className="submitbutton" value="Save Alert" />
 							</form>
 						</div>
@@ -565,4 +610,4 @@ class App extends Component {
 	}
 	}
 
-	export default App;
+export default App

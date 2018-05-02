@@ -19,11 +19,11 @@ router.post('/', function(req, res, next){
 												we don't need to loop to look them up.
 												*/
 					
-	var alerts = db.get_All_Alerts(login.username).then(function(currAlerts){
+	//var alerts = db.get_All_Alerts(login.username).then(function(currAlerts){});
 	
-	if(!newValues.alertName){ /*newValues.alertName = currAlert[][][] */}else{}
-	if(!newValues.alertThreshold){	/*newValues.alertThreshold = currAlert[][][] */}else{}
-	if(!newValues.alertField){	/*newValues.alertField =currAlert[][][] */}else{}
+	//if(!newValues.alertName){ /*newValues.alertName = currAlert[][][] */}else{}
+	//if(!newValues.alertThreshold){	/*newValues.alertThreshold = currAlert[][][] */}else{}
+	//if(!newValues.alertField){	/*newValues.alertField =currAlert[][][] */}else{}
 	
 	db.change_Alert(newValues.username, newValues.name, newValues).then(function(confirmation){console.log(confirmation);});
 	
