@@ -12,9 +12,10 @@ var systemsRouter = require('./routes/systems');
 var newAlertRouter = require('./routes/newAlert');
 var allAlertRouter = require('./routes/allAlerts');
 var deleteAlertRouter = require('./routes/deleteAlert');
-var app = express();
 var statusRouter = require('./routes/status');
 var loginRouter = require('./routes/login');
+var app = express();
+
 
 //mongoose
 mongoose.connect('mongodb://brandonnlam:password@ds241737.mlab.com:41737/blamdatabase');
@@ -28,7 +29,7 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', function() {
-  console.log('we are connected to mongo!');
+	console.log('we are connected to mongo!');
 });
 
 // view engine setup
