@@ -14,6 +14,7 @@ var allAlertRouter = require('./routes/allAlerts');
 var deleteAlertRouter = require('./routes/deleteAlert');
 var statusRouter = require('./routes/status');
 var loginRouter = require('./routes/login');
+var modifyRouter = require('./routes/modifyAlert');
 var app = express();
 
 
@@ -51,7 +52,7 @@ app.use('/deleteAlert', deleteAlertRouter);
 app.use('/allAlerts', allAlertRouter);
 app.use('/status', statusRouter);
 app.use('/login', loginRouter);
-
+app.use('/modifyAlert', modifyRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

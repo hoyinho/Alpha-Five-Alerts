@@ -1,33 +1,24 @@
 var express = require('express');
 var router = express.Router();
 var db = require('./../../database/dbQuery');
-
+/* 					username: this.state.login, 
+					oldName: this.state.modAlertName,
+					newName: this.state.newModAlertName,
+					newThreshold: this.state.newThreshold,
+					newField: this.state.newField,
+					sysName: this.state.systems[this.state.sysSelect] */
 router.post('/', function(req, res, next){
-	var newValues = req.body; /*Note to UI Developers
-													req.body needs: 
-													{username,
-													current alert system???,
-													Current name of alert,
-													new name of alert,
-													new threshold value,
-													new field}
-												It would also make the route 100 times
-												easier/cleaner to write if you also return:
-													{current threshold value,
-													current field}
-												If you send those two values along too then
-												we don't need to loop to look them up.
-												*/
+	var newValues = req.body;
 					
-	//var alerts = db.get_All_Alerts(login.username).then(function(currAlerts){});
+	var alerts = db.get_Alert(newValues.username, newValues.oldName, newValues.sysName).then(function(currAlert){});
 	
 	//if(!newValues.alertName){ /*newValues.alertName = currAlert[][][] */}else{}
 	//if(!newValues.alertThreshold){	/*newValues.alertThreshold = currAlert[][][] */}else{}
 	//if(!newValues.alertField){	/*newValues.alertField =currAlert[][][] */}else{}
 	
-	db.change_Alert(newValues.username, newValues.name, newValues).then(function(confirmation){console.log(confirmation);});
-	
-	});// end of get_All_Alerts
+	//db.change_Alert(newValues.username, newValues.name, newValues).then(function(confirmation){console.log(confirmation);});
+	 console.log(currAlert);
+	});// end of get_One_Alerts
 	
 	
 	

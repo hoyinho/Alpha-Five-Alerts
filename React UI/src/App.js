@@ -358,6 +358,7 @@ class App extends Component {
 			.then(res => res.json())
       		.then(allAlerts => this.setState({ allAlerts }));
 			this.setState({modAlertName:""});
+			this.setState({newModAlertName:""});
 			this.setState({newThreshold:""});
 			this.setState({newAlertName:""});
 			this.setState({newField:""});
