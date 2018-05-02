@@ -10,41 +10,12 @@ db.on("error", console.error.bind(console, "connection error:"));
 
 db.once("open", function(){
     console.log("we are connected!");
-    validate_Login("Hoyin", "password123").then(function(stuff){
-	console.log(stuff);
-    });
 });
 
 function get_All_Usernames(){
     return user.find({}).select("username");
 }
-
-function get_Triggered_Alerts(username, systemName){    
-    return user.aggregate([
-	{"$match": {
-	    "username": username,
-	    "alerts.systemName": systemName
-	}},
-	{"$unwind": "$alerts"},
-	{"$project": {
-	    "_id": 0,
-	    "alerts": {
-		"$cond": {
-		    if: { "$and":
-			  [
-			      {"$lt":
-			       ["$alerts.alertThreshold","$systems.nodes.cpuAvgMax"]},
-			      {"$eq":
-			       ["$alerts.systemName", systemName]}
-			  ]
-			},
-		    then: "$alerts",
-		    else: "$$REMOVE"
-		}
-	    }
-	}}
-    ]);
-}			 
+		 
 function validate_Login(username, password){
     return user.aggregate([
 	{"$project": {
@@ -63,7 +34,7 @@ function validate_Login(username, password){
     ]);
 }
 
-async function get_All_Systems(username){ //needs to return current value to compare against threshold
+function get_All_Systems(username){ //needs to return current value to compare against threshold
     return user.aggregate([ 
 	{"$match": {
 	    "username": username
@@ -120,6 +91,10 @@ function get_All_Alerts(username){
 	    
 }
 
+function get_Alert(username, name, system){
+    return user.findOne({"username": username, "alerts.alertName": name, "alerts.systemName": system}).select("alerts.$");
+}
+
 function create_System(username, serial, name, model, fullM, os, update, sizeT, freeT, freeP, freePZP, failed, cpu, dataR){
     const newSystem = {
 	"serialnumberInserv": serial,
@@ -155,8 +130,8 @@ function create_Alert(username, name, threshold, field, systemName){
     return user.update({"username": username}, { $push: {alerts: newAlert}});
 };
 
-function change_Alert(username, name, alertFields){
-    return user.update({"username": username, "alerts.alertName": name}, {"alerts.$": alertFields} );
+function change_Alert(username, name, system, alertFields){
+    return user.update({"username": username, "alerts.alertName": name, "alerts.systemName": system}, {"alerts.$": alertFields} );
 }
 
 function add_User(username, password){
@@ -187,4 +162,4 @@ function clear_DB(){
     });
 }
 
-module.exports = {validate_Login, get_All_Systems, get_All_Alerts, create_Alert, change_Alert, add_User,get_All_Systems_Names,create_System, delete_Alert, get_System, delete_System, get_All_Usernames, get_All_Alert_Names, clear_DB} 
+module.exports = {validate_Login, get_All_Systems, get_All_Alerts, create_Alert, change_Alert, add_User,get_All_Systems_Names,create_System, delete_Alert, get_System, delete_System, get_All_Usernames, get_All_Alert_Names, clear_DB,get_Alert} 
