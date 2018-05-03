@@ -50,6 +50,7 @@ class App extends React.Component {
 		this.handleDelAlertName = this.handleDelAlertName.bind(this);
 		this.handleNewAlert = this.handleNewAlert.bind(this);
 		this.handleField = this.handleField.bind(this);
+		this.handleRefresh = this.handleRefresh.bind(this);
 		this.handleAlertName = this.handleAlertName.bind(this);
 		this.handleThreshold = this.handleThreshold.bind(this);
 		this.handleDeleteAlert = this.handleDeleteAlert.bind(this);
@@ -243,6 +244,54 @@ class App extends React.Component {
 	}
 	handleThreshold(event){
 		this.setState({threshold:event.target.value});
+	}
+	handleRefresh(event){
+		event.preventDefault();
+			fetch('/trigAlerts', {
+				method: 'POST',
+				headers:{
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					username: this.state.login
+				})
+			}) 
+			.then(res => res.json())
+			.then(trigAlerts => {
+				this.setState({ trigAlerts });
+				this.setState({ fetchedTrig: true});
+			})
+			fetch('/idleAlerts', {
+				method: 'POST',
+				headers:{
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					username: this.state.login
+				})
+			}) 
+			.then(res => res.json())
+			.then(idleAlerts => {
+				this.setState({ idleAlerts });
+				this.setState({ fetchedIdle:true})
+			})
+    		fetch('/allAlerts', {
+				method: 'POST',
+				headers:{
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					username: this.state.login
+				})
+			})
+			.then(res => res.json())
+      		.then(allAlerts => {
+				this.setState({ allAlerts });
+				this.setState({fetchedAllAlerts:true});
+			})
 	}
 	handleNewAlert(event){
 		event.preventDefault();
@@ -505,6 +554,9 @@ class App extends React.Component {
 		<div className="welcomeBanner" >
 		<h2>Welcome To</h2>
 		<h1>The Alpha V Alert System</h1>
+		{/*<form onSubmit={this.handleRefresh}>
+			<input type="submit" value="MANUAL REFRESH"/>
+	</form>*/}
 		</div>
 		
 		<ReactShow show={!this.state.isLoggedIn}>
@@ -536,7 +588,7 @@ class App extends React.Component {
 				</div>
 				
 				<div className="middleLogo"> 
-					<img src={logo} height="100" width="100" alt="it us!"/> 
+					<img src={logo} height="100" width="100" alt="it us!" onClick={this.handleRefresh}/> 
 				</div>
 				
 				<div className="logOut" onClick={this.handleLogout}>
