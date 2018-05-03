@@ -9,7 +9,8 @@ router.post('/', function(req, res, next){
 		if(!newValues.newThreshold){ newValues.newThreshold = currAlert["alerts"][0]["alertThreshold"]}
 		if(!newValues.newField){ newValues.newField = currAlert["alerts"][0]["alertField"]}
 		db.delete_Alert( newValues.username, currAlert["alerts"][0]["alertName"], currAlert["alerts"][0]["systemName"]).then(function(confirmation){});
-		db.create_Alert(newValues.username, newValues.newName, newValues.newThreshold, newValues.newField, newValues.sysName).then(function(confirmation){});
+		db.create_Alert(newValues.username, newValues.newName, newValues.newThreshold, newValues.newField, newValues.sysName).then(function(test){});
+		
 	});// end of get_One_Alerts
 	
 });//end of POST
