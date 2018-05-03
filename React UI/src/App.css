@@ -14,7 +14,6 @@
 	box-sizing: border-box;
 	background-color: #3498DB;
 	margin: 20px 8px;
-
 }
 .form22{
 	width: 30%;
@@ -76,11 +75,11 @@
 .dropdown{
     background-color: #ff6666;
     color: white;
-    padding: 12px;
+    padding: 0px;
     font-size: 16px;
     border: none;
     cursor: pointer;
-    margin-left: 2px;
+    margin-left: 12px;
 }
 
 .alertManager{
