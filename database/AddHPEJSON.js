@@ -29,7 +29,7 @@ db.once('open', function() {
 		console.log(hpeJson[i]["nodes"]["cpuAvgMax"]); //+
 		console.log(hpeJson[i]["performance"]["portBandwidthData"]["total"]["dataRateKBPSAvg"]);
 
-/* 		System.create_System( //UNCOMMENT THIS BLOCK TO ADD SYSTEMS TO "Hoyin"
+		System.create_System( //UNCOMMENT THIS BLOCK TO ADD SYSTEMS TO "Hoyin"
 			"Hoyin",
 			hpeJson[i]["serialNumberInserv"],
 			hpeJson[i]["system"]["companyName"],
@@ -47,6 +47,6 @@ db.once('open', function() {
 			).then(function(stuff){
 			console.log(stuff);
 		}); //end of System.create_System() 
-*/
+
 	}//end of for loop
 });//end of db.once()
