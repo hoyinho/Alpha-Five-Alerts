@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var db = require('./../../database/dbQuery');
 
-/* GET users listing. */
 router.post('/', function(req, res, next) {
 	const login = req.body;
     var systemNames = db.get_All_Systems_Names(login.username);
