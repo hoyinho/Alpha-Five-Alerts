@@ -30,7 +30,12 @@ class App extends React.Component {
 		oldName: "",
 		newName: "",
 		newThreshold: "",
-		newField: ""
+		newField: "",
+		fetchedIdle: false,
+		fetchedTrig: false,
+		fetchedAllAlerts: false,
+		fetchedStatuses: false,
+		fetchedSystems: false
 	 }
 	componentDidMount() {
 		document.title = "Alpha V Alerts"
@@ -107,7 +112,10 @@ class App extends React.Component {
 				})
 			})
 			.then(res => res.json())
-			.then(systems => this.setState({ systems }));
+			.then(systems => {
+				this.setState({ systems })
+				this.setState({fetchedSystems:true});
+			})
 			fetch('/trigAlerts', {
 				method: 'POST',
 				headers:{
@@ -119,7 +127,10 @@ class App extends React.Component {
 				})
 			}) 
 			.then(res => res.json())
-			.then(trigAlerts => this.setState({ trigAlerts }));
+			.then(trigAlerts => {
+				this.setState({ trigAlerts });
+				this.setState({fetchedTrig:true});
+			})
 			fetch('/idleAlerts', {
 				method: 'POST',
 				headers:{
@@ -131,7 +142,10 @@ class App extends React.Component {
 				})
 			}) 
 			.then(res => res.json())
-			.then(idleAlerts => this.setState({ idleAlerts }));
+			.then(idleAlerts => {
+				this.setState({ idleAlerts });
+				this.setState({fetchedIdle:true});
+			})
     		fetch('/allAlerts', {
 				method: 'POST',
 				headers:{
@@ -143,7 +157,10 @@ class App extends React.Component {
 				})
 			})
       		.then(res => res.json())
-      		.then(allAlerts => this.setState({ allAlerts }));
+      		.then(allAlerts => {
+				this.setState({ allAlerts });
+				this.setState({fetchedAllAlerts:true});
+			})
 			fetch('/status', {
 				method: 'POST',
 				headers:{
@@ -157,6 +174,7 @@ class App extends React.Component {
 			.then(res => res.json())
       		.then(statuses => {
       			this.setState({ statuses });
+				this.setState({fetchedStatuses:true});
       		})
 			this.setState({User:""});
 			this.setState({Pass:""});
@@ -186,6 +204,11 @@ class App extends React.Component {
 			this.setState({newName: ""});
 			this.setState({newThreshold: ""});
 			this.setState({newField: ""});
+			this.setState({fetchedIdle:false});
+			this.setState({fetchedTrig:false});
+			this.setState({fetchedAllAlerts:false});
+			this.setState({fetchedStatuses:false});
+			this.setState({fetchedSystems:false});
 		}
 	}
 	handleAlertCreate(event){
@@ -259,6 +282,9 @@ class App extends React.Component {
 					sysName: this.state.systems[this.state.sysSelect]
 				})
 			});
+			this.setState({fetchedTrig:false})
+			this.setState({fetchedIdle:false})
+			this.setState({fetchedAllAlerts:false})
 			fetch('/trigAlerts', {
 				method: 'POST',
 				headers:{
@@ -270,7 +296,10 @@ class App extends React.Component {
 				})
 			}) 
 			.then(res => res.json())
-			.then(trigAlerts => this.setState({ trigAlerts }));
+			.then(trigAlerts => {
+				this.setState({ trigAlerts });
+				this.setState({ fetchedTrig: true});
+			})
 			fetch('/idleAlerts', {
 				method: 'POST',
 				headers:{
@@ -282,7 +311,10 @@ class App extends React.Component {
 				})
 			}) 
 			.then(res => res.json())
-			.then(idleAlerts => this.setState({ idleAlerts }));
+			.then(idleAlerts => {
+				this.setState({ idleAlerts });
+				this.setState({ fetchedIdle:true})
+			})
     		fetch('/allAlerts', {
 				method: 'POST',
 				headers:{
@@ -294,7 +326,10 @@ class App extends React.Component {
 				})
 			})
 			.then(res => res.json())
-      		.then(allAlerts => this.setState({ allAlerts }));
+      		.then(allAlerts => {
+				this.setState({ allAlerts });
+				this.setState({fetchedAllAlerts:true});
+			})
 			this.setState({threshold:""});
 			this.setState({alertName:""});
 			this.setState({field:""});
@@ -321,6 +356,9 @@ class App extends React.Component {
 					sysName: this.state.systems[this.state.sysSelect]
 				})
 			});
+			this.setState({fetchedTrig:false})
+			this.setState({fetchedIdle:false})
+			this.setState({fetchedAllAlerts:false})
 			fetch('/trigAlerts', {
 				method: 'POST',
 				headers:{
@@ -332,7 +370,10 @@ class App extends React.Component {
 				})
 			}) 
 			.then(res => res.json())
-			.then(trigAlerts => this.setState({ trigAlerts }));
+			.then(trigAlerts => {
+				this.setState({ trigAlerts });
+				this.setState({ fetchedTrig: true});
+			})
 			fetch('/idleAlerts', {
 				method: 'POST',
 				headers:{
@@ -344,7 +385,10 @@ class App extends React.Component {
 				})
 			}) 
 			.then(res => res.json())
-			.then(idleAlerts => this.setState({ idleAlerts }));
+			.then(idleAlerts => {
+				this.setState({ idleAlerts });
+				this.setState({ fetchedIdle:true})
+			})
     		fetch('/allAlerts', {
 				method: 'POST',
 				headers:{
@@ -356,7 +400,10 @@ class App extends React.Component {
 				})
 			})
 			.then(res => res.json())
-      		.then(allAlerts => this.setState({ allAlerts }));
+      		.then(allAlerts => {
+				this.setState({ allAlerts });
+				this.setState({fetchedAllAlerts:true});
+			})
 			this.setState({modAlertName:""});
 			this.setState({newModAlertName:""});
 			this.setState({newThreshold:""});
@@ -385,6 +432,9 @@ class App extends React.Component {
 					systemName: this.state.systems[this.state.sysSelect]
 				})
 			});
+			this.setState({fetchedTrig:false})
+			this.setState({fetchedIdle:false})
+			this.setState({fetchedAllAlerts:false})
 			fetch('/trigAlerts', {
 				method: 'POST',
 				headers:{
@@ -396,7 +446,10 @@ class App extends React.Component {
 				})
 			}) 
 			.then(res => res.json())
-			.then(trigAlerts => this.setState({ trigAlerts }));
+			.then(trigAlerts => {
+				this.setState({ trigAlerts });
+				this.setState({ fetchedTrig: true});
+			})
 			fetch('/idleAlerts', {
 				method: 'POST',
 				headers:{
@@ -408,7 +461,10 @@ class App extends React.Component {
 				})
 			}) 
 			.then(res => res.json())
-			.then(idleAlerts => this.setState({ idleAlerts }));
+			.then(idleAlerts => {
+				this.setState({ idleAlerts });
+				this.setState({ fetchedIdle:true})
+			})
     		fetch('/allAlerts', {
 				method: 'POST',
 				headers:{
@@ -420,7 +476,10 @@ class App extends React.Component {
 				})
 			})
 			.then(res => res.json())
-      		.then(allAlerts => this.setState({ allAlerts }));
+      		.then(allAlerts => {
+				this.setState({ allAlerts });
+				this.setState({fetchedAllAlerts:true});
+			})
 			this.setState({ delAlertName: "------" });
 		}
 	}handleModAlertName(event){
@@ -461,7 +520,7 @@ class App extends React.Component {
 			
 		<ReactShow show={this.state.isLoggedIn}>
 				<div className="currSys">
-					<br/><form onSubmit={this.handleSubmit}>
+					<ReactShow show={this.state.fetchedIdle&&this.state.fetchedTrig&&this.state.fetchedAllAlerts&&this.state.fetchedSystems&&this.state.fetchedStatuses}><br/><form onSubmit={this.handleSubmit}>
 						<label>
 						{"\xa0\xa0\xa0\xa0\xa0\xa0\xa0"}Choose a system:
 							< select value={this.state.sysSelect} onChange={this.handleSysSelect} className = "dropdown">
@@ -470,7 +529,10 @@ class App extends React.Component {
 								})}
 							</select>
 						</label>
-					</form><br/>
+					</form><br/></ReactShow>
+					<ReactShow show={!this.state.fetchedIdle||!this.state.fetchedTrig||!this.state.fetchedAllAlerts||!this.state.fetchedSystems||!this.state.fetchedStatuses}>
+					<p>{"\xa0\xa0\xa0\xa0\xa0\xa0\xa0"}Please wait for data to arrive</p>
+					</ReactShow>
 				</div>
 				
 				<div className="middleLogo"> 
