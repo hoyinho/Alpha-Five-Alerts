@@ -1,7 +1,7 @@
-import good from './imgs/PerformingProperly.png'
-import bad from './imgs/TriggeredAlert.png'
-import none from './imgs/noneSelected.png'
-import React, { Component } from 'react';
+var good =  require('./imgs/PerformingProperly.png');
+var bad = require('./imgs/TriggeredAlert.png');
+var none = require('./imgs/noneSelected.png');
+var React = require('react');
 
 export function triggered(arrTrig, index){
   if(index===0){

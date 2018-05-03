@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import './App.css';
-import logo from './imgs/alphaFiveColorsCircle.png';
-import idleLogo from './imgs/IdleAlertLogo.png';
-import triggeredLogo from './imgs/TrigAlertLogo.png';
-import statusLogo from './imgs/StatusLogo.png';
-import {listAlerts} from './fn';
-import {triggered} from './fn'; import{listStatusesRight} from './fn';import{listStatusesLeft} from './fn';
 import ReactShow from 'react-show';
+require('./App.css');
+var logo = require('./imgs/alphaFiveColorsCircle.png');
+var idleLogo = require('./imgs/IdleAlertLogo.png');
+var triggeredLogo = require('./imgs/TrigAlertLogo.png');
+var statusLogo = require('./imgs/StatusLogo.png');
+var React = require('react')
+var fn = require('./fn');
 
-class App extends Component {
+
+class App extends React.Component {
 	state = {
 		isLoggedIn: false,
 		systems: [],
@@ -485,14 +485,14 @@ class App extends Component {
 					<p>Alerts for Current System</p>
 					<div className="rightSideTriggered">
 						<b>Triggered Alerts:</b>
-						{listAlerts(this.state.trigAlerts[this.state.sysSelect], triggeredLogo)}
+						{fn.listAlerts(this.state.trigAlerts[this.state.sysSelect], triggeredLogo)}
 					</div>
 	
 					<br></br>
 	
 					<div className="rightSideIdle">
 						<b>Idle Alerts:</b>
-						{listAlerts(this.state.idleAlerts[this.state.sysSelect], idleLogo)}
+						{fn.listAlerts(this.state.idleAlerts[this.state.sysSelect], idleLogo)}
 					</div>
 	
 					<br></br>
@@ -582,17 +582,17 @@ class App extends Component {
 						</ReactShow>
 				</div>
 		<div className="leftSideStatus">
-			{triggered(this.state.trigAlerts[this.state.sysSelect], this.state.sysSelect)}
+			{fn.triggered(this.state.trigAlerts[this.state.sysSelect], this.state.sysSelect)}
 		</div>
 		<div className ="leftSideViewStatuses">
 					<div className="statusInteriorBox">
 						<div className="statusRight">
 						<b>Values:{"\xa0\xa0\xa0\xa0\xa0\xa0"}</b>
-						{listStatusesRight(this.state.statuses[this.state.sysSelect],statusLogo)}
+						{fn.listStatusesRight(this.state.statuses[this.state.sysSelect],statusLogo)}
 						</div>
 						<div className="statusLeft">
 						<b>{"\xa0\xa0"}Statuses types:</b>
-						{listStatusesLeft(this.state.statuses[this.state.sysSelect],statusLogo)}
+						{fn.listStatusesLeft(this.state.statuses[this.state.sysSelect],statusLogo)}
 						</div>
 					</div>
 					<br></br><br></br><br></br>
