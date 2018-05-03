@@ -1,4 +1,4 @@
-import ReactShow from 'react-show';
+var ReactShow = require('react-show').default;
 require('./App.css');
 var logo = require('./imgs/alphaFiveColorsCircle.png');
 var idleLogo = require('./imgs/IdleAlertLogo.png');
